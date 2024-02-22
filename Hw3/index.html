@@ -1,9 +1,9 @@
 <!-- Bootstrap used:
-  1. Navgation bar
-  2. Container for navigation bar
-  3. 
-  4. 
-  5.
+  1. Navbar from Boostrap Examples
+  2. Form from Bootstrap Examples
+  3. Card from Bootstrap Docs
+  4. Button from Bootstrap Docs
+  5. Footer from Bootstrap Examples
 -->
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -53,19 +53,32 @@
 
     <body class="d-flex flex-column min-vh-100">
       <!-- Navbar from Boostrap Examples - Element 1 -->
-      <div class="container-fluid">
-        <header class="d-flex justify-content-center py-3">
-          <ul class="nav nav-pills">
+      <div class="container-fluid bg-dark">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 bg-dark">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <!-- <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a> -->
+          </div>
+    
+          <ul class="nav nav-pills mr-auto">
             <li class="nav-item"><a href="/Hw3/index.html" class="nav-link active" aria-current="page">Feed</a></li>
             <li class="nav-item"><a href="/Hw3/playlists.html" class="nav-link">Playlists</a></li>
             <li class="nav-item"><a href="/Hw3/discover.html" class="nav-link">Discover</a></li>
             <li class="nav-item"><a href="/Hw3/friends.html" class="nav-link">Friends</a></li>
           </ul>
+     
+          <!-- Form from Bootstrap Examples - Element 2 -->
+          <div class="col-md-3">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+          </form>
+          </div>
         </header>
       </div>
       
-      <!-- Card from Bootstrap Docs - Element 2 -->
-      <div class="card mb-3 mx-auto" style="max-width: 540px;">
+      <!-- Card from Bootstrap Docs - Element 3 -->
+      <div class="card mb-3 mx-auto" style="max-width: 540px;margin-top: 16px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
@@ -75,7 +88,7 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-              <!-- Button from Bootstrap Docs - Element 3 -->
+              <!-- Button from Bootstrap Docs - Element 4 -->
               <button class="btn btn-primary" type="submit">Button</button>
             </div>
           </div>

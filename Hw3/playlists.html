@@ -46,14 +46,27 @@
 
     <body>
       <!-- Navbar from Boostrap Examples - Element 1 -->
-      <div class="container-fluid">
-        <header class="d-flex justify-content-center py-3">
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/Hw3/index.html" class="nav-link">Feed</a></li>
-            <li class="nav-item"><a href="/Hw3/playlists.html" class="nav-link active" aria-current="page">Playlists</a></li>
+      <div class="container-fluid bg-dark">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 bg-dark">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <!-- <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+            </a> -->
+          </div>
+    
+          <ul class="nav nav-pills mr-auto">
+            <li class="nav-item"><a href="/Hw3/index.html" class="nav-link" aria-current="page">Feed</a></li>
+            <li class="nav-item"><a href="/Hw3/playlists.html" class="nav-link active">Playlists</a></li>
             <li class="nav-item"><a href="/Hw3/discover.html" class="nav-link">Discover</a></li>
             <li class="nav-item"><a href="/Hw3/friends.html" class="nav-link">Friends</a></li>
           </ul>
+    
+          <!-- Form from Bootstrap Examples - Element 2 -->
+          <div class="col-md-3">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+          </form>
+          </div>
         </header>
       </div>
       
