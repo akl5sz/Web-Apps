@@ -1,3 +1,13 @@
 .nav-pills .nav-link.active {
-    background-color: purple; /* to change the pill color */
+    background-color: #d9d9d9; /* to change the pill color */
+    color: #1e1e1e;
+}
+.nav-pills .nav-item a.nav-link:hover {
+    color: #635e97;
+}
+.nav-link {
+    color: #d9d9d9;
+}
+.container-fluid {
+    background-color: #0d0d13;
 }
