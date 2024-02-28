@@ -25,11 +25,11 @@ body {
     color: white !important;
 }
 
-.bordered {
-    max-width: 740px !important;
+.bordered-playlist {
+    max-width: 900px !important;
     margin-top: 16px !important;
     border-radius: 10px;
-
+}
 .btn{
     background-color: #0D0D13;
     color: #d9d9d9;
