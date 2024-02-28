@@ -1,3 +1,6 @@
+body {
+    background-color: #4E3E7A;
+}
 .nav-pills .nav-link.active {
     background-color: #d9d9d9; /* to change the pill color */
     color: #1e1e1e;
@@ -12,3 +15,11 @@
     background-color: #0d0d13;
 }
 
+.form-control{
+    background-color: #0D0D13;
+}
+
+.text-body-secondary {
+    --bs-text-opacity: 1;
+    color: white !important;
+}
