@@ -4,6 +4,7 @@ body {
 .nav-pills .nav-link.active {
     background-color: #d9d9d9; /* to change the pill color */
     color: #1e1e1e;
+    border-radius: 40px;
 }
 .nav-pills .nav-item a.nav-link:hover {
     color: #635e97;
@@ -22,4 +23,10 @@ body {
 .text-body-secondary {
     --bs-text-opacity: 1;
     color: white !important;
+}
+
+.bordered {
+    max-width: 740px !important;
+    margin-top: 16px !important;
+    border-radius: 10px;
 }
