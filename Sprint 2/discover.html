@@ -3,45 +3,48 @@
 <html lang="en" data-bs-theme="light">
     <head>
     <meta charset="UTF-8">  
-    
+   
     <!-- 2. include meta tag to ensure proper rendering and touch zooming -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">  
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 
+    <!--
     Bootstrap is designed to be responsive to mobile.
     Mobile-first styles are part of the core framework.
      
     width=device-width sets the width of the page to follow the screen-width
-    initial-scale=1 sets the initial zoom level when the page is first loaded   
+    initial-scale=1 sets the initial zoom level when the page is first loaded  
     -->
-    
+   
     <meta name="author" content="Jacqueline Lainhart and Angie Loayza">
     <meta name="description" content="Social media website surrounding movies, tv shows, and music.">  
     <meta name="keywords" content="movies, tv shows, tv series, music, social media, forums">  
 
-    
-      
+
+   
+     
     <title>Mediac</title>
-    
+   
     <!-- 3. link bootstrap -->
     <!-- if you choose to use CDN for CSS bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
-    <!-- 
-    Use a link tag to link an external resource. A rel (relationship) specifies relationship between the current document and the linked resource. 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--
+    Use a link tag to link an external resource. A rel (relationship) specifies relationship between the current document and the linked resource.
     -->
-    
+   
     <!-- For development, we may want a better-printed CSS, but with larger download size.  Ignore "min"
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.css" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.css" rel="stylesheet">
     -->
     <!-- if you choose to download bootstrap and host it locally -->
-    <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
-    
+    <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> -->
+   
     <!-- include your CSS
          by including your CSS last, anything you write may override (depending on specificity) the Bootstrap CSS
-    <link rel="stylesheet" href="your-custom.css" /> 
+    <link rel="stylesheet" href="your-custom.css" />
     -->
-    <link rel="stylesheet" href="styles/main.css">   
+    <link rel="stylesheet" href="styles/main.css">
+     
     </head>
+
 
     <body class="d-flex flex-column min-vh-100">
       <!-- Navbar from Boostrap Examples - Element 1 -->
@@ -52,14 +55,15 @@
               <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
             </a> -->
           </div>
-    
+   
           <ul class="nav nav-pills mr-auto">
             <li class="nav-item"><a href="index.html" class="nav-link" aria-current="page">Feed</a></li>
             <li class="nav-item"><a href="playlists.html" class="nav-link">Playlists</a></li>
             <li class="nav-item"><a href="discover.html" class="nav-link active">Discover</a></li>
             <li class="nav-item"><a href="friends.html" class="nav-link">Friends</a></li>
           </ul>
-    
+
+
           <!-- Form from Bootstrap Examples - Element 2 -->
           <div class="col-md-3">
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
@@ -68,9 +72,13 @@
           </div>
         </header>
       </div>
-      
+
+
       <!-- Categories Navbar -->
-      <div class="d-flex gap-2 justify-content-center py-3">
+      <div class="container">
+        <div class="row justify-content-center py-3">
+          <div class="col-auto">
+      <!-- <div class="d-flex gap-2 justify-content-center py-3"> -->
         <button class="btn btn-light rounded-pill px-3" type="button">Trending</button>
         <button class="btn btn-light rounded-pill px-3" type="button">Horror</button>
         <button class="btn btn-light rounded-pill px-3" type="button">Action</button>
@@ -79,39 +87,19 @@
         <button class="btn btn-light rounded-pill px-3" type="button">Comedy</button>
         <button class="btn btn-light rounded-pill px-3" type="button">Romance</button>
         <button class="btn btn-light rounded-pill px-3" type="button">Crime</button>
-      </div>
+      </div></div></div>
+
 
       <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <!-- <h5 class="card-title">Card title</h5> -->
-              <div class="py-4"></div>
-              <p class="card-text">11324 users have commented on Barbie</p>
-              <!-- <p class="card-text"><small>Last updated 3 mins ago</small></p> -->
-              <!-- Button from Bootstrap Docs - Element 4 -->
-              <div class="flex-container" style="display: flex;">
-                <div class="px-5"></div>
-                <button class="btn btn-primary" type="submit">See Comments</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
-        <div class="row g-0">
-          <div class="col-md-4 d-flex align-items-center">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <p class="card-text"><small>Last updated 3 mins ago</small></p>
-              <!-- Button from Bootstrap Docs - Element 4 -->
               <button class="btn btn-primary" type="submit">Button</button>
             </div>
           </div>
@@ -120,47 +108,37 @@
       <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg/220px-The_Muppet_Show_%281977%29_soundtrack_album_cover.jpg" class="img-fluid rounded-start playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
               <p class="card-text"><small>Last updated 3 mins ago</small></p>
-              <!-- Button from Bootstrap Docs - Element 4 -->
               <button class="btn btn-primary" type="submit">Button</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="position-fixed p-5 bottom-0 end-0 mb-3 me-3" style="width: 170px; height: 170px;">
-        <!-- <div class="position-relative"> -->
-          <!-- <button type="button" class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button> -->
-          <!-- <button type="button" class="position-absolute top-0 start-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button> -->
-          <button type="button" class="position-absolute top-0 end-0 p-3 m-5 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://static.vecteezy.com/system/resources/thumbnails/009/346/118/small/musical-note-flat-icon-png.png" width="25px" height="25px" alt=""></button>
-          <!-- <button type="button" class="position-absolute top-50 start-50 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button> -->
-          <!-- <button type="button" class="position-absolute bottom-50 end-50 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button> -->
-          <button type="button" class="position-absolute bottom-0 start-0 p-3 m-2 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://uxwing.com/wp-content/themes/uxwing/download/video-photography-multimedia/movie-icon.png" width="25px" height="25px" alt=""></button>
-          <button type="button" class="position-absolute bottom-0 end-0 p-3 m-1 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://static.vecteezy.com/system/resources/thumbnails/009/351/700/small/tv-show-icon-sign-design-free-png.png" width="26px" height="26px" alt=""></button> 
-        <!-- </div> -->
-      </div>
-      
+
+
+
       <!-- Footer from Bootstrap Examples - Element 5 -->
       <footer class="mt-auto">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Feed</a></li>
-          <li class="nav-item"><a href="playlists.html" class="nav-link px-2 text-body-secondary">Playlists</a></li>
-          <li class="nav-item"><a href="discover.html" class="nav-link px-2 text-body-secondary">Discover</a></li>
-          <li class="nav-item"><a href="friends.html" class="nav-link px-2 text-body-secondary">Friends</a></li>
-        </ul>
-        <p class="text-center text-body-secondary">© 2024 Mediac</p>
-      </footer>
-
-      <!-- 4. include bootstrap Javascript
-          Why at the end of the body?
-      -->
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Feed</a></li>
+            <li class="nav-item"><a href="playlists.html" class="nav-link px-2 text-body-secondary">Playlists</a></li>
+            <li class="nav-item"><a href="discover.html" class="nav-link px-2 text-body-secondary">Discover</a></li>
+            <li class="nav-item"><a href="friends.html" class="nav-link px-2 text-body-secondary">Friends</a></li>
+          </ul>
+          <p class="text-center text-body-secondary">© 2024 Mediac, Inc</p>
+        </footer>
+       
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
       </script>
     </body>
 </html>
+
+
+
