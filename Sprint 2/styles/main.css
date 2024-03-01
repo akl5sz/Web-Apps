@@ -150,14 +150,27 @@ button.btn-primary {
     color: #d9d9d9;
 }
 
-@media (max-width: 1250px) {
-    .playlist-card{
-        margin: auto;
-    }
-  }
+.padding{
+    padding: 30px;
+}
 
 @media (max-width: 768px) { 
     .bordered-playlist {
         max-width: none; 
+    }
+    .playlist-card{
+        margin: auto;
+    }
+}
+
+@media (max-width: 557px) { 
+    .padding{
+        padding: 50px;
+    }
+}
+
+@media (max-width: 362px) { 
+    .padding{
+        padding: 80px;
     }
 }
