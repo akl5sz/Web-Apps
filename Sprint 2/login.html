@@ -1,0 +1,85 @@
+<!-- Bootstrap used:
+  1. Navbar from Boostrap Examples
+  2. Form from Bootstrap Examples
+  3. Card from Bootstrap Docs
+  4. Button from Bootstrap Docs
+  5. Footer from Bootstrap Examples
+-->
+<!-- 1. create HTML5 doctype -->
+<!DOCTYPE html>
+<!--
+Sources used: https://cs4640.cs.virginia.edu, https://lesscss.org/features/#features-overview-feature, https://getbootstrap.com/docs/5.3/getting-started/introduction/
+-->
+<html lang="en" data-bs-theme="light">
+    <head>
+    <meta charset="UTF-8">  
+    
+    <!-- 2. include meta tag to ensure proper rendering and touch zooming -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 
+    Bootstrap is designed to be responsive to mobile.
+    Mobile-first styles are part of the core framework.
+     
+    width=device-width sets the width of the page to follow the screen-width
+    initial-scale=1 sets the initial zoom level when the page is first loaded   
+    -->
+    
+    <meta name="author" content="Jacqueline Lainhart and Angie Loayza">
+    <meta name="description" content="Social media website surrounding movies, tv shows, and music.">  
+    <meta name="keywords" content="movies, tv shows, tv series, music, social media, forums">  
+
+    
+      
+    <title>Mediac</title>
+    
+    <!-- 3. link bootstrap -->
+    <!-- if you choose to use CDN for CSS bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> 
+    <!-- 
+    Use a link tag to link an external resource. A rel (relationship) specifies relationship between the current document and the linked resource. 
+    -->
+    
+    <!-- For development, we may want a better-printed CSS, but with larger download size.  Ignore "min"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.css" rel="stylesheet"> 
+    -->
+    <!-- if you choose to download bootstrap and host it locally -->
+    <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> --> 
+    
+    <!-- include your CSS
+         by including your CSS last, anything you write may override (depending on specificity) the Bootstrap CSS
+    <link rel="stylesheet" href="your-custom.css" /> 
+    -->
+    <link rel="stylesheet" href="styles/main.css"> 
+    </head>
+
+    <body>
+        <div class="py-5"></div>
+        <div class="py-4"></div>
+        <div class="container mt-5 col-md-6">
+            <header>
+                <h1 class="website-title">Mediac</h1>
+            </header>
+            <div class="login-container mx-auto">
+                <div class="input-line">
+                    <input type="text" placeholder="Username">
+                </div>
+                <div class="input-line">
+                    <input type="text" placeholder="Password">
+                </div>
+                <button class="login-btn" onclick="location.href='index.html'">Log In</button>
+                <p style="color: #d9d9d9; margin-top: 15px;">or</p>
+                <a href="signup.html" class="signup-link">Sign Up</a>
+            </div>   
+        </div>
+        <footer class="mt-auto fixed-bottom">
+            <p class="text-center text-body-secondary">© 2024 Mediac, Inc</p>
+          </footer>
+  
+        <!-- 4. include bootstrap Javascript
+            Why at the end of the body?
+        -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+    </body>
+</html>
