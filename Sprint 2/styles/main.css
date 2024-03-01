@@ -34,10 +34,12 @@ body {
 }
 
 .bordered-playlist {
-    max-width: 900px !important;
-    min-width: 900px;
+    width: 100%; 
+    max-width: 900px; 
     margin-top: 16px !important;
     border-radius: 10px;
+    display: flex; 
+    flex-direction: column;
 }
 .btn{
     background-color: #0D0D13;
@@ -106,6 +108,11 @@ button.btn-primary {
  .card {
 	 background-color: #0D0D13;
 	 color: white;
+     width: 100%; 
+}
+
+.card-body {
+    flex: 1; 
 }
  .card p {
 	 font-style: italic;
@@ -148,3 +155,9 @@ button.btn-primary {
         margin: auto;
     }
   }
+
+@media (max-width: 768px) { 
+    .bordered-playlist {
+        max-width: none; 
+    }
+}
