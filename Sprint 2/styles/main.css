@@ -35,6 +35,7 @@ body {
 
 .bordered-playlist {
     max-width: 900px !important;
+    min-width: 900px;
     margin-top: 16px !important;
     border-radius: 10px;
 }
