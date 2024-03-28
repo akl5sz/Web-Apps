@@ -1,21 +1,21 @@
 <?php
-session_start();
+// DEBUGGING ONLY! Show all errors.
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-switch (@parse_url($_SERVER['REQUEST_URI'])['path']) {
-   case '/': // URL (without file name) to a default screen
-      require 'welcome-page.php';
-      break; 
-   case '/welcome-page.php':
-      require 'welcome-page.php';
-      break;
-   case '/game-page.php':    
-      require 'game-page.php';
-      break;              
-   case '/game-over.php':
-      require 'game-over.php';
-      break;
-   default:
-      http_response_code(404);
-      exit('Not Found');
-}  
+// Class autoloading by name.  All our classes will be in a directory
+// that Apache does not serve publicly.  They will be in /opt/src/, which
+// is our src/ directory in Docker.
+spl_autoload_register(function ($classname) {
+        include "/opt/src/trivia/$classname.php";
+});
+
+// Other global things that we need to do
+// (such as starting a session, coming soon!)
+
+// Instantiate the front controller
+$trivia = new CategoryGuessingController($_GET);
+
+// Run the controller
+// $trivia->run();
 ?>
