@@ -3,8 +3,10 @@ $json = file_get_contents('connections.json');
 $obj = json_decode($json, TRUE);  
 $randomValues = array();
 
+// print_r($obj);
+
 function getRandomCats(){
-    global $obj;
+    global $obj, $randomValues;
     $randomCats = array();
     for($i = 1; $i <= 4; $i++){
         $key = array_rand($obj);
@@ -22,6 +24,8 @@ function getRandomCats(){
     return $randomValues;
 }
 
+// print_r(getRandomValues());
+
 function getRandomValues() {
     $randomValues = array();
     $randomCats = getRandomCats();
@@ -34,3 +38,5 @@ function getRandomValues() {
 }
 print("\n");
 print_r(getRandomValues());
+
+?>
