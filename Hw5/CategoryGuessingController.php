@@ -3,11 +3,13 @@ class CategoryGuessingController {
     private $obj = array();
     private $randomValues = array();
     private $errorMessage = "";
+
+    private $input;
     
     public function __construct($input) {
         session_start();
         $this->input = $input;
-        $this->loadQuestions();
+        $this->loadCatAndVals();
     }
 
     public function loadCatAndVals() {
@@ -30,7 +32,7 @@ class CategoryGuessingController {
          // If the session doesn't have the key "name", then they
          // got here without going through the welcome page, so we
          // should send them back to the welcome page only.
-         if (!isset($_SESSION["name"] || !isset($_SESSION["email"]))
+         if (!isset($_SESSION["name"]) || !isset($_SESSION["email"]))
              $command = "welcome";
 
         switch($command) {
