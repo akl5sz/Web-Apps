@@ -1,4 +1,5 @@
 <?php
+
 $json = file_get_contents('connections.json');
 $obj = json_decode($json, true);
 $randomValues = array();
@@ -59,7 +60,8 @@ $arr = getRandomValues();
     <table>
         <tbody>
             <!-- https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html -->
-            <?php for ($i = 1; $i <= count($arr)/4; $i++) { ?>
+            <?php $arrCount = count((array)$arr);
+            for ($i = 1; $i <= $arrCount/4; $i++) { ?>
                 <tr>
                     <?php for ($j = 1; $j <= 4; $j++) { ?>
                         <?php $index = ($i - 1) * 4 + $j - 1; ?>
@@ -70,7 +72,7 @@ $arr = getRandomValues();
         </tbody>
     </table>
     <br/>
-    <form action="" method="post">
+    <form action="game-over.php" method="post">
         <input type="hidden" name="" value="">
 
         <div class="mb-3">
