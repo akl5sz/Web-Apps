@@ -47,7 +47,7 @@ class CategoryGuessingController {
     }
 
     public function showGamePage($message = "") {
-        $randomValues = $this->getRandomValues(); // Assign $randomValues to a local variable
+        $randomValues = $this->getRandomValues();
         include("game-page.php");
     }
 
@@ -55,7 +55,25 @@ class CategoryGuessingController {
         include("welcome-page.php");
     }
 
-    function getRandomCats(){
+    // function getRandomCats(){
+    //     $randomCats = array();
+    //     for ($i = 1; $i <= 4; $i++) {
+    //         $key = array_rand($this->obj);
+    //         $list = $this->obj[$key];
+    //         shuffle($list);
+    //         if (!array_key_exists($key, $this->randomValues)) {
+    //             for ($j = 0; $j < 4; $j++) {
+    //                 $this->randomValues[$key][] = $list[$j];
+    //             }
+    //         } else {
+    //             $i--;
+    //         }
+    //     }
+    //     return $this->randomValues;
+    // }
+
+    function getRandomValues(){
+        $this->randomValues = array();
         $randomCats = array();
         for ($i = 1; $i <= 4; $i++) {
             $key = array_rand($this->obj);
@@ -69,12 +87,6 @@ class CategoryGuessingController {
                 $i--;
             }
         }
-        return $this->randomValues;
-    }
-
-    function getRandomValues(){
-        $this->randomValues = array();
-        $randomCats = getRandomCats();
         foreach ($randomCats as $randomCat => $values) {
             $this->randomValues = array_merge($this->randomValues, $values);
         }
