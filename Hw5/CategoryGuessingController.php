@@ -21,4 +21,16 @@ class CategoryGuessingController {
         }
         return $randomValues;
     }
+
+    function getRandomValues() {
+        $randomValues = array();
+        $randomCats = $this->getRandomCats();
+        foreach($randomCats as $randomCat => $value) {
+            $randomValues = array_merge($randomValues, $value);
+        }
+        $randomValues = shuffle($randomValues);
+        return $randomValues;
+    }
 }
+
+
