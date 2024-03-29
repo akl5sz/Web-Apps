@@ -2,6 +2,7 @@
 class CategoryGuessingController {
     private $obj = array();
     private $randomValues = array();
+    
     private $errorMessage = "";
 
     private $input;
@@ -13,8 +14,6 @@ class CategoryGuessingController {
     }
 
     public function loadCatAndVals() {
-        session_start(); 
-
         $this->obj = json_decode(
             file_get_contents('connections.json'), true);
 
@@ -32,8 +31,8 @@ class CategoryGuessingController {
          // If the session doesn't have the key "name", then they
          // got here without going through the welcome page, so we
          // should send them back to the welcome page only.
-         if (!isset($_SESSION["name"]) || !isset($_SESSION["email"]))
-             $command = "welcome";
+        //  if (!isset($_SESSION["name"]) || !isset($_SESSION["email"]))
+        //      $command = "welcome";
 
         switch($command) {
             case "game":
@@ -42,6 +41,9 @@ class CategoryGuessingController {
             // case "answer":
             //     $this->answerQuestion();
             //     break;
+            case "login":
+                $this->login();
+                break;
             default:
                 $this->showWelcome();
                 break;
@@ -57,25 +59,7 @@ class CategoryGuessingController {
         include("welcome-page.php");
     }
 
-    // function getRandomCats(){
-    //     $randomCats = array();
-    //     for ($i = 1; $i <= 4; $i++) {
-    //         $key = array_rand($this->obj);
-    //         $list = $this->obj[$key];
-    //         shuffle($list);
-    //         if (!array_key_exists($key, $this->randomValues)) {
-    //             for ($j = 0; $j < 4; $j++) {
-    //                 $this->randomValues[$key][] = $list[$j];
-    //             }
-    //         } else {
-    //             $i--;
-    //         }
-    //     }
-    //     return $this->randomValues;
-    // }
-
-    function getRandomValues(){
-        $this->randomValues = array();
+    function getRandomCats(){
         $randomCats = array();
         for ($i = 1; $i <= 4; $i++) {
             $key = array_rand($this->obj);
@@ -89,23 +73,39 @@ class CategoryGuessingController {
                 $i--;
             }
         }
-        foreach ($randomCats as $randomCat => $values) {
-            $this->randomValues = array_merge($this->randomValues, $values);
-        }
-        shuffle($this->randomValues);
         return $this->randomValues;
     }
+
+    function getRandomValues(){
+    $randomValues = array();
+    $randomCats = $this->getRandomCats();
+    foreach ($randomCats as $randomCat => $values) {
+        if(is_array($values)) {
+            $randomValues = array_merge($randomValues, $values);
+        }
+        if(!is_array($values)) {
+            $randomValues = array_merge($randomValues, explode("",$values));
+        }
+
+    }
+    shuffle($randomValues);
+
+    return $randomValues;
+}
 
     public function login() {
         if (isset($_POST["name"]) && isset($_POST["email"]) &&
             !empty($_POST["name"]) && !empty($_POST["email"])) {
             $_SESSION["name"] = $_POST["name"];
             $_SESSION["email"] = $_POST["email"];
-            $_SESSION["guessCount"] = 0;
+            // $_SESSION["score"] = 0;
             header("Location: ?command=game");
             return;
         }
-        $this->errorMessage = "Error logging in - Name and email is required";
+        // print("HIDSJND");
+        // header("Location: ?command=game");
+
+        // $this->errorMessage = "Error logging in - Name and email are required";
         $this->showWelcome();
     }
 

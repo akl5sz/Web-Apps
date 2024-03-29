@@ -1,42 +1,42 @@
 <?php
 
-$json = file_get_contents('connections.json');
-$obj = json_decode($json, true);
-$randomValues = array();
+// $json = file_get_contents('connections.json');
+// $obj = json_decode($json, true);
+// $randomValues = array();
 
-function getRandomCats()
-{
-    global $obj, $randomValues;
-    $randomCats = array();
-    for ($i = 1; $i <= 4; $i++) {
-        $key = array_rand($obj);
-        $list = $obj[$key];
-        shuffle($list);
-        if (!array_key_exists($key, $randomValues)) {
-            for ($j = 0; $j < 4; $j++) {
-                $randomValues[$key][] = $list[$j];
-            }
-        } else {
-            $i--;
-        }
-    }
-    return $randomValues;
-}
+// function getRandomCats()
+// {
+//     global $obj, $randomValues;
+//     $randomCats = array();
+//     for ($i = 1; $i <= 4; $i++) {
+//         $key = array_rand($obj);
+//         $list = $obj[$key];
+//         shuffle($list);
+//         if (!array_key_exists($key, $randomValues)) {
+//             for ($j = 0; $j < 4; $j++) {
+//                 $randomValues[$key][] = $list[$j];
+//             }
+//         } else {
+//             $i--;
+//         }
+//     }
+//     return $randomValues;
+// }
 
-function getRandomValues()
-{
-    $randomValues = array();
-    $randomCats = getRandomCats();
-    foreach ($randomCats as $randomCat => $values) {
-        $randomValues = array_merge($randomValues, $values);
-    }
-    shuffle($randomValues);
-    return $randomValues;
-}
+// function getRandomValues()
+// {
+//     $randomValues = array();
+//     $randomCats = getRandomCats();
+//     foreach ($randomCats as $randomCat => $values) {
+//         $randomValues = array_merge($randomValues, $values);
+//     }
+//     shuffle($randomValues);
+//     return $randomValues;
+// }
 
-$arr = getRandomValues();
+// $arr = getRandomValues();
 ?>
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +59,7 @@ $arr = getRandomValues();
 <body>
     <table>
         <tbody>
-            <!-- https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html -->
+            https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html
             <?php $arrCount = count((array)$arr);
             for ($i = 1; $i <= $arrCount/4; $i++) { ?>
                 <tr>
@@ -72,7 +72,7 @@ $arr = getRandomValues();
         </tbody>
     </table>
     <br/>
-    <form action="game-over.php" method="post">
+    <form action="" method="post">
         <input type="hidden" name="" value="">
 
         <div class="mb-3">
@@ -83,4 +83,4 @@ $arr = getRandomValues();
         <button type="submit" class="btn btn-primary">Submit Answer</button>
     </form>
 </body>
-</html>
+</html> -->
