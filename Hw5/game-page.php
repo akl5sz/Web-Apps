@@ -83,7 +83,21 @@
                         Question
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title"><?=$randomValues[0]?></h5>
+                    <table>
+                        <tbody>
+                            <!-- https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html -->
+                            <?php $arrCount = count((array)$randomValues);
+                            
+                            for ($i = 1; $i <= $arrCount/4; $i++) { ?>
+                                <tr>
+                                    <?php for ($j = 1; $j <= 4; $j++) { ?>
+                                        <?php $index = ($i - 1) * 4 + $j - 1; ?>
+                                        <td><?php echo $index ."\t". $randomValues[$index]; ?></td>
+                                    <?php } ?>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
                 </div>
