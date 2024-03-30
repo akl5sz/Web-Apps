@@ -7,6 +7,7 @@ class CategoryGuessingController {
 
     private $input;
     
+    private $testingArr = array();
     public function __construct($input) {
         session_start();
         $this->input = $input;
@@ -54,6 +55,7 @@ class CategoryGuessingController {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
         // $score = $_SESSION["score"];
+        $testingArr = $this->guessCategory();
         if(isset($_SESSION["random_values"])) {
             $randomValues = $_SESSION["random_values"];
         } 
@@ -68,7 +70,7 @@ class CategoryGuessingController {
         include("welcome-page.php");
     }
 
-    function getRandomCats(){
+    public function getRandomCats(){
         $randomCats = array();
         for ($i = 1; $i <= 4; $i++) {
             $key = array_rand($this->obj);
@@ -85,23 +87,42 @@ class CategoryGuessingController {
         return $this->randomValues;
     }
 
-    function getRandomValues(){
-    $randomValues = array();
-    $randomCats = $this->getRandomCats();
-    foreach ($randomCats as $randomCat => $values) {
-        if(is_array($values)) {
-            $randomValues = array_merge($randomValues, $values);
-        }
-        if(!is_array($values)) {
-            $randomValues = array_merge($randomValues, explode("",$values));
-        }
+    public function getRandomValues(){
+        $randomValues = array();
+        $randomCats = $this->getRandomCats();
+        foreach ($randomCats as $randomCat => $values) {
+            if(is_array($values)) {
+                $randomValues = array_merge($randomValues, $values);
+            }
+            if(!is_array($values)) {
+                $randomValues = array_merge($randomValues, explode("",$values));
+            }
 
+        }
+        shuffle($randomValues);
+        return $randomValues;
     }
-    shuffle($randomValues);
 
-    return $randomValues;
-}
+    public function guessCategory() {
+        $message = "";
+        $guessWordArr = array();
+        $guessArr = array();
+        $randomValues = $_SESSION["random_values"];
+        if (isset($_POST["guess"])) {
+            $guessArr = explode(" ", $_POST["guess"]);
+            foreach($guessArr as $guessValue) {
+                $guessWordArr[] = $randomValues[intval($guessValue)];
+            }
+        }
+        
+        //print_r($guessArr);
+        //print_r($guessWordArr);
+        return $guessWordArr;
+    }
 
+    public function getCategory() {
+       
+    }
     public function login() {
         if (isset($_POST["name"]) && isset($_POST["email"]) &&
             !empty($_POST["name"]) && !empty($_POST["email"])) {

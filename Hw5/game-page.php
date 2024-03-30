@@ -105,12 +105,11 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                <form action="?command=answer" method="post">
+                <form action="" method="post">
                     <input type="hidden" name="questionid" value="<?=$randomValues[1]?>">
-
                     <div class="mb-3">
-                        <label for="answer" class="form-label">Trivia Answer: </label>
-                        <input type="text" class="form-control" id="trivia-answer" name="answer">
+                        <label for="guess" class="form-label">Trivia Answer: </label>
+                        <input type="text" class="form-control" id="guess" name="guess">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit Answer</button>
