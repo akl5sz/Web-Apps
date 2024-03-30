@@ -51,6 +51,9 @@ class CategoryGuessingController {
     }
 
     public function showGamePage($message = "") {
+        $name = $_SESSION["name"];
+        $email = $_SESSION["email"];
+        // $score = $_SESSION["score"];
         $randomValues = $this->getRandomValues();
         include("game-page.php");
     }

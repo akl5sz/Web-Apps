@@ -66,7 +66,8 @@
 <div class="container" style="margin-top: 15px;">
         <div class="row">
                 <div class="col-xs-12">
-                <h1>Trivia Game</h1>
+                <h1>Connections Game</h1>
+                <h2>Welcome <?=$name?>! (<?=$email?>)</h2>
                 </div>
             </div>
             <div class="row">
@@ -82,7 +83,6 @@
                         Question
                     </div>
                     <div class="card-body">
-                        <h1><?="HELLO"?></h1>
                         <h5 class="card-title"><?=$randomValues[0]?></h5>
                     </div>
                 </div>
