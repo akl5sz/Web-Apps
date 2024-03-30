@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="CS4640 Spring 2024">
   <meta name="description" content="Our Front-Controller Trivia Game">  
-  <title>PHP Form Example - Trivia</title>
+  <title>Connections Game!</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"  crossorigin="anonymous">       
 </head>
 
@@ -16,6 +16,7 @@
                 <div class="col-xs-12">
                 <h1>Connections Game</h1>
                 <h2>Welcome <?=$name?>! (<?=$email?>)</h2>
+                <h3>Guesses Made: <?=$guessCount?></h3>
                 </div>
             </div>
             <div class="row">
@@ -27,13 +28,12 @@
                 <div class="col-xs-12">
 
                 <div class="card">
-                    <div class="card-header">
+                    <!-- <div class="card-header">
                         Question
-                    </div>
+                    </div> -->
                     <div class="card-body">
                     <table>
                         <tbody>
-                            <!-- https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html -->
                             <?php $arrCount = count((array)$randomValues);
                             $count = 0;
                             foreach($randomValues as $key => $value){
@@ -57,7 +57,7 @@
                 <form action="" method="post">
                     <input type="hidden" name="questionid" value="<?=$randomValues[1]?>">
                     <div class="mb-3">
-                        <label for="guess" class="form-label">Trivia Answer: </label>
+                        <label for="guess" class="form-label">Guess: </label>
                         <input type="text" class="form-control" id="guess" name="guess">
                     </div>
 

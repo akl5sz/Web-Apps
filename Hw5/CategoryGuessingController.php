@@ -8,7 +8,7 @@ class CategoryGuessingController {
     private $input;
     
     private $testingArr = array();
-    private $testWord;
+    private $guessCount = -1;
     public function __construct($input) {
         session_start();
         $this->input = $input;
@@ -51,8 +51,11 @@ class CategoryGuessingController {
     public function showGamePage($message = "") {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
+        $guessCount = $_SESSION["guess_count"];
+
+        $testingArr = $this->guessCategory(); 
+
         // $score = $_SESSION["score"];
-        $testingArr = $this->guessCategory();
         if(isset($_SESSION["random_values"])) {
             if(empty($_SESSION["random_values"])){
                 $randomValues = $this->getRandomValues();
@@ -115,13 +118,17 @@ class CategoryGuessingController {
                 $guessWordArr[] = $this->randomValues[intval($guessValue)];
             }
         }
-        print_r($guessArr);
+        
+        $this->guessCount++;
+        $_SESSION["guess_count"] = $this->guessCount;
+
+        // print_r($guessArr);
         $guessCat = array();
         for($i=0; $i<4; $i++){
             $currentCat = $this->getCategory($guessWordArr[$i]);
             $guessCat[] = $currentCat;
         }
-        print_r($guessCat);
+        // print_r($guessCat);
         $indexes = array();
         $guessCatCount = count((array)$guessCat); //to avoid fatal error
         for($i=0;$i<$guessCatCount;$i++){
@@ -133,7 +140,7 @@ class CategoryGuessingController {
             }
         }
         $indexes = array_unique($indexes);
-        print_r($indexes);
+        // print_r($indexes);
 
         if(!empty($indexes)){
             $result = 4 - count((array)$indexes);
@@ -147,7 +154,7 @@ class CategoryGuessingController {
             for($i=0;$i<4;$i++){
                 unset($this->randomValues[$guessArr[$i]]);
             }
-            print_r($this->randomValues);
+            // print_r($this->randomValues);
             $_SESSION["random_values"] = $this->randomValues;
         }
 
@@ -167,7 +174,7 @@ class CategoryGuessingController {
         // $obj = $this->obj;
         // print_r($obj);
         
-        return $guessArr;
+        return $result;
     }
 
     public function getCategory($word) {
@@ -186,12 +193,11 @@ class CategoryGuessingController {
             !empty($_POST["name"]) && !empty($_POST["email"])) {
             $_SESSION["name"] = $_POST["name"];
             $_SESSION["email"] = $_POST["email"];
-            // $_SESSION["score"] = 0;
+            $this->randomValues = $this->getRandomValues();
+            $_SESSION["random_values"] = $this->randomValues;
             header("Location: ?command=game");
             return;
         }
-        // print("HIDSJND");
-        // header("Location: ?command=game");
 
         // $this->errorMessage = "Error logging in - Name and email are required";
         $this->showWelcome();
@@ -200,7 +206,5 @@ class CategoryGuessingController {
     public function logout() {
         session_destroy();
         session_start();
-        $this->randomValues = $this->getRandomValues();
-        $_SESSION["random_values"] = $this->randomValues;
     }
 }
