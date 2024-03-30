@@ -54,7 +54,13 @@ class CategoryGuessingController {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
         // $score = $_SESSION["score"];
-        $randomValues = $this->getRandomValues();
+        if(isset($_SESSION["random_values"])) {
+            $randomValues = $_SESSION["random_values"];
+        } 
+        else {
+            $randomValues = $this->getRandomValues();
+            $_SESSION["random_values"] = $randomValues;
+        }
         include("game-page.php");
     }
 
