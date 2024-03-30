@@ -54,6 +54,9 @@ class CategoryGuessingController {
         // $score = $_SESSION["score"];
         $testingArr = $this->guessCategory();
         if(isset($_SESSION["random_values"])) {
+            if(empty($_SESSION["random_values"])){
+                $randomValues = $this->getRandomValues();
+            }
             $randomValues = $_SESSION["random_values"];
         } 
         else {
@@ -89,30 +92,27 @@ class CategoryGuessingController {
     }
 
     public function getRandomValues(){
-        $randomValues = array();
         $randomCats = $this->getRandomCats();
-        foreach ($randomCats as $randomCat => $values) {
-            if(is_array($values)) {
-                $randomValues = array_merge($randomValues, $values);
+        foreach ($randomCats as $catsArray) {
+            if(is_array($catsArray)) {
+                $this->randomValues = array_merge($this->randomValues, $catsArray);
+            } else {
+                $this->randomValues = array_merge($this->randomValues, explode("",$catsArray));
             }
-            if(!is_array($values)) {
-                $randomValues = array_merge($randomValues, explode("",$values));
-            }
-
         }
-        shuffle($randomValues);
-        return $randomValues;
+        shuffle($this->randomValues);
+        return $this->randomValues;
     }
 
     public function guessCategory() {
         $message = "";
         $guessWordArr = array();
         $guessArr = array();
-        $randomValues = $_SESSION["random_values"];
+        $this->randomValues = $_SESSION["random_values"];
         if (isset($_POST["guess"])) {
             $guessArr = explode(" ", $_POST["guess"]);
             foreach($guessArr as $guessValue) {
-                $guessWordArr[] = $randomValues[intval($guessValue)];
+                $guessWordArr[] = $this->randomValues[intval($guessValue)];
             }
         }
         print_r($guessArr);
@@ -145,18 +145,19 @@ class CategoryGuessingController {
         if($result === 0){
             $guessArr;
             for($i=0;$i<4;$i++){
-                unset($randomValues[$guessArr[$i]]);
+                unset($this->randomValues[$guessArr[$i]]);
             }
-            print_r($randomValues);
-            $_SESSION["random_values"] = $randomValues;
+            print_r($this->randomValues);
+            $_SESSION["random_values"] = $this->randomValues;
         }
 
         $randomValueGames = array();
-        $randomValueGames = $randomValues;
+        $randomValueGames = $this->randomValues;
+        
+        
         if(empty($randomValueGames)){
             header("Location: ?command=game-over");
         }
-
 
         // print($indexes);
         // print_r($guessArr);
@@ -199,5 +200,7 @@ class CategoryGuessingController {
     public function logout() {
         session_destroy();
         session_start();
+        $this->randomValues = $this->getRandomValues();
+        $_SESSION["random_values"] = $this->randomValues;
     }
 }
