@@ -87,15 +87,16 @@
                         <tbody>
                             <!-- https://stackoverflow.com/questions/28093474/php-function-to-print-table-in-html -->
                             <?php $arrCount = count((array)$randomValues);
-                            
-                            for ($i = 1; $i <= $arrCount/4; $i++) { ?>
-                                <tr>
-                                    <?php for ($j = 1; $j <= 4; $j++) { ?>
-                                        <?php $index = ($i - 1) * 4 + $j - 1; ?>
-                                        <td><?php echo $index ."\t". $randomValues[$index]; ?></td>
-                                    <?php } ?>
-                                </tr>
-                            <?php } ?>
+                            $count = 0;
+                            foreach($randomValues as $key => $value){
+                                echo $key ."\t". $value;
+                                $count++;
+                                if($count === 4){
+                                    echo "<br/>";
+                                    $count = 0;
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                     </div>

@@ -8,6 +8,7 @@ class CategoryGuessingController {
     private $input;
     
     private $testingArr = array();
+    private $testWord;
     public function __construct($input) {
         session_start();
         $this->input = $input;
@@ -76,15 +77,15 @@ class CategoryGuessingController {
             $key = array_rand($this->obj);
             $list = $this->obj[$key];
             shuffle($list);
-            if (!array_key_exists($key, $this->randomValues)) {
+            if (!array_key_exists($key, $randomCats)) {
                 for ($j = 0; $j < 4; $j++) {
-                    $this->randomValues[$key][] = $list[$j];
+                    $randomCats[$key][] = $list[$j];
                 }
             } else {
                 $i--;
             }
         }
-        return $this->randomValues;
+        return $randomCats;
     }
 
     public function getRandomValues(){
@@ -114,15 +115,65 @@ class CategoryGuessingController {
                 $guessWordArr[] = $randomValues[intval($guessValue)];
             }
         }
+        print_r($guessArr);
+        $guessCat = array();
+        for($i=0; $i<4; $i++){
+            $currentCat = $this->getCategory($guessWordArr[$i]);
+            $guessCat[] = $currentCat;
+        }
+        print_r($guessCat);
+        $indexes = array();
+        $guessCatCount = count((array)$guessCat); //to avoid fatal error
+        for($i=0;$i<$guessCatCount;$i++){
+            for($j=$i+1;$j<count($guessCat);$j++){
+                if($guessCat[$i]===$guessCat[$j]){
+                    $indexes[] = $i;
+                    $indexes[] = $j;
+                }
+            }
+        }
+        $indexes = array_unique($indexes);
+        print_r($indexes);
+
+        if(!empty($indexes)){
+            $result = 4 - count((array)$indexes);
+        }
+        else{
+            $result = 4;
+        }
         
-        //print_r($guessArr);
-        //print_r($guessWordArr);
-        return $guessWordArr;
+        if($result === 0){
+            $guessArr;
+            for($i=0;$i<4;$i++){
+                unset($randomValues[$guessArr[$i]]);
+            }
+            print_r($randomValues);
+            $_SESSION["random_values"] = $randomValues;
+        }
+
+
+        // print($indexes);
+        // print_r($guessArr);
+        // print_r($guessWordArr);
+        // print("HELLO");
+        // print($this->getCategory($guessWordArr[0]));
+        // $obj = $this->obj;
+        // print_r($obj);
+        
+        return $guessArr;
     }
 
-    public function getCategory() {
-       
+    public function getCategory($word) {
+        $obj = $this->obj;
+        foreach($obj as $key => $value){
+            foreach($value as $eachCatWord){
+                if($eachCatWord === $word){
+                    return $key;
+                }
+            }
+        }
     }
+
     public function login() {
         if (isset($_POST["name"]) && isset($_POST["email"]) &&
             !empty($_POST["name"]) && !empty($_POST["email"])) {
