@@ -29,23 +29,19 @@ class CategoryGuessingController {
          $command = "welcome";
          if (isset($this->input["command"]))
              $command = $this->input["command"];
- 
-         // If the session doesn't have the key "name", then they
-         // got here without going through the welcome page, so we
-         // should send them back to the welcome page only.
-        //  if (!isset($_SESSION["name"]) || !isset($_SESSION["email"]))
-        //      $command = "welcome";
 
         switch($command) {
             case "game":
                 $this->showGamePage();
                 break;
-            // case "answer":
-            //     $this->answerQuestion();
-            //     break;
+            case "game-over":
+                $this->gameOver();
+                break;
             case "login":
                 $this->login();
                 break;
+            case "logout":
+                $this->logout();
             default:
                 $this->showWelcome();
                 break;
@@ -65,6 +61,10 @@ class CategoryGuessingController {
             $_SESSION["random_values"] = $randomValues;
         }
         include("game-page.php");
+    }
+
+    public function gameOver() {
+        include("game-over.php");
     }
 
     public function showWelcome() {
@@ -149,6 +149,12 @@ class CategoryGuessingController {
             }
             print_r($randomValues);
             $_SESSION["random_values"] = $randomValues;
+        }
+
+        $randomValueGames = array();
+        $randomValueGames = $randomValues;
+        if(empty($randomValueGames)){
+            header("Location: ?command=game-over");
         }
 
 
