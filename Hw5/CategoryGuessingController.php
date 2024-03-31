@@ -8,9 +8,11 @@ class CategoryGuessingController {
     private $input;
     
     private $testingArr = array();
-    private $guessCount = -1;
+    private $guessCount;
 
     private $priorGuesses = "";
+
+    private $win;
     public function __construct($input) {
         session_start();
         $this->input = $input;
@@ -53,6 +55,7 @@ class CategoryGuessingController {
     public function showGamePage($message = "") {
         $name = $_SESSION["name"];
         $email = $_SESSION["email"];
+        $win = $_SESSION["win"];
         $guessCount = $_SESSION["guess_count"];
 
         $testingArr = $this->guessCategory();
@@ -82,8 +85,11 @@ class CategoryGuessingController {
     }
 
     public function gameOver() {
+        $win = $_SESSION["win"];
+        $guessCount = $_SESSION["guess_count"];
         include("game-over.php");
     }
+ 
 
     public function showWelcome() {
         include("welcome-page.php");
@@ -127,15 +133,16 @@ class CategoryGuessingController {
         if (isset($_POST["guess"])) {
             $guessArr = explode(" ", $_POST["guess"]);
             $_SESSION["prior_guesses"][] = $_POST["guess"];
+            
             foreach($guessArr as $guessValue) {
                 $guessWordArr[] = $this->randomValues[intval($guessValue)];
             }
         }
         $this->priorGuesses .= implode(" ", $guessArr) . "\n";
-        
+
         $this->guessCount++;
         $_SESSION["guess_count"] = $this->guessCount;
-        
+
         // print_r($guessArr);
         $guessCat = array();
         for($i=0; $i<4; $i++){
@@ -177,6 +184,8 @@ class CategoryGuessingController {
         
         
         if(empty($randomValueGames)){
+            $this->win = true;
+            $_SESSION["win"] = $this->win;
             header("Location: ?command=game-over");
         }
 
@@ -204,14 +213,18 @@ class CategoryGuessingController {
 
     public function login() {
         if (isset($_POST["name"]) && isset($_POST["email"]) &&
-            !empty($_POST["name"]) && !empty($_POST["email"])) {
-            $_SESSION["name"] = $_POST["name"];
-            $_SESSION["email"] = $_POST["email"];
-            $this->randomValues = $this->getRandomValues();
-            $_SESSION["random_values"] = $this->randomValues;
-            header("Location: ?command=game");
-            return;
-        }
+           !empty($_POST["name"]) && !empty($_POST["email"])) {
+           $_SESSION["guess_count"] = 0;
+           $this->win = false;
+           $_SESSION["win"] = $this->win;
+           $_SESSION["name"] = $_POST["name"];
+           $_SESSION["email"] = $_POST["email"];
+           $this->randomValues = $this->getRandomValues();
+           $_SESSION["random_values"] = $this->randomValues;
+           header("Location: ?command=game");
+           return;
+       }
+
 
         // $this->errorMessage = "Error logging in - Name and email are required";
         $this->showWelcome();
