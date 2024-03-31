@@ -12,6 +12,7 @@
        echo "<h2> You won in " . $guessCount-1 . " guesses.</h2>";
    }
    ?>
+   <a href="?command=play-again" class="btn btn-primary">Play Again?</a>
    <a href="?command=logout" class="btn btn-danger">Exit</a>
 </body>
 </html>

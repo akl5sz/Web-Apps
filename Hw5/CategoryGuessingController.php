@@ -40,22 +40,25 @@ class CategoryGuessingController {
             $command = $this->input["command"];
 
 
-       switch($command) {
-           case "game":
-               $this->showGamePage();
-               break;
-           case "game-over":
-               $this->gameOver();
-               break;
-           case "login":
-               $this->login();
-               break;
-           case "logout":
-               $this->logout();
-           default:
-               $this->showWelcome();
-               break;
-       }
+        switch($command) {
+            case "play-again":
+                $this->playAgain();
+                break;
+            case "game":
+                $this->showGamePage();
+                break;
+            case "game-over":
+                $this->gameOver();
+                break;
+            case "login":
+                $this->login();
+                break;
+            case "logout":
+                $this->logout();
+            default:
+                $this->showWelcome();
+                break;
+        }
    }
 
 
@@ -253,5 +256,16 @@ class CategoryGuessingController {
     public function logout() {
         session_destroy();
         session_start();
+    }
+
+    public function playAgain() {
+        $_SESSION["guess_count"] = 0;
+        $this->win = false;
+        $_SESSION["win"] = $this->win;
+        $this->randomValues = $this->getRandomValues();
+        $_SESSION["random_values"] = $this->randomValues;
+        $this->priorGuesses = "";
+        $_SESSION["prior_guesses"] = array();
+        header("Location: ?command=game");
     }
 }
