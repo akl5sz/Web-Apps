@@ -9,6 +9,8 @@ class CategoryGuessingController {
     
     private $testingArr = array();
     private $guessCount = -1;
+
+    private $priorGuesses = "";
     public function __construct($input) {
         session_start();
         $this->input = $input;
@@ -53,9 +55,19 @@ class CategoryGuessingController {
         $email = $_SESSION["email"];
         $guessCount = $_SESSION["guess_count"];
 
-        $testingArr = $this->guessCategory(); 
+        $testingArr = $this->guessCategory();
+        $guessResult = $testingArr; 
+        //$priorGuesses = $this->priorGuesses;
 
         // $score = $_SESSION["score"];
+        if (isset($_SESSION["prior_guesses"])) {
+            // If set, implode prior guesses with "\n"
+            $priorGuesses = implode("\n", $_SESSION["prior_guesses"]);
+        } else {
+            // If not set, initialize $priorGuesses as an empty string
+            $priorGuesses = "";
+        }
+
         if(isset($_SESSION["random_values"])) {
             if(empty($_SESSION["random_values"])){
                 $randomValues = $this->getRandomValues();
@@ -114,14 +126,16 @@ class CategoryGuessingController {
         $this->randomValues = $_SESSION["random_values"];
         if (isset($_POST["guess"])) {
             $guessArr = explode(" ", $_POST["guess"]);
+            $_SESSION["prior_guesses"][] = $_POST["guess"];
             foreach($guessArr as $guessValue) {
                 $guessWordArr[] = $this->randomValues[intval($guessValue)];
             }
         }
+        $this->priorGuesses .= implode(" ", $guessArr) . "\n";
         
         $this->guessCount++;
         $_SESSION["guess_count"] = $this->guessCount;
-
+        
         // print_r($guessArr);
         $guessCat = array();
         for($i=0; $i<4; $i++){

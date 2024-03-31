@@ -52,6 +52,14 @@
                 </div>
                 
             </div>
+            <div class="col-xs-12">
+                <p>Prior Guesses:</p>
+                <pre><?=$priorGuesses?></pre>
+            </div>
+            <div class="col-xs-12">
+                <p>Number of words not in the correct category: <?=$guessResult?></p>
+            </div>
+
             <div class="row">
                 <div class="col-xs-12">
                 <form action="" method="post">
