@@ -21,11 +21,7 @@
                 <h3>Guesses Made: <?=$guessCount?></h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                <?=$message?>
-                </div>
-            </div>
+            <?=$message?>
             <div class="row">
                 <div class="col-xs-12">
 
