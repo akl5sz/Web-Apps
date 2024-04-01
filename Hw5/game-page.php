@@ -26,9 +26,6 @@
                 <div class="col-xs-12">
 
                 <div class="card">
-                    <!-- <div class="card-header">
-                        Question
-                    </div> -->
                     <div class="card-body">
                     <table>
                         <tbody>
