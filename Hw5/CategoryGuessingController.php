@@ -94,6 +94,10 @@ class CategoryGuessingController {
 
 
     public function showWelcome() {
+        $message = "";
+        if (!empty($this->errorMessage)) {
+            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
+        }
         include("welcome-page.php");
     }
 
@@ -235,9 +239,9 @@ class CategoryGuessingController {
            $_SESSION["random_values"] = $this->randomValues;
            header("Location: ?command=game");
            return;
-       }
-
-
+       } else {
+            $this->errorMessage = "Name and email are required.";
+        }
         // $this->errorMessage = "Error logging in - Name and email are required";
         $this->showWelcome();
     }
