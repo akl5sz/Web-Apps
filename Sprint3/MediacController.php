@@ -23,9 +23,14 @@ class MediacController {
 
 
    public function run() {
-        $command = "welcome";
+        $command = "login";
         if (isset($this->input["command"]))
             $command = $this->input["command"];
+
+        //supposedly for when a user get here without going through the welcome page, so we
+        // should send them back to the welcome page only.
+        if (!isset($_SESSION["username"]) && $command != "login")
+            $command = "login";
 
         switch($command) {
             case "playlists":
@@ -57,27 +62,39 @@ class MediacController {
         }
    }
 
+   
     public function showDiscover(){
         include("discover.php");
     }
 
+
     public function showFriends(){
         include("friends.php");
     }
+
+
     public function showPlaylists(){
         include("playlists.php");
     }
+
+
     public function showSignUp($message = "") {
         include("signup.php");
     }
 
+
     public function showLogin() {
+        $message = "";
+        if(!empty($this->errorMessage))
+            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
         include("login.php");
     }
+
 
     public function showFeed(){
         include("feed.php");
     }
+
 
     public function signUpAction(){
          //     if (isset($_POST["name"]) && isset($_POST["email"]) &&
@@ -93,17 +110,19 @@ class MediacController {
         include("feed.php");
     }
 
+
     public function loginAction() {
-    //     if (isset($_POST["name"]) && isset($_POST["email"]) &&
-    //        !empty($_POST["name"]) && !empty($_POST["email"])) {
-    //        $_SESSION["name"] = $_POST["name"];
-    //        $_SESSION["email"] = $_POST["email"];
-    //        header("Location: ?command=feed");
-    //        return;
-    //    } else {
-    //         $this->errorMessage = "Email is required.";
-    //     }
-        $this->showFeed();
+        //validate: make sure the user has submitted the form by checking that all its fields are not null, use isset()
+        //also, instantiate all user data like score keeper or something of the sort
+        if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["password"])) {
+           $_SESSION["username"] = $_POST["username"];
+           $_SESSION["password"] = $_POST["password"];
+           header("Location: ?command=feed");
+           return;
+        } else {
+            $this->errorMessage = "Name and password are required.";
+            $this->showFeed();
+        }
     }
 
 
