@@ -24,24 +24,24 @@
             <!-- Sign Up Form -->
             <form action="?command=signup-action" method="post" class="registration-form mx-auto">
                 <div class="input-line">
-                    <input type="text" placeholder="Username">
+                    <input type="text" placeholder="Username" name="username">
                 </div>
                 <div class="input-line">
-                    <input type="password" placeholder="Password">
+                    <input type="password" placeholder="Password" name="password">
                 </div>
                 <div class="input-line">
-                    <input type="email" placeholder="Email">
+                    <input type="email" placeholder="Email" name="email">
                 </div>
                 <div class="input-line">
-                    <input type="text" placeholder="Favorite Movie">
+                    <input type="text" placeholder="Favorite Movie" name="movie">
                 </div>
                 <div class="input-line">
-                    <input type="text" placeholder="Favorite TV Show">
+                    <input type="text" placeholder="Favorite TV Show" name="tv-show">
                 </div>
                 <div class="input-line">
-                    <input type="text" placeholder="Favorite Music Artist">
+                    <input type="text" placeholder="Favorite Music Artist" name="music-artist">
                 </div>
-                <button class="login-btn">Sign Up</button>
+                <button type="submit" class="login-btn">Sign Up</button>
 
                 <div class="login-container mx-auto">
                     <p style="color: #d9d9d9; margin-top: 15px;">or</p>
