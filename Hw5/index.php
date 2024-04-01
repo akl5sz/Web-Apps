@@ -1,4 +1,9 @@
 <?php
+// Sources used: https://cs4640.cs.virginia.edu,
+//https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html
+//https://stackoverflow.com/questions/369602/deleting-an-element-from-an-array-in-php
+//https://stackoverflow.com/questions/37404583/php-guessing-number
+//https://www.w3schools.com/tags/tag_pre.asp
 // DEBUGGING ONLY! Show all errors.
 error_reporting(E_ALL);
 ini_set("display_errors", 1);

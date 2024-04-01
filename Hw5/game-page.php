@@ -16,6 +16,8 @@
                 <div class="col-xs-12">
                 <h1>Connections Game</h1>
                 <h2>Welcome <?=$name?>! (<?=$email?>)</h2>
+                <h4>Instructions:</h4>
+                <p>Please input four numbers 0-15 space seperated that correspond with the four words you want to guess fit into one category (ex: 3 4 11 0). Please do not input any numbers that are not on the board.</p>
                 <h3>Guesses Made: <?=$guessCount?></h3>
                 </div>
             </div>
