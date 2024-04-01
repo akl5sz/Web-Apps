@@ -7,9 +7,10 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"  crossorigin="anonymous">      
 </head>
 <body>
-   <h1>GAME OVER YAY</h1>
+   <h1>GAME OVER</h1>
+   <?=$message?>
    <?php if($win === true){
-       echo "<h2> You won in " . $guessCount-1 . " guesses.</h2>";
+       echo "<h2> And it took " . $guessCount-1 . " guesses.</h2>";
    }
    ?>
    <a href="?command=play-again" class="btn btn-primary">Play Again?</a>

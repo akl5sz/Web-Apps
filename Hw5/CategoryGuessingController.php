@@ -83,6 +83,10 @@ class CategoryGuessingController {
 
 
     public function gameOver() {
+        if($_SESSION["win"] === true){
+            $this->errorMessage = "Congratulations! You won!";
+            $message = "<div class='alert alert-success'>{$this->errorMessage}</div>";
+        }
         $win = $_SESSION["win"];
         $guessCount = $_SESSION["guess_count"];
         include("game-over.php");
