@@ -1,5 +1,8 @@
 <?php
-// Sources used: https://cs4640.cs.virginia.edu,
+// LINK: https://cs4640.cs.virginia.edu/akl5sz/hw5/?command=logout
+
+// Sources used: 
+//https://cs4640.cs.virginia.edu,
 //https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html
 //https://stackoverflow.com/questions/369602/deleting-an-element-from-an-array-in-php
 //https://stackoverflow.com/questions/37404583/php-guessing-number
