@@ -1,5 +1,5 @@
 <?php
-class CategoryGuessingController {
+class MediacController {
    private $obj = array();
    private $randomValues = array();
    private $errorMessage = "";
