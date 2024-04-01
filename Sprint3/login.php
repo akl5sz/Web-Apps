@@ -1,7 +1,7 @@
 <!--
   Sources used: https://cs4640.cs.virginia.edu, https://lesscss.org/features/#features-overview-feature, https://getbootstrap.com/docs/5.3/getting-started/introduction/, https://fonts.google.com/selection#how-to-use
   -->
-<!DOCTYPE html>
+  <!DOCTYPE html>
     <html lang="en" data-bs-theme="light">
         <head>
         <meta charset="UTF-8">  

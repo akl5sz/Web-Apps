@@ -93,12 +93,8 @@ class MediacController {
     }
 
 
-    public function showWelcome() {
-        $message = "";
-        if (!empty($this->errorMessage)) {
-            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
-        }
-        include("welcome-page.php");
+    public function showLogin() {
+        include("login.php");
     }
 
 
