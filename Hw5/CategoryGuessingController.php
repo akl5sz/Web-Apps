@@ -19,7 +19,7 @@ class CategoryGuessingController {
 
    public function loadCatAndVals() {
        $this->obj = json_decode(
-           file_get_contents('/var/www/html/homework/connections.json'), true);
+           file_get_contents('connections.json'), true);
 
 
        if (empty($this->obj)) {

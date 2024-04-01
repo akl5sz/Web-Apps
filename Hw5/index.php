@@ -1,6 +1,4 @@
 <?php
-// LINK: https://cs4640.cs.virginia.edu/akl5sz/hw5/?command=logout
-
 // Sources used: 
 //https://cs4640.cs.virginia.edu,
 //https://stackoverflow.com/questions/10258345/php-simple-foreach-loop-with-html
