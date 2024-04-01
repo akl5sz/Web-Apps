@@ -39,7 +39,7 @@
                             <?php $arrCount = count((array)$randomValues);
                             $count = 0;
                             foreach($randomValues as $key => $value){
-                                echo $key ."\t". $value;
+                                echo $key .": ". $value . "\t\t";
                                 $count++;
                                 if($count === 4){
                                     echo "<br/>";
@@ -65,7 +65,6 @@
             <div class="row">
                 <div class="col-xs-12">
                 <form action="" method="post">
-                    <input type="hidden" name="questionid" value="<?=$randomValues[1]?>">
                     <div class="mb-3">
                         <label for="guess" class="form-label">Guess: </label>
                         <input type="text" class="form-control" id="guess" name="guess">

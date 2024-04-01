@@ -4,6 +4,10 @@
 //https://stackoverflow.com/questions/369602/deleting-an-element-from-an-array-in-php
 //https://stackoverflow.com/questions/37404583/php-guessing-number
 //https://www.w3schools.com/tags/tag_pre.asp
+//
+//link to published site for Jacqueline Lainhart (nyt8te): https://cs4640.cs.virginia.edu/nyt8te/hw5/
+//link to published site for Angie Loayza (akl5sz): https://cs4640.cs.virginia.edu/akl5sz/hw5/
+//
 // DEBUGGING ONLY! Show all errors.
 error_reporting(E_ALL);
 ini_set("display_errors", 1);

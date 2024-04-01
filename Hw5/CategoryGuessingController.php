@@ -9,7 +9,7 @@ class CategoryGuessingController {
    private $testingArr = array();
    private $guessCount;
 
-   
+
    public function __construct($input) {
        session_start();
        $this->input = $input;
@@ -72,78 +72,79 @@ class CategoryGuessingController {
             $priorGuesses = "";
         }
 
-       if(isset($_SESSION["random_values"])) {
-           if(empty($_SESSION["random_values"])){
-               $randomValues = $this->getRandomValues();
-           }
-           $randomValues = $_SESSION["random_values"];
-       }
-       else {
-           $randomValues = $this->getRandomValues();
-           $_SESSION["random_values"] = $randomValues;
-       }
-       include("game-page.php");
-   }
+        if(isset($_SESSION["random_values"])) {
+            if(empty($_SESSION["random_values"])){
+                $randomValues = $this->getRandomValues();
+            }
+            $randomValues = $_SESSION["random_values"];
+        }
+        else {
+            $randomValues = $this->getRandomValues();
+            $_SESSION["random_values"] = $randomValues;
+        }
+        include("game-page.php");
+    }
 
 
-   public function gameOver() {
-       $win = $_SESSION["win"];
-       $guessCount = $_SESSION["guess_count"];
-       include("game-over.php");
-   }
+    public function gameOver() {
+        $win = $_SESSION["win"];
+        $guessCount = $_SESSION["guess_count"];
+        include("game-over.php");
+    }
 
 
-   public function showWelcome() {
-       include("welcome-page.php");
-   }
+    public function showWelcome() {
+        include("welcome-page.php");
+    }
 
 
-   public function getRandomCats(){
-       $randomCats = array();
-       for ($i = 1; $i <= 4; $i++) {
-           $key = array_rand($this->obj);
-           $list = $this->obj[$key];
-           shuffle($list);
-           if (!array_key_exists($key, $randomCats)) {
-               for ($j = 0; $j < 4; $j++) {
-                   $randomCats[$key][] = $list[$j];
-               }
-           } else {
-               $i--;
-           }
-       }
-       return $randomCats;
-   }
+    public function getRandomCats(){
+        $randomCats = array();
+        for ($i = 1; $i <= 4; $i++) {
+            $key = array_rand($this->obj);
+            $list = $this->obj[$key];
+            shuffle($list);
+            if (!array_key_exists($key, $randomCats)) {
+                for ($j = 0; $j < 4; $j++) {
+                    $randomCats[$key][] = $list[$j];
+                }
+            } else {
+                $i--;
+            }
+        }
+        return $randomCats;
+    }
 
 
-   public function getRandomValues(){
-       $randomCats = $this->getRandomCats();
-       foreach ($randomCats as $catsArray) {
-           if(is_array($catsArray)) {
-               $this->randomValues = array_merge($this->randomValues, $catsArray);
-           } else {
-               $this->randomValues = array_merge($this->randomValues, explode("",$catsArray));
-           }
-       }
-       shuffle($this->randomValues);
-       return $this->randomValues;
-   }
+    public function getRandomValues(){
+        $randomCats = $this->getRandomCats();
+        foreach ($randomCats as $catsArray) {
+            if(is_array($catsArray)) {
+                $this->randomValues = array_merge($this->randomValues, $catsArray);
+            } else {
+                $this->randomValues = array_merge($this->randomValues, explode("",$catsArray));
+            }
+        }
+        shuffle($this->randomValues);
+        return $this->randomValues;
+    }
 
 
     public function guessCategory() {
         if(!isset($_POST["guess"]) || !empty($_POST["guess"])){
-            $message = "";
             $guessWordArr = array();
             $guessArr = array();
             $this->randomValues = $_SESSION["random_values"];
             if (isset($_POST["guess"])) {
-                $_SESSION["prior_guesses"][] = $_POST["guess"];
-                $guessArr = explode(" ", $_POST["guess"]);
-                foreach($guessArr as $guessValue) {
-                    $guessWordArr[] = $this->randomValues[intval($guessValue)];
+                if(count(explode(" ", $_POST["guess"])) === 4) {
+                    $_SESSION["prior_guesses"][] = $_POST["guess"];
+                    $guessArr = explode(" ", $_POST["guess"]);
+                    foreach($guessArr as $guessValue) {
+                        $guessWordArr[] = $this->randomValues[intval($guessValue)];
+                    }
                 }
             }
-
+            
             $this->priorGuesses .= implode(" ", $guessArr) . "\n";
             
             $_SESSION["guess_count"]++;
