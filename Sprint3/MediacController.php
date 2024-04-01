@@ -29,8 +29,8 @@ class MediacController {
 
         //supposedly for when a user get here without going through the welcome page, so we
         // should send them back to the welcome page only.
-        // if (!isset($_SESSION["username"]) && $command != "login")
-        //     $command = "login";
+        if (!isset($_SESSION["username"]) && $command != "login-action")
+            $command = "login";
 
         switch($command) {
             case "playlists":
