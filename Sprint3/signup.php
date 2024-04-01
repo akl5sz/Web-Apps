@@ -22,7 +22,7 @@
             </header>
 
             <!-- Sign Up Form -->
-            <form class="registration-form mx-auto">
+            <form action="?command=signup-action" method="post" class="registration-form mx-auto">
                 <div class="input-line">
                     <input type="text" placeholder="Username">
                 </div>
@@ -41,10 +41,13 @@
                 <div class="input-line">
                     <input type="text" placeholder="Favorite Music Artist">
                 </div>
-                <button class="login-btn" onclick="location.href='feed.html'">Sign Up</button>
+                <button class="login-btn">Sign Up</button>
+
                 <div class="login-container mx-auto">
                     <p style="color: #d9d9d9; margin-top: 15px;">or</p>
-                    <a href="index.html" class="signup-link">Log In</a>
+
+                    <a href="?command=login" class="signup-link">Log In</a> 
+                    <!-- double check this -->
                 </div>    
             </form>
         </div>

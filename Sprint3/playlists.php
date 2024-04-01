@@ -21,10 +21,10 @@
           <div class="col-md-3 mb-2 mb-md-0"></div>
     
           <ul class="nav nav-pills mr-auto">
-            <li class="nav-item"><a href="feed.html" class="nav-link" aria-current="page">Feed</a></li>
-            <li class="nav-item"><a href="playlists.html" class="nav-link active">Playlists</a></li>
-            <li class="nav-item"><a href="discover.html" class="nav-link">Discover</a></li>
-            <li class="nav-item"><a href="friends.html" class="nav-link">Friends</a></li>
+            <li class="nav-item"><a href="?command=feed" class="nav-link" aria-current="page">Feed</a></li>
+            <li class="nav-item"><a href="?command=playlists" class="nav-link active">Playlists</a></li>
+            <li class="nav-item"><a href="?command=discover" class="nav-link">Discover</a></li>
+            <li class="nav-item"><a href="?command=friends" class="nav-link">Friends</a></li>
           </ul>
           
           <div class="col-md-3">
@@ -151,10 +151,10 @@
       <!-- Footer -->
       <footer class="mt-auto">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="feed.html" class="nav-link px-2 text-body-secondary">Feed</a></li>
-          <li class="nav-item"><a href="playlists.html" class="nav-link px-2 text-body-secondary">Playlists</a></li>
-          <li class="nav-item"><a href="discover.html" class="nav-link px-2 text-body-secondary">Discover</a></li>
-          <li class="nav-item"><a href="friends.html" class="nav-link px-2 text-body-secondary">Friends</a></li>
+          <li class="nav-item"><a href="?command=feed" class="nav-link px-2 text-body-secondary">Feed</a></li>
+          <li class="nav-item"><a href="?command=playlists" class="nav-link px-2 text-body-secondary">Playlists</a></li>
+          <li class="nav-item"><a href="?command=discover" class="nav-link px-2 text-body-secondary">Discover</a></li>
+          <li class="nav-item"><a href="?command=friends" class="nav-link px-2 text-body-secondary">Friends</a></li>
         </ul>
         <p class="text-center text-body-secondary">© 2024 Mediac, Inc</p>
       </footer>
