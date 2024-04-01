@@ -29,8 +29,8 @@ class MediacController {
 
         //supposedly for when a user get here without going through the welcome page, so we
         // should send them back to the welcome page only.
-        if (!isset($_SESSION["username"]) && $command != "login")
-            $command = "login";
+        // if (!isset($_SESSION["username"]) && $command != "login")
+        //     $command = "login";
 
         switch($command) {
             case "playlists":
@@ -62,7 +62,7 @@ class MediacController {
         }
    }
 
-   
+
     public function showDiscover(){
         include("discover.php");
     }
@@ -85,8 +85,9 @@ class MediacController {
 
     public function showLogin() {
         $message = "";
-        if(!empty($this->errorMessage))
+        if(!empty($this->errorMessage)){
             $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
+        }
         include("login.php");
     }
 
@@ -114,14 +115,15 @@ class MediacController {
     public function loginAction() {
         //validate: make sure the user has submitted the form by checking that all its fields are not null, use isset()
         //also, instantiate all user data like score keeper or something of the sort
-        if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["password"])) {
+        if (isset($_POST["username"]) && isset($_POST["password"]) 
+        && !empty($_POST["username"]) && !empty($_POST["password"])) {
            $_SESSION["username"] = $_POST["username"];
            $_SESSION["password"] = $_POST["password"];
            header("Location: ?command=feed");
            return;
         } else {
             $this->errorMessage = "Name and password are required.";
-            $this->showFeed();
+            $this->showLogin();
         }
     }
 

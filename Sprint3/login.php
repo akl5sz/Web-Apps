@@ -26,9 +26,9 @@
                     <h1 class="website-title">Mediac</h1>
                 </header>
 
+                <?=$message?>
                 <!-- Login Form -->
                 <form action="?command=login-action" method="post">
-                    <?=$message?>
                     <div class="login-container mx-auto">
                         <div class="input-line">
                             <input type="text" placeholder="Username" name="username">
