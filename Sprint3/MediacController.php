@@ -29,8 +29,8 @@ class MediacController {
 
         //supposedly for when a user get here without going through the welcome page, so we
         // should send them back to the welcome page only.
-        if (!isset($_SESSION["username"]) && $command != "login-action")
-            $command = "login";
+        // if (!isset($_SESSION["username"]) && ($command != "login-action" || $command != "signup-action"))
+            // $command = "login";
 
         switch($command) {
             case "playlists":
@@ -79,6 +79,10 @@ class MediacController {
 
 
     public function showSignUp($message = "") {
+        $message = "";
+        if(!empty($this->errorMessage)){
+            $message = "<div class='alert alert-danger'>{$this->errorMessage}</div>";
+        }
         include("signup.php");
     }
 
@@ -98,17 +102,24 @@ class MediacController {
 
 
     public function signUpAction(){
-         //     if (isset($_POST["name"]) && isset($_POST["email"]) &&
-    //        !empty($_POST["name"]) && !empty($_POST["email"])) {
-    //        $_SESSION["name"] = $_POST["name"];
-    //        $_SESSION["email"] = $_POST["email"];
-    //        header("Location: ?command=feed");
-    //        return;
-    //    } else {
-    //         $this->errorMessage = "Email is required.";
-    //     }
-
-        include("feed.php");
+             if (isset($_POST["username"]) && !empty($_POST["username"]) &&
+             isset($_POST["password"]) && !empty($_POST["password"])&&
+             isset($_POST["email"]) && !empty($_POST["email"])&&
+             isset($_POST["movie"]) && !empty($_POST["movie"])&&
+             isset($_POST["tv-show"]) && !empty($_POST["tv-show"])&&
+             isset($_POST["music-artist"]) && !empty($_POST["music-artist"])) {
+           $_SESSION["username"] = $_POST["username"];
+           $_SESSION["password"] = $_POST["password"];
+           $_SESSION["email"] = $_POST["email"];
+           $_SESSION["movie"] = $_POST["movie"];
+           $_SESSION["tv-show"] = $_POST["tv-show"];
+           $_SESSION["music-artist"] = $_POST["music-artist"];
+           header("Location: ?command=feed");
+           return;
+       } else {
+            $this->errorMessage = "All the fields below are required.";
+            $this->showSignUp();
+        }
     }
 
 

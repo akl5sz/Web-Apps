@@ -21,6 +21,7 @@
                 <h1 style="color: #d9d9d9; font-size: 56px;">Sign Up</h1>
             </header>
 
+            <?=$message?>
             <!-- Sign Up Form -->
             <form action="?command=signup-action" method="post" class="registration-form mx-auto">
                 <div class="input-line">
