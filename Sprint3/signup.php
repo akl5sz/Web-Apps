@@ -25,15 +25,18 @@
             <!-- Sign Up Form -->
             <form action="?command=signup-action" method="post" class="registration-form mx-auto">
                 <div class="input-line">
-                    <input type="text" placeholder="Username" name="username">
+                    <input type="name" placeholder="Name" name="name">
                 </div>
                 <div class="input-line">
-                    <input type="password" placeholder="Password" name="password">
+                    <input type="text" placeholder="Username" name="username">
                 </div>
                 <div class="input-line">
                     <input type="email" placeholder="Email" name="email">
                 </div>
                 <div class="input-line">
+                    <input type="password" placeholder="Password" name="password">
+                </div>
+                <!-- <div class="input-line">
                     <input type="text" placeholder="Favorite Movie" name="movie">
                 </div>
                 <div class="input-line">
@@ -41,7 +44,7 @@
                 </div>
                 <div class="input-line">
                     <input type="text" placeholder="Favorite Music Artist" name="music-artist">
-                </div>
+                </div> -->
                 <button type="submit" class="login-btn">Sign Up</button>
 
                 <div class="login-container mx-auto">

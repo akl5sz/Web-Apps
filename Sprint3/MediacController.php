@@ -97,28 +97,19 @@ class MediacController {
              if (isset($_POST["username"]) && !empty($_POST["username"]) &&
              isset($_POST["password"]) && !empty($_POST["password"])&&
              isset($_POST["email"]) && !empty($_POST["email"])&&
-             isset($_POST["movie"]) && !empty($_POST["movie"])&&
-             isset($_POST["tv-show"]) && !empty($_POST["tv-show"])&&
-             isset($_POST["music-artist"]) && !empty($_POST["music-artist"])) {
-                // $password = $_POST['password']; // Assuming password is submitted via a form POST request
-                // if (strlen($password) < 6) {
-                //     die("Password must be at least 6 characters long.");
-                // }
-
-                // // Hash the password
-                // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-                // //insert into database $hashedPassword with the session username;
-
-
-            $_SESSION["username"] = $_POST["username"];
-            // $_SESSION["password"] = $_POST["password"];
-            // $_SESSION["email"] = $_POST["email"];
-            // $_SESSION["movie"] = $_POST["movie"];
-            // $_SESSION["tv-show"] = $_POST["tv-show"];
-            // $_SESSION["music-artist"] = $_POST["music-artist"];
-            header("Location: ?command=feed");
-            return;
+             isset($_POST["name"]) && !empty($_POST["name"])) {
+                $res = $this->db->query("select * from users where username = $1;", $_POST["username"]);
+                if (empty($res)) {
+                    $this->db->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
+                        $_POST["username"], $_POST["name"], $_POST["email"],
+                        password_hash($_POST["password"], PASSWORD_DEFAULT));
+                    $_SESSION["username"] = $_POST["username"];
+                    header("Location: ?command=feed");
+                    return;
+                } else {
+                    $this->errorMessage = "Username already exists.";
+                    $this->showSignUp();
+                }
        } else {
             $this->errorMessage = "All the fields below are required.";
             $this->showSignUp();

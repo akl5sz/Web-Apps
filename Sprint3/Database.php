@@ -29,21 +29,21 @@ class Database {
             echo "An error occurred connecting to the database";
         }
     
-        $res  = pg_query($this->dbHandle, "drop table if exists users;");
+        // $res  = pg_query($this->dbHandle, "drop table if exists users;");
 
-        $res  = pg_query($this->dbHandle, "create table users (
-                username text primary key,
-                name text,
-                email text,
-                password text);");
+        // $res  = pg_query($this->dbHandle, "create table users (
+        //         username text primary key,
+        //         name text,
+        //         email text,
+        //         password text);");
 
-        $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
-                'akl5sz','Angie', 'akl5sz@virginia.edu',
-                password_hash('j03m4m4', PASSWORD_DEFAULT));
+        // $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
+        //         'akl5sz','Angie', 'akl5sz@virginia.edu',
+        //         password_hash('j03m4m4', PASSWORD_DEFAULT));
 
-                $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
-                'nyt8te','Jackie', 'nyt8te@virginia.edu',
-                password_hash('urmuth4', PASSWORD_DEFAULT));
+        // $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
+        //         'nyt8te','Jackie', 'nyt8te@virginia.edu',
+        //         password_hash('urmuth4', PASSWORD_DEFAULT));
     }
     
 
