@@ -104,6 +104,8 @@ class MediacController {
                         $_POST["username"], $_POST["name"], $_POST["email"],
                         password_hash($_POST["password"], PASSWORD_DEFAULT));
                     $_SESSION["username"] = $_POST["username"];
+                    // $this->errorMessage = "YAY.";
+                    // $this->showSignUp();
                     header("Location: ?command=feed");
                     return;
                 } else {

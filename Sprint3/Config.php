@@ -18,5 +18,11 @@ class Config {
         "user" => "localuser",
         "pass" => "cs4640LocalUser!",
         "database" => "mediac"
+
+        // "host" => "localhost",
+        // "port" => 5432,
+        // "user" => "nyt8te",
+        // "pass" => "F_HGUMFtC8Yf",
+        // "database" => "nyt8te"
     ];
 }
