@@ -99,7 +99,9 @@ class MediacController {
              isset($_POST["email"]) && !empty($_POST["email"])&&
              isset($_POST["name"]) && !empty($_POST["name"])) {
                 $res = $this->db->query("select * from users where username = $1;", $_POST["username"]);
+                $password_rule = "/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/";
                 if (empty($res)) {
+                    if(preg_match($password_rule, $_POST["password"])){
                     $this->db->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
                         $_POST["username"], $_POST["name"], $_POST["email"],
                         password_hash($_POST["password"], PASSWORD_DEFAULT));
@@ -108,6 +110,10 @@ class MediacController {
                     // $this->showSignUp();
                     header("Location: ?command=feed");
                     return;
+                    }else {
+                        $this->errorMessage = "Passwords must be at least 8 characters long and contain at least one letter, one number, and one special character.";
+                        $this->showSignUp();
+                    }
                 } else {
                     $this->errorMessage = "Username already exists.";
                     $this->showSignUp();
