@@ -46,16 +46,32 @@ class Database {
                 password_hash('urmuth4', PASSWORD_DEFAULT));
         
         $res  = pg_query($this->dbHandle, "create table if not exists movies (
-                title text primary key,
+                title text,
                 year int,
-                genre text,
+                rating text,
                 director text,
                 hours int,
                 minutes int,
-                description text);");
+                description text,
+                primary key (title, year));");
         
-        $res = $this->query("insert into movies (title, year, genre, director, hours, minutes, description) values ($1, $2, $3, $4, $5, $6, $7)",
-                'The Muppet Movie', 1979, 'Adventure', 'James Frawley', 1, 37, 'After Kermit the Frog decides to pursue a movie career, he starts his cross-country trip from Florida to California. Along the way, he meets and befriends Fozzie Bear, Miss Piggy, Gonzo and rock musicians Dr. Teeth and the Electric Mayhem. When Kermit is offered a job by Doc Hopper (Charles Durning) to advertise the fried frog legs at his restaurant chain, Kermit turns Hopper down. However, Hopper refuses to relent and pursues Kermit and his companions to a final showdown.');            
+        $res = $this->query("insert into movies (title, year, rating, director, hours, minutes, description) values ($1, $2, $3, $4, $5, $6, $7)",
+                'The Muppet Movie', 1979, 'G', 'James Frawley', 1, 37, 'After Kermit the Frog decides to pursue a movie career, he starts his cross-country trip from Florida to California. Along the way, he meets and befriends Fozzie Bear, Miss Piggy, Gonzo and rock musicians Dr. Teeth and the Electric Mayhem. When Kermit is offered a job by Doc Hopper (Charles Durning) to advertise the fried frog legs at his restaurant chain, Kermit turns Hopper down. However, Hopper refuses to relent and pursues Kermit and his companions to a final showdown.');         
+                
+        $res  = pg_query($this->dbHandle, "create table if not exists genres (
+                genre text,
+                title text,
+                year int,
+                foreign key (title, year) references movies (title, year))
+                primary key (title, year));");
+
+        $res = $this->query("insert into genres (movie_title, movie_year, genre) values ($1, $2, $3);",
+                'The Muppet Movie', 1979, 'Musical');
+
+        $res = $this->query("insert into genres (movie_title, movie_year, genre) values ($1, $2, $3);",
+                'The Muppet Movie', 1979, 'Adventure');      
+
+
     }
     
 
