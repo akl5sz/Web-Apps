@@ -34,7 +34,7 @@
                             <input type="text" placeholder="Username" name="username">
                         </div>
                         <div class="input-line">
-                            <input type="text" placeholder="Password" name="password">
+                            <input type="password" placeholder="Password" name="password">
                         </div>
                         <button type="submit" class="login-btn">Log In</button>
                         
