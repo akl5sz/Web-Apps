@@ -140,7 +140,7 @@ class MediacController {
                     header("Location: ?command=feed");
                     return;
             } else {
-                $this->errorMessage = "Username and/or password incorrect.";
+                $this->errorMessage = "Incorrect username and/or password.";
                 $this->showLogin();
             }
         } else {
