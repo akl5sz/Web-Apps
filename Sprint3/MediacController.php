@@ -5,22 +5,14 @@ class MediacController {
    private $errorMessage = "";
    private $input;
 
+   private $db;
+
    public function __construct($input) {
+        $this->db = new Database();
        session_start();
        $this->input = $input;
-    //    $this->loadCatAndVals();
    }
-
-
-   public function loadCatAndVals() {
-    //    $this->obj = json_decode(
-    //        file_get_contents('/var/www/html/homework/connections.json'), true);
-
-    //    if (empty($this->obj)) {
-    //        die("Something went wrong loading categories and values.");
-    //    }
-   }
-
+   
 
    public function run() {
         $command = "login";
