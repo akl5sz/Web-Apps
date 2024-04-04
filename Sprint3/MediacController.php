@@ -12,7 +12,7 @@ class MediacController {
        session_start();
        $this->input = $input;
    }
-   
+
 
    public function run() {
         $command = "login";
@@ -100,14 +100,25 @@ class MediacController {
              isset($_POST["movie"]) && !empty($_POST["movie"])&&
              isset($_POST["tv-show"]) && !empty($_POST["tv-show"])&&
              isset($_POST["music-artist"]) && !empty($_POST["music-artist"])) {
-           $_SESSION["username"] = $_POST["username"];
-           $_SESSION["password"] = $_POST["password"];
-           $_SESSION["email"] = $_POST["email"];
-           $_SESSION["movie"] = $_POST["movie"];
-           $_SESSION["tv-show"] = $_POST["tv-show"];
-           $_SESSION["music-artist"] = $_POST["music-artist"];
-           header("Location: ?command=feed");
-           return;
+                // $password = $_POST['password']; // Assuming password is submitted via a form POST request
+                // if (strlen($password) < 6) {
+                //     die("Password must be at least 6 characters long.");
+                // }
+
+                // // Hash the password
+                // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+                // //insert into database $hashedPassword with the session username;
+
+
+            $_SESSION["username"] = $_POST["username"];
+            // $_SESSION["password"] = $_POST["password"];
+            // $_SESSION["email"] = $_POST["email"];
+            // $_SESSION["movie"] = $_POST["movie"];
+            // $_SESSION["tv-show"] = $_POST["tv-show"];
+            // $_SESSION["music-artist"] = $_POST["music-artist"];
+            header("Location: ?command=feed");
+            return;
        } else {
             $this->errorMessage = "All the fields below are required.";
             $this->showSignUp();
@@ -120,14 +131,23 @@ class MediacController {
         //also, instantiate all user data like score keeper or something of the sort
         if (isset($_POST["username"]) && isset($_POST["password"]) 
         && !empty($_POST["username"]) && !empty($_POST["password"])) {
-           $_SESSION["username"] = $_POST["username"];
-           $_SESSION["password"] = $_POST["password"];
-           header("Location: ?command=feed");
-           return;
+            
+            $res = $this->db->query("select * from users where username = $1;", $_POST["username"]);
+            if (!empty($res)) {
+                if (password_verify($_POST["password"], $res[0]["password"])) {
+                    $_SESSION["username"] = $res[0]["username"];
+                    $_SESSION["email"] = $res[0]["email"];
+                    header("Location: ?command=feed");
+                    return;
+            } else {
+                $this->errorMessage = "Username and/or password incorrect.";
+                $this->showLogin();
+            }
         } else {
             $this->errorMessage = "Name and password are required.";
             $this->showLogin();
-        }
+            }
+        }  
     }
 
 

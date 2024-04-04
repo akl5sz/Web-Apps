@@ -29,36 +29,21 @@ class Database {
             echo "An error occurred connecting to the database";
         }
     
-        // Drop tables and sequences (that are created later)
-        // $res  = pg_query($this->dbHandle, "drop sequence if exists question_seq;");
-        // $res  = pg_query($this->dbHandle, "drop sequence if exists user_seq;");
-        // $res  = pg_query($this->dbHandle, "drop sequence if exists userquestion_seq;");
-        // $res  = pg_query($this->dbHandle, "drop table if exists questions;");
         $res  = pg_query($this->dbHandle, "drop table if exists users;");
-    
-        // Create tables
-        // $res  = pg_query($this->dbHandle, "create table Users (
-        //         id  int primary key default nextval('question_seq'),
-        //         question    text,
-        //         answer      text
-        // );");
 
         $res  = pg_query($this->dbHandle, "create table users (
-                username int primary key,
+                username text primary key,
                 name text,
                 email text,
                 password text);");
-    
-        // Read json and insert the trivia questions into the database, assuming
-        // the trivia-s24.json file is in the same directory as this script.
-        // $questions = json_decode(
-        //     file_get_contents("trivia-s24.json"), true);
-    
-        // $res = pg_prepare($this->dbHandle, "myinsert", "insert into questions (question, answer) values 
-        // ($1, $2);");
-        // foreach ($questions as $q) {
-        //         $res = pg_execute($this->dbHandle, "myinsert", [$q["question"], $q["answer"]]);
-        // }
+
+        $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
+                'akl5sz','Angie', 'akl5sz@virginia.edu',
+                password_hash('j03m4m4', PASSWORD_DEFAULT));
+
+                $res = $this->query("insert into users (username, name, email, password) values ($1, $2, $3, $4);",
+                'nyt8te','Jackie', 'nyt8te@virginia.edu',
+                password_hash('urmuth4', PASSWORD_DEFAULT));
     }
     
 
