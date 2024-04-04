@@ -56,23 +56,34 @@ class Database {
                     primary key (title, year));");
             
             $res = $this->query("insert into movies (title, year, rating, director, hours, minutes, description) 
-                                 values ($1, $2, $3, $4, $5, $6, $7)
-                                 on conflict do nothing;",
+                                 values ($1, $2, $3, $4, $5, $6, $7);",
                     'The Muppet Movie', 1979, 'G', 'James Frawley', 1, 37, 
                     'After Kermit the Frog decides to pursue a movie career, he starts his cross-country trip from Florida to California. Along the way, he meets and befriends Fozzie Bear, Miss Piggy, Gonzo and rock musicians Dr. Teeth and the Electric Mayhem. When Kermit is offered a job by Doc Hopper (Charles Durning) to advertise the fried frog legs at his restaurant chain, Kermit turns Hopper down. However, Hopper refuses to relent and pursues Kermit and his companions to a final showdown.');          
+            
+                    
+            $res = $this->query("insert into movies (title, year, rating, director, hours, minutes, description) 
+                            values ($1, $2, $3, $4, $5, $6, $7);",
+                'The Hunger Games', 2012, 'PG-13', 'Gary Ross', 2, 26, 
+                'In what was once North America, the Capitol of Panem maintains its hold on its 12 districts by forcing them each to select a boy and a girl, called Tributes, to compete in a nationally televised event called the Hunger Games. Every citizen must watch as the youths fight to the death until only one remains. District 12 Tribute Katniss Everdeen (Jennifer Lawrence) has little to rely on, other than her hunting skills and sharp instincts, in an arena where she must weigh survival against love.');
                 
-        $res  = pg_query($this->dbHandle, "create table if not exists genres (
-                genre text,
-                title text,
-                year int,
-                primary key (genre, title, year),
-                foreign key (title, year) references movies (title, year));");
+                
+            $res  = pg_query($this->dbHandle, "create table if not exists genres (
+                    genre text,
+                    title text,
+                    year int,
+                    primary key (genre, title, year),
+                    foreign key (title, year) references movies (title, year));");
 
-        $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
-                'The Muppet Movie', 1979, 'Musical');
+            $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
+                    'The Muppet Movie', 1979, 'Musical');
 
-        $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
-                'The Muppet Movie', 1979, 'Adventure');      
+            $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
+                    'The Muppet Movie', 1979, 'Adventure');
+            $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
+                    'The Hunger Games', 2012, 'Action');
+            $res = $this->query("insert into genres (title, year, genre) values ($1, $2, $3);",
+                    'The Hunger Games', 2012, 'Sci-Fi');               
+              
 
 
     }
