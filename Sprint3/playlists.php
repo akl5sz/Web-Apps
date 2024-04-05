@@ -142,11 +142,11 @@
       </div>
 
       <!-- Media Filtering Buttons -->
-      <div class="position-fixed p-5 bottom-0 end-0 mb-3 me-3" style="width: 170px; height: 170px;">
+      <!-- <div class="position-fixed p-5 bottom-0 end-0 mb-3 me-3" style="width: 170px; height: 170px;">
         <button type="button" class="position-absolute top-0 end-0 p-3 m-5 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://static.vecteezy.com/system/resources/thumbnails/009/346/118/small/musical-note-flat-icon-png.png" width="25" height="25" alt="Music"></button>
         <button type="button" class="position-absolute bottom-0 start-0 p-3 m-2 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://uxwing.com/wp-content/themes/uxwing/download/video-photography-multimedia/movie-icon.png" width="25" height="25" alt="Movies"></button>
         <button type="button" class="position-absolute bottom-0 end-0 p-3 m-1 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://static.vecteezy.com/system/resources/thumbnails/009/351/700/small/tv-show-icon-sign-design-free-png.png" width="26" height="26" alt="TV Shows"></button> 
-      </div>
+      </div> -->
       
       <!-- Footer -->
       <footer class="mt-auto">

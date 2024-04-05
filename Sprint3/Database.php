@@ -23,11 +23,11 @@ class Database {
 
         $this->dbHandle = pg_connect("host=$host port=$port dbname=$database user=$user password=$password");
         
-        if ($this->dbHandle) {
-            echo "Success connecting to database";
-        } else {
-            echo "An error occurred connecting to the database";
-        }
+        // if ($this->dbHandle) {
+        //     echo "Success connecting to database";
+        // } else {
+        //     echo "An error occurred connecting to the database";
+        // }
     
         // $res  = pg_query($this->dbHandle, "drop table if exists users;");
 
