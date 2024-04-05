@@ -161,14 +161,17 @@ class MediacController {
                     $_SESSION["email"] = $res[0]["email"];
                     header("Location: ?command=feed");
                     return;
-            } else {
-                $this->errorMessage = "Incorrect username and/or password.";
-                $this->showLogin();
+                } else {
+                    $this->errorMessage = "Incorrect username and/or password.";
+                    $this->showLogin();
+                }
+           } else {
+            $this->errorMessage = "User does not exist";
+            $this->showLogin();
             }
         } else {
             $this->errorMessage = "Name and password are required.";
             $this->showLogin();
-            }
         }  
     }
 
