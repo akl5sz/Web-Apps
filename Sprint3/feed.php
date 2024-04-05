@@ -37,6 +37,25 @@
         <div class="padding"></div>
 
         <br>
+        <div class="container">
+        <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
+          <div class="col-auto">
+            <button onclick="displayText()" class="btn btn-light rounded-pill px-4" type="button">Add Comment</button>
+            <div id="textField" style="display: none;">
+            <form action="" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+          </div>
+          </div>
+          <script>
+            function displayText() {
+              var text = document.getElementById("textField");
+              text.style.display = "block";
+            }
+          </script>
+        </div>
+      </div>  
 
         <!-- Media Cards -->
         <?php
