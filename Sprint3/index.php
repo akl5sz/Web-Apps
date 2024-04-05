@@ -4,8 +4,8 @@
 //https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a,
 //https://cs4640.cs.virginia.edu/homework/homework6.html#other-notes
 //
-////link to published site for Jacqueline Lainhart (nyt8te): https://cs4640.cs.virginia.edu/nyt8te/Sprint3/
-//link to published site for Angie Loayza (akl5sz): https://cs4640.cs.virginia.edu/akl5sz/Sprint3/
+////link to published site for Jacqueline Lainhart (nyt8te): https://cs4640.cs.virginia.edu/nyt8te/Sprint%203/
+//link to published site for Angie Loayza (akl5sz): https://cs4640.cs.virginia.edu/akl5sz/Sprint%203/
 //        
 // DEBUGGING ONLY! Show all errors.
 // error_reporting(E_ALL);
