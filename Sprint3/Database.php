@@ -281,12 +281,12 @@ class Database {
                     'Fifty Shades of Grey', 2015, 'Thriller');
 
         $res  = pg_query($this->dbHandle, "create table if not exists favorite_movies (
-                    username text,
-                    title text,
-                    year int,
-                    primary key (username, title, year),
-                    foreign key (username) references users (username),
-                    foreign key (title, year) references movies (title, year));");
+                username text,
+                title text,
+                year int,
+                primary key (username, title, year),
+                foreign key (username) references users (username),
+                foreign key (title, year) references movies (title, year));");
 
         $res = $this->query("
                 INSERT INTO favorite_movies (username, title, year)
@@ -302,7 +302,32 @@ class Database {
                 WHERE NOT EXISTS (
                         SELECT 1 FROM favorite_movies
                         WHERE username = $1 AND title = $2 AND year = $3);",
-                        'nyt8te', 'The Muppet Movie', 1979);             
+                        'nyt8te', 'The Muppet Movie', 1979);   
+        //username title year primary/foreign, comment 
+        $res = pg_query($this->dbHandle, "create table if not exists movie_comments ( 
+                username text,
+                title text,
+                year int,
+                comment text,
+                primary key (username, title, year, comment),
+                foreign key (username) references users (username),
+                foreign key (title, year) references movies (title, year));");
+
+        $res = $this->query("
+                INSERT INTO movie_comments (username, title, year, comment)
+                SELECT $1, $2, $3, $4
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM movie_comments
+                        WHERE username = $1 AND title = $2 AND year = $3 AND comment = $4);",
+                        'nyt8te', 'The Muppet Movie', 1979, 'I loved kermit in this movie he is so silly!');
+                        
+        $res = $this->query("
+                INSERT INTO movie_comments (username, title, year, comment)
+                SELECT $1, $2, $3, $4
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM movie_comments
+                        WHERE username = $1 AND title = $2 AND year = $3 AND comment = $4);",
+                        'nyt8te', 'The Hunger Games', 2012, 'i think i watched this movie like a billion times');                 
     }
     
 
