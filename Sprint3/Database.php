@@ -51,6 +51,20 @@ class Database {
                 WHERE NOT EXISTS (
                         SELECT 1 FROM users WHERE username = $1);",
                         'nyt8te','Jackie', 'nyt8te@virginia.edu', password_hash('urmuth4', PASSWORD_DEFAULT));
+
+        $res = $this->query("
+                INSERT INTO users (username, name, email, password)
+                SELECT $1, $2, $3, $4
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM users WHERE username = $1);",
+                        'jnx6xp','Hannah', 'jnx6xp@virginia.edu', password_hash('lol', PASSWORD_DEFAULT));
+
+        $res = $this->query("
+                INSERT INTO users (username, name, email, password)
+                SELECT $1, $2, $3, $4
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM users WHERE username = $1);",
+                        'maya','Maya', 'maya@gw.edu', password_hash('maya123', PASSWORD_DEFAULT));
         
             
         $res  = pg_query($this->dbHandle, "create table if not exists movies (
@@ -350,7 +364,31 @@ class Database {
                 WHERE NOT EXISTS (
                         SELECT 1 FROM friends
                         WHERE username = $1 AND friend_username = $2);",
-                        'nyt8te', 'akl5sz');
+                        'nyt8te', 'maya');
+
+        $res = $this->query("
+                INSERT INTO friends (username, friend_username)
+                SELECT $1, $2
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM friends
+                        WHERE username = $1 AND friend_username = $2);",
+                        'maya', 'nyt8te');
+
+        $res = $this->query("
+                INSERT INTO friends (username, friend_username)
+                SELECT $1, $2
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM friends
+                        WHERE username = $1 AND friend_username = $2);",
+                        'nyt8te', 'jnx6xp');
+
+        $res = $this->query("
+                INSERT INTO friends (username, friend_username)
+                SELECT $1, $2
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM friends
+                        WHERE username = $1 AND friend_username = $2);",
+                        'jnx6xp', 'nyt8te');
                 
     }
     

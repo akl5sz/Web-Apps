@@ -49,6 +49,9 @@ class MediacController {
             case "login-action":
                 $this->loginAction();
                 break;
+            case "json":
+                $this->showJSON();
+                break;
             case "logout-action":
                 $this->logoutAction();
             default:
@@ -64,6 +67,7 @@ class MediacController {
 
 
     public function showFriends(){
+        $username = $_POST["username"];
         include("friends.php");
     }
 
@@ -96,8 +100,14 @@ class MediacController {
         include("feed.php");
     }
 
-
-    public function deleteAction($retArray = "") {
+    
+    public function showJSON(){
+        $username = $_SESSION["username"];
+        $friends = $this->getFriends($username);
+        // print_r($friends);
+        include("jsonconverter.php");
+    }
+    public function deleteAction() {
         $res = $this->db->query("delete from movie_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
         header("Location: ?command=feed");
         return;
@@ -160,20 +170,19 @@ class MediacController {
     }
 
     public function getComments($username) {
-
-        // If $id is not set, then get a random question
-        // We wrote this in class.
         if ($username != null) {
-            // Read ONE random question from the database
             $comments = $this->db->query("select * from movie_comments where username = $1;",$username);
-
-            // The query function calls pg_fetch_all, which returns an **array of arrays**.
-            // That means that if we only have one row in our result, it's an array at
-            // position 0 of the array of arrays.
-            // Note: we should check that $qn here is _not_ false first!
             return $comments;
         }
     }
+
+    public function getFriends($username){
+        if ($username != null) {
+            $friends = $this->db->query("select * from friends where username = $1;", $username);
+            return $friends;
+        }
+    }
+
     public function logoutAction() {
         session_destroy();
         session_start();

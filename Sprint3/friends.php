@@ -38,44 +38,19 @@
 
       <div class="padding"></div>
 
-      <?php
-        // Allow Cross-Origin Scripting so that we can develop
-        // on our local Docker environments
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding");
-        header("Access-Control-Max-Age: 1000");
-        header("Access-Control-Allow-Methods: GET, OPTIONS");
-
-        // Let the browser know we're sending back JSON instead of HTML
-        header("Content-Type: application/json");
-
-        // Load all connections categories
-        $data = json_decode(file_get_contents("friends.json"), true);
-
-        // Pick 4 categories at random
-        $categories = array_rand($data, 4);
-
-        // Build the return data structure
-        $output = [
-            "categories"=> []
-        ];
-
-        foreach ($categories as $cat) {
-            $keys = array_rand($data[$cat], 4);
-            $words = [];
-            foreach ($keys as $key)
-                array_push($words, $data[$cat][$key]);
-
-            array_push($output["categories"], [
-                "category" => $cat,
-                "words" => $words
-            ]);
-        }
-
-        // Print out JSON 
-        echo json_encode($output, JSON_PRETTY_PRINT); ?>
+      <div class="container">
+        <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
+          <div class="col-auto">
+            <button style="display: none;" class="btn btn-light rounded-pill px-4" type="button">Create Playlist</button>
+          </div>
+          <div class="col-auto ms-auto">
+            <button style="display: none;" class="btn btn-light rounded-pill px-4" type="button">Mine</button>
+            <a href="?command=json" class="btn btn-light rounded-pill px-4" type="button">Friends JSON File</a>
+          </div>
+        </div>
+      </div>  
       <!-- List of Friends -->
-      <!-- <div class="wrapper" style="display: grid; grid-auto-columns: minmax(5rem, auto); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); ">
+      <div class="wrapper" style="display: grid; grid-auto-columns: minmax(5rem, auto); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); ">
         <div class="py-3 m-5" style="display: flex; flex-direction: column; align-items: center; background-color: #0d0d13; color: #d9d9d9; border-radius: 50px;">
           <img src="https://i.pinimg.com/236x/f3/85/d7/f385d78eba93e8b768bcc04bf96fe5a5.jpg" class="p-3" style="height: 150px; width: 150px; border-radius: 50px;" alt="duck taking a selfie">
           <div class="m-1"></div>
@@ -106,7 +81,7 @@
           <div class="m-1"></div>
           <p>@MrJames</p>
         </div>
-      </div> -->
+      </div>
 
       <!-- Footer -->
       <footer class="mt-auto">
