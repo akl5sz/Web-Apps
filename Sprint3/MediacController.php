@@ -61,6 +61,41 @@ class MediacController {
 
 
     public function showFriends(){
+        if (!isset($_SESSION["username"])) {
+            echo json_encode(array("error" => "User not logged in"));
+            return;
+        }
+    
+        // Retrieve friends data from the database
+        $friendsData = $this->db->query("SELECT username, friend_username FROM friends WHERE username = $1", $_SESSION["username"]);
+    
+        // Initialize an array to store user-friends data
+        $userFriends = array();
+    
+        // Iterate through the retrieved data to structure it properly
+        foreach ($friendsData as $friend) {
+            $username = $friend['username'];
+            $friendUsername = $friend['friend_username'];
+    
+            // If the user's data is not yet added to the array, add it
+            if (!array_key_exists($username, $userFriends)) {
+                $userFriends[$username] = array();
+            }
+    
+            // Add the friend's username to the user's friends list
+            $userFriends[$username][] = $friendUsername;
+        }
+    
+        // Encode the user-friends data into JSON format
+        $jsonData = json_encode($userFriends);
+    
+        // Set the appropriate header to indicate JSON content
+        header('Content-Type: application/json');
+    
+        // Output the JSON data
+        echo $jsonData;
+    
+        // Include HTML markup for displaying friends
         include("friends.php");
     }
 

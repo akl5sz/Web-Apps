@@ -327,7 +327,31 @@ class Database {
                 WHERE NOT EXISTS (
                         SELECT 1 FROM movie_comments
                         WHERE username = $1 AND title = $2 AND year = $3 AND comment = $4);",
-                        'nyt8te', 'The Hunger Games', 2012, 'i think i watched this movie like a billion times');                 
+                        'nyt8te', 'The Hunger Games', 2012, 'i think i watched this movie like a billion times ');      
+                        
+        pg_query($this->dbHandle, "create table if not exists friends ( 
+                username text,
+                friend_username text,
+                foreign key (username) references users (username),
+                foreign key (friend_username) references users (username),
+                constraint friendship unique (username, friend_username));");
+
+        $res = $this->query("
+                INSERT INTO friends (username, friend_username)
+                SELECT $1, $2
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM friends
+                        WHERE username = $1 AND friend_username = $2);",
+                        'akl5sz', 'nyt8te');
+            
+        $res = $this->query("
+                INSERT INTO friends (username, friend_username)
+                SELECT $1, $2
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM friends
+                        WHERE username = $1 AND friend_username = $2);",
+                        'nyt8te', 'akl5sz');
+                
     }
     
 
