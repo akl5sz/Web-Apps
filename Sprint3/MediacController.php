@@ -25,6 +25,9 @@ class MediacController {
             // $command = "login";
 
         switch($command) {
+            case "add-comment":
+                $this->addComment();
+                break;
             case "playlists":
                 $this->showPlaylists();
                 break;
@@ -176,6 +179,26 @@ class MediacController {
         }
     }
 
+    public function addComment() {
+        if (isset($_POST["comment"]) && !empty($_POST["comment"]) &&
+        isset($_POST["title"]) && !empty($_POST["title"]) &&
+        isset($_POST["year"]) && !empty($_POST["year"])) {
+
+            $res = $this->db->query("INSERT INTO movie_comments (username, title, year, comment) VALUES ($1, $2, $3, $4);", 
+                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["comment"]);
+
+            if ($res !== false) {
+                header("Location: ?command=feed");
+                return;
+            } else {
+                $this->errorMessage = "A problem has occured.";
+                $this->showFeed();
+            }
+        } else {
+                $this->errorMessage = "Please insert data to all fields.";
+                $this->showFeed();
+        }
+    }
     public function getFriends($username){
         if ($username != null) {
             $friends = $this->db->query("select * from friends where username = $1;", $username);

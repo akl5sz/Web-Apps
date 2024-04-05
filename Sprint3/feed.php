@@ -18,15 +18,21 @@
         <!-- Navbar -->
         <div class="container-fluid fixed-top">
           <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-            <div class="col-md-3 mb-2 mb-md-0"></div>
-      
+
+          <div class="col-md-3 d-flex align-items-center">
+            <span class="text-white" style="margin-right: 20px;">Welcome, <?php echo $_SESSION["username"]; ?></span>
+            <ul class="nav nav-pills" style="margin-left: 20px;">
+                <li class="nav-item"><a href="?command=logout" class="nav-link active" aria-current="page">Logout</a></li>
+            </ul>
+          </div>
+
             <ul class="nav nav-pills mr-auto">
               <li class="nav-item"><a href="?command=feed" class="nav-link active" aria-current="page">Feed</a></li>
               <li class="nav-item"><a href="?command=playlists" class="nav-link">Playlists</a></li>
               <li class="nav-item"><a href="?command=discover" class="nav-link">Discover</a></li>
               <li class="nav-item"><a href="?command=friends" class="nav-link">Friends</a></li>
             </ul>
-      
+
             <div class="col-md-3">
               <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
@@ -39,11 +45,13 @@
         <br>
         <div class="container">
         <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
-          <div class="col-auto">
+          <div class="col-auto text-center">
             <button onclick="displayText()" class="btn btn-light rounded-pill px-4" type="button">Add Comment</button>
             <div id="textField" style="display: none;">
-            <form action="" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <form action="?command=add-comment" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+                <input type="search" class="form-control form-control-dark" name="title" placeholder="Enter movie title..." aria-label="Search" style="width: 300px; margin: 10px;">
+                <input type="search" class="form-control form-control-dark" name="year" placeholder="Enter movie year..." aria-label="Search" style="width: 300px; margin: 10px;">
+                <input type="search" class="form-control form-control-dark" name="comment" placeholder="Enter comment here..." aria-label="Search" style="width: 300px; margin: 10px;"> 
                 <button type="submit" class="btn btn-primary">Add Comment</button>
             </form>
           </div>
