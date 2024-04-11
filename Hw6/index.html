@@ -20,7 +20,11 @@
         justify-content: center;
         flex-direction: column;
     }
-    
+
+    td {
+        text-align: center;
+    }
+
     #main-game{
         width: 100%;
     }
@@ -31,7 +35,44 @@
 </style>
 <body>
     <script>
+        function Gamer(gamesPlayed, gamesWon, winStreak, avgNumberOfGuesses){
+            this.gamesPlayed = gamesPlayed;
+            this.gamesWon = gamesWon;
+            this.winStreak = winStreak;
+            this.avgNumberOfGuesses = avgNumberOfGuesses;
+        }
 
+        let globalCategories;
+        let globalWords;
+        
+        function setUpNewGame(newCategories) {
+        console.log(newCategories);
+        let words = [];
+        let count = 0;
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+            words[count] = newCategories["categories"][i]["words"][j];
+            count++;
+            }
+        }
+        globalCategories = newCategories;
+        globalWords = words;
+        var table = document.getElementById("game-table");
+        table.innerHTML = ""; 
+
+        var newRow = table.insertRow(table.rows.length);
+
+        for (let i = 0; i < words.length; i++) {
+            if (i !== 0 && i % 4 === 0) {
+                newRow = table.insertRow(table.rows.length);
+            }
+            var newCell = newRow.insertCell(i % 4);
+            newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\">" + words[i] + "</button>";
+        }
+        return words;
+        }
+        console.log(globalWords);
+        console.log(globalCategories);
     </script>
     <div style="margin: 250px;"></div>
     <div class="outter-container">
@@ -66,53 +107,53 @@
     <div class="container" id="main-game">
         <p style="text-align: center;">[INSTRUCTIONS]</p>
         <div style="padding-bottom: 20px;">
-            <table class="center">
+            <table id="game-table" class="center">
                 <tbody>
-                <tr>
-                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </th>
-                    <td><button type="button" class="btn btn-outline-primary">Primary Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </th>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </th>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </th>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
-                    </td>
-                </tr>
+                    <!-- <tr>
+                        <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </th>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </th>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </th>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </th>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                        <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                        </td>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
         <div class="center">
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success" onclick="getRandomCategories(setUpNewGame);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"></path>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"></path>
