@@ -8,55 +8,147 @@
     <script type="text/javascript" src="./connections.js"></script>
 </head>
 <style>
+    .outter-container{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .container{
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    #main-game{
+        width: 100%;
+    }
     .center {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 </style>
 <body>
-    <table class="center">
-        <tbody>
-          <tr>
-            <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-            </th>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-            </th>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-            </th>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
-            </th>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-            <td><button type="button" class="btn btn-outline-primary">Primary</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <script>
+
+    </script>
+    <div style="margin: 250px;"></div>
+    <div class="outter-container">
+    <div class="container">
+        <table class="table table-striped center" style="text-align: center; margin-top: 20px;">
+            <thead>
+              <tr>
+                <th scope="col">Prior Guesses</th>
+                <th scope="col">Unmatching Words</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mark</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Jacob</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>John</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Mary</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="container" id="main-game">
+        <p style="text-align: center;">[INSTRUCTIONS]</p>
+        <div style="padding-bottom: 20px;">
+            <table class="center">
+                <tbody>
+                <tr>
+                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </th>
+                    <td><button type="button" class="btn btn-outline-primary">Primary Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </th>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </th>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row"><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </th>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                    <td><button type="button" class="btn btn-outline-primary">Primary</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="center">
+            <button type="button" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"></path>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"></path>
+                </svg>
+            </button>
+            <button type="button" class="btn btn-outline-primary center">Submit Guess</button>
+            <button type="button" class="btn btn-primary center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"></path>
+                    <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-striped center" style="text-align: center; margin-top: 20px;">
+            <tbody>
+              <tr>
+                <td>Games Played:</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Games Won:</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Win Streak:</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Average Number of Guesses:</td>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
 </body>
 </html>
