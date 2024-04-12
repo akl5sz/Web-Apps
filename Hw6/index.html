@@ -29,6 +29,19 @@
           return words;
       }
 
+      function selectWord(id) {
+        var selectedWord = document.getElementById(id);
+            if (selectedWord.classList.contains('selected')) {
+                selectedWord.classList.remove('selected');
+            } else {
+                if (document.querySelectorAll('.selected').length < 4) {
+                    selectedWord.classList.add('selected');
+                } else {
+                    alert('Only four choices can be selected!');
+                }
+            }
+      }
+
       function drawGrid(words) {
         var table = document.getElementById("game-table");
           table.innerHTML = ""; 
@@ -39,7 +52,7 @@
                   newRow = table.insertRow(table.rows.length);
               }
               var newCell = newRow.insertCell(i % 4);
-              newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\">" + words[i] + "</button>";
+              newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\""+i+"\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
           }
       }
 
@@ -57,6 +70,7 @@
           drawGrid(words);
         }
       }
+
   </script>
 </head>
 <style>
@@ -85,6 +99,11 @@
     .center {
         margin-left: auto !important;
         margin-right: auto !important;
+    }
+    
+    .selected {
+            background-color: blue !important;
+            color: white;
     }
 </style>
 
