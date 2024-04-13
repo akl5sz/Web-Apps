@@ -14,84 +14,88 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <script type="text/javascript" src="./connections.js"></script>
     <script>
       var winStreak = 0;
       var totalNumberOfGuesses = 0;
 
-      function Gamer(gamesPlayed, gamesWon, winStreak, avgNumberOfGuesses){
-          this.gamesPlayed = gamesPlayed;
-          this.gamesWon = gamesWon;
-          this.winStreak = winStreak;
-          this.avgNumberOfGuesses = avgNumberOfGuesses;
-      }
-
       function setUpNewGame(newCategories) {
-          previousGuesses = []; // to clear it each time
-          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
-          previousResults = [];
-          localStorage.setItem("previousResults", JSON.stringify(previousResults));
-          let words = [];
-          let count = 0;
-          for (let i = 0; i < 4; i++) {
-              for (let j = 0; j < 4; j++) {
-              words[count] = newCategories["categories"][i]["words"][j];
-              count++;
-              }
+        previousGuesses = []; // to clear it each time
+        localStorage.setItem(
+          "previousGuesses",
+          JSON.stringify(previousGuesses)
+        );
+        previousResults = [];
+        localStorage.setItem(
+          "previousResults",
+          JSON.stringify(previousResults)
+        );
+        let words = [];
+        let count = 0;
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 4; j++) {
+            words[count] = newCategories["categories"][i]["words"][j];
+            count++;
           }
-          shuffle(words);
-          drawGrid(words); //first game
-          drawGuesses(previousGuesses, previousResults);
+        }
+        shuffle(words);
+        drawGrid(words); //first game
+        drawGuesses(previousGuesses, previousResults);
 
-          localStorage.setItem("currentWords", JSON.stringify(words));
-          localStorage.setItem("newCategories", JSON.stringify(newCategories));
+        localStorage.setItem("currentWords", JSON.stringify(words));
+        localStorage.setItem("newCategories", JSON.stringify(newCategories));
 
-          var scoreString  = localStorage.getItem("score");
-          score = JSON.parse(scoreString);
-          document.getElementById("score").textContent = score;
+        var scoreString = localStorage.getItem("score");
+        score = JSON.parse(scoreString);
+        document.getElementById("score").textContent = score;
 
-          var gamesPlayedString  = localStorage.getItem("gamesPlayed");
-          gamesPlayed = JSON.parse(gamesPlayedString);
-          gamesPlayed++;
-          document.getElementById("gamesPlayed").textContent = gamesPlayed;
-          localStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
+        var gamesPlayedString = localStorage.getItem("gamesPlayed");
+        gamesPlayed = JSON.parse(gamesPlayedString);
+        gamesPlayed++;
+        document.getElementById("gamesPlayed").textContent = gamesPlayed;
+        localStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
 
-          var totalNumberOfGuessesString = localStorage.getItem("totalNumberOfGuesses");
-          totalNumberOfGuesses = JSON.parse(totalNumberOfGuessesString);
+        var totalNumberOfGuessesString = localStorage.getItem(
+          "totalNumberOfGuesses"
+        );
+        totalNumberOfGuesses = JSON.parse(totalNumberOfGuessesString);
 
-          console.log("total guesses num: \n");
-          console.log(totalNumberOfGuesses);
-          console.log("total num of games played: \n");
-          console.log(gamesPlayed);
+        if (gamesPlayed == 1 || gamesPlayed == 0) {
+          var avgNumberOfGuesses = 0;
+        } else {
+          var avgNumberOfGuesses = totalNumberOfGuesses / (gamesPlayed - 1); //we need the amount of games before
+        }
+        document.getElementById("avgNumberOfGuesses").textContent =
+          avgNumberOfGuesses;
+        avgNumberOfGuesses = localStorage.setItem(
+          "avgNumberOfGuesses",
+          JSON.stringify(avgNumberOfGuesses)
+        );
 
-          if(gamesPlayed == 1 || gamesPlayed == 0) {
-            var avgNumberOfGuesses = 0;
-          }
-          else {
-            var avgNumberOfGuesses = totalNumberOfGuesses/(gamesPlayed-1); //we need the amount of games before
-          }  
-          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
-          avgNumberOfGuesses = localStorage.setItem("avgNumberOfGuesses", JSON.stringify(avgNumberOfGuesses));
-          
-          return words;
+        return words;
       }
 
       function selectWord(id) {
         var selectedWord = document.getElementById(id);
-            if (selectedWord.classList.contains('selected')) {
-                selectedWord.classList.remove('selected');
-            } else {
-                if (document.querySelectorAll('.selected').length < 4) {
-                    selectedWord.classList.add('selected');
-                } else {
-                    alert('Only four choices can be selected!');
-                }
-            }
+        if (selectedWord.classList.contains("selected")) {
+          selectedWord.classList.remove("selected");
+        } else {
+          if (document.querySelectorAll(".selected").length < 4) {
+            selectedWord.classList.add("selected");
+          } else {
+            alert("Only four choices can be selected!");
+          }
+        }
       }
 
       //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
@@ -100,14 +104,15 @@
 
         // While there remain elements to shuffle...
         while (currentIndex != 0) {
-
           // Pick a remaining element...
           let randomIndex = Math.floor(Math.random() * currentIndex);
           currentIndex--;
 
           // And swap it with the current element.
           [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
+            array[randomIndex],
+            array[currentIndex],
+          ];
         }
       }
 
@@ -115,9 +120,9 @@
         var wordString = localStorage.getItem("currentWords");
         if (wordString != null) {
           words = JSON.parse(wordString);
-          var selectedWords = document.querySelectorAll('.selected');
+          var selectedWords = document.querySelectorAll(".selected");
           if (selectedWords.length !== 4) {
-            alert('Please select exactly four words.');
+            alert("Please select exactly four words.");
             return;
           }
           var selectedWordTexts = [];
@@ -128,105 +133,97 @@
           var previousGuessesString = localStorage.getItem("previousGuesses");
           previousGuesses = JSON.parse(previousGuessesString);
           previousGuesses.push(selectedWordTexts);
-          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
-          console.log("previous guesses");
-          console.log(previousGuesses);
-          // console.log('Selected words:', selectedWordTexts);
+          localStorage.setItem(
+            "previousGuesses",
+            JSON.stringify(previousGuesses)
+          );
 
           totalNumberOfGuesses++;
-          localStorage.setItem("totalNumberOfGuesses", JSON.stringify(totalNumberOfGuesses));
-          console.log("totalNumberOfGuesses: /n");
-          console.log(totalNumberOfGuesses);
-
+          localStorage.setItem(
+            "totalNumberOfGuesses",
+            JSON.stringify(totalNumberOfGuesses)
+          );
 
           var guessCat = [];
-          for(let i = 0; i < 4; i ++){
-            // console.log('Selected words:', selectedWordTexts[i]);
+          for (let i = 0; i < 4; i++) {
             guessCat[i] = getCategory(selectedWordTexts[i]);
           }
-          // console.log("Look below");
-          // console.log(guessCat);
 
           var indexes = [];
           var count = 0;
-          var guessCatCount = guessCat.length; 
-          for(let i=0; i < guessCatCount; i++){
-              for(let j=i+1; j < guessCatCount; j++){
-                console.log("guessCat i \n");
-                console.log(guessCat[i]);
-                console.log("guessCat j \n");
-                console.log(guessCat[j]);
-                if(guessCat[i]===guessCat[j]){
-                  indexes[count] = i;
-                  count++;
-                  indexes[count] = j;
-                  count++;
-                }
+          var guessCatCount = guessCat.length;
+          for (let i = 0; i < guessCatCount; i++) {
+            for (let j = i + 1; j < guessCatCount; j++) {
+              if (guessCat[i] === guessCat[j]) {
+                indexes[count] = i;
+                count++;
+                indexes[count] = j;
+                count++;
               }
+            }
           }
-
-          console.log("here not unique: ");
-          console.log(indexes);
 
           //https://www.geeksforgeeks.org/how-to-get-all-unique-values-remove-duplicates-in-a-javascript-array/
           let unique = [];
           for (i = 0; i < indexes.length; i++) {
-              if (unique.indexOf(indexes[i]) === -1) {
-                  unique.push(indexes[i]);
-              }
+            if (unique.indexOf(indexes[i]) === -1) {
+              unique.push(indexes[i]);
+            }
           }
-          console.log("here unique: ");
-          console.log(unique);
 
           var result;
-          if(unique.length != 0 && !allEqual(guessCat) && unique.length == 4){
+          if (unique.length != 0 && !allEqual(guessCat) && unique.length == 4) {
             result = 2;
-          } else if(unique.length != 0 && allEqual(guessCat)){
+          } else if (unique.length != 0 && allEqual(guessCat)) {
             result = 0;
-          } else if(unique.length != 0 && !allEqual(guessCat) && unique.length != 4){
+          } else if (
+            unique.length != 0 &&
+            !allEqual(guessCat) &&
+            unique.length != 4
+          ) {
             result = 4 - unique.length;
-          } else{
+          } else {
             result = 4;
           }
-            
 
           var previousResultsString = localStorage.getItem("previousResults");
           previousResults = JSON.parse(previousResultsString);
           previousResults.push(result);
-          localStorage.setItem("previousResults", JSON.stringify(previousResults));
-          console.log("previous results");
-          console.log(previousResults);
+          localStorage.setItem(
+            "previousResults",
+            JSON.stringify(previousResults)
+          );
 
           var newWords = [];
-          if(result === 0){
+          if (result === 0) {
             //https://www.freecodecamp.org/news/filter-arrays-in-javascript/
-            var newWords = words.filter(word => !selectedWordTexts.includes(word));
+            var newWords = words.filter(
+              (word) => !selectedWordTexts.includes(word)
+            );
             localStorage.setItem("currentWords", JSON.stringify(newWords));
             drawGrid(newWords);
             drawGuesses(previousGuesses, previousResults);
           } else {
             drawGuesses(previousGuesses, previousResults);
           }
-          console.log("here words: ");
-          console.log(newWords);
 
-          var currentWordsString  = localStorage.getItem("currentWords");
+          var currentWordsString = localStorage.getItem("currentWords");
           if (currentWordsString != null) {
             currentWords = JSON.parse(currentWordsString);
-            if(currentWords.length === 0){
-              getRandomCategories(setUpNewGame); 
+            if (currentWords.length === 0) {
+              getRandomCategories(setUpNewGame);
               drawGrid(words); //first game
 
-              var scoreString  = localStorage.getItem("score");
+              var scoreString = localStorage.getItem("score");
               score = JSON.parse(scoreString);
               score++;
               document.getElementById("score").textContent = score;
               localStorage.setItem("score", JSON.stringify(score));
 
-              var prevWinString  = localStorage.getItem("prevWin");
+              var prevWinString = localStorage.getItem("prevWin");
               prevWin = JSON.parse(prevWinString);
-              if(prevWin){
-                var winStreakString  = localStorage.getItem("winStreak");
+              if (prevWin) {
+                var winStreakString = localStorage.getItem("winStreak");
                 winStreak = JSON.parse(winStreakString);
                 winStreak++;
                 document.getElementById("winStreak").textContent = winStreak;
@@ -241,107 +238,121 @@
               }
             }
           }
+        }
       }
-    }
 
-      function getCategory(word){
-        var newCategoriesString  = localStorage.getItem("newCategories");
+      function getCategory(word) {
+        var newCategoriesString = localStorage.getItem("newCategories");
         if (newCategoriesString != null) {
           newCategories = JSON.parse(newCategoriesString);
           for (let i = 0; i < 4; i++) {
-              for (let j = 0; j < 4; j++) {
-                if(newCategories["categories"][i]["words"][j] === word){
-                  return newCategories["categories"][i]["category"];
-                }
+            for (let j = 0; j < 4; j++) {
+              if (newCategories["categories"][i]["words"][j] === word) {
+                return newCategories["categories"][i]["category"];
               }
+            }
           }
         }
       }
 
       //https://dev.to/rajnishkatharotiya/function-to-check-if-all-records-are-equal-in-array-javascript-3mo3#:~:text=In%20order%20to%20check%20whether,allEqual%20%3D%20arr%20%3D%3E%20arr.
-      const allEqual = arr => arr.every(val => val === arr[0]);
-      
+      const allEqual = (arr) => arr.every((val) => val === arr[0]);
+
       function drawGrid(words) {
         var table = document.getElementById("game-table");
-          table.innerHTML = ""; 
+        table.innerHTML = "";
 
-          var newRow = table.insertRow(table.rows.length);
-          for (let i = 0; i < words.length; i++) {
-              if (i !== 0 && i % 4 === 0) {
-                  newRow = table.insertRow(table.rows.length);
-              }
-              var newCell = newRow.insertCell(i % 4);
-              newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\"" + i + "\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
+        var newRow = table.insertRow(table.rows.length);
+        for (let i = 0; i < words.length; i++) {
+          if (i !== 0 && i % 4 === 0) {
+            newRow = table.insertRow(table.rows.length);
           }
+          var newCell = newRow.insertCell(i % 4);
+          newCell.innerHTML =
+            '<button type="button" class="btn btn-outline-primary" id="' +
+            i +
+            '" onclick="selectWord(this.id);">' +
+            words[i] +
+            "</button>";
+        }
       }
 
       function drawGuesses(previousGuesses, previousResults) {
         var table = document.getElementById("guess-table");
-          table.innerHTML = "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>"; 
+        table.innerHTML =
+          "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>";
 
+        var newRow = table.insertRow(table.rows.length);
+        for (let i = 0; i < previousGuesses.length; i++) {
           var newRow = table.insertRow(table.rows.length);
-          for (let i = 0; i < previousGuesses.length; i++) {
-            var newRow = table.insertRow(table.rows.length);
-            var guessCell = newRow.insertCell(0);
-            guessCell.textContent = previousGuesses[i].join(", ");
-            var resultCell = newRow.insertCell(1);
-            resultCell.textContent = previousResults[i];
-          }
+          var guessCell = newRow.insertCell(0);
+          guessCell.textContent = previousGuesses[i].join(", ");
+          var resultCell = newRow.insertCell(1);
+          resultCell.textContent = previousResults[i];
+        }
       }
 
-      function startNewGame (){
+      function startNewGame() {
         var prevWinString = localStorage.getItem("prevWin");
-        // if (prevWinString != null) {
-          var prevWin = false;
-          localStorage.setItem("prevWin", JSON.stringify(prevWin));
+        var prevWin = false;
+        localStorage.setItem("prevWin", JSON.stringify(prevWin));
 
-          var winStreakString  = localStorage.getItem("winStreak");
-          winStreak = JSON.parse(winStreakString);
-          var winStreak = 0;
-          localStorage.setItem("winStreak", JSON.stringify(winStreak));
-          document.getElementById("winStreak").textContent = winStreak;
-        // }
+        var winStreakString = localStorage.getItem("winStreak");
+        winStreak = JSON.parse(winStreakString);
+        var winStreak = 0;
+        localStorage.setItem("winStreak", JSON.stringify(winStreak));
+        document.getElementById("winStreak").textContent = winStreak;
+
         getRandomCategories(setUpNewGame);
       }
-  
+
       function loadGameInfo() {
         var wordString = localStorage.getItem("currentWords");
         var previousGuessesString = localStorage.getItem("previousGuesses");
         previousGuesses = JSON.parse(previousGuessesString);
         var previousResultsString = localStorage.getItem("previousResults");
         previousResults = JSON.parse(previousResultsString);
-        
+
         if (wordString != null && previousGuessesString != null) {
           words = JSON.parse(wordString);
-          // alert("page was refreshed started");
 
-          var scoreString  = localStorage.getItem("score");
+          var scoreString = localStorage.getItem("score");
           score = JSON.parse(scoreString);
           document.getElementById("score").textContent = score;
 
-          var gamesPlayedString  = localStorage.getItem("gamesPlayed");
+          var gamesPlayedString = localStorage.getItem("gamesPlayed");
           gamesPlayed = JSON.parse(gamesPlayedString);
           document.getElementById("gamesPlayed").textContent = gamesPlayed;
 
-          var winStreakString  = localStorage.getItem("winStreak");
+          var winStreakString = localStorage.getItem("winStreak");
           winStreak = JSON.parse(winStreakString);
           document.getElementById("winStreak").textContent = winStreak;
 
-          var totalNumberOfGuessesString = localStorage.getItem("totalNumberOfGuesses");
+          var totalNumberOfGuessesString = localStorage.getItem(
+            "totalNumberOfGuesses"
+          );
           totalNumberOfGuesses = JSON.parse(totalNumberOfGuessesString);
 
-          var avgNumberOfGuessesString  = localStorage.getItem("avgNumberOfGuesses");
+          var avgNumberOfGuessesString =
+            localStorage.getItem("avgNumberOfGuesses");
           avgNumberOfGuesses = JSON.parse(avgNumberOfGuessesString);
-          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
+          document.getElementById("avgNumberOfGuesses").textContent =
+            avgNumberOfGuesses;
 
           drawGrid(words);
           drawGuesses(previousGuesses, previousResults);
-        } else{
+        } else {
           var previousGuesses = [];
-          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
+          localStorage.setItem(
+            "previousGuesses",
+            JSON.stringify(previousGuesses)
+          );
           var previousResults = [];
-          localStorage.setItem("previousResults", JSON.stringify(previousResults));
-          
+          localStorage.setItem(
+            "previousResults",
+            JSON.stringify(previousResults)
+          );
+
           var score = 0;
           localStorage.setItem("score", JSON.stringify(score));
           document.getElementById("score").textContent = score;
@@ -351,12 +362,18 @@
           document.getElementById("gamesPlayed").textContent = gamesPlayed;
 
           var totalNumberOfGuesses = 0;
-          localStorage.setItem("totalNumberOfGuesses", JSON.stringify(totalNumberOfGuesses));
+          localStorage.setItem(
+            "totalNumberOfGuesses",
+            JSON.stringify(totalNumberOfGuesses)
+          );
 
           var avgNumberOfGuesses = 0;
-          localStorage.setItem("avgNumberOfGuesses", JSON.stringify(avgNumberOfGuesses));
-          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
-          // alert("new game started");
+          localStorage.setItem(
+            "avgNumberOfGuesses",
+            JSON.stringify(avgNumberOfGuesses)
+          );
+          document.getElementById("avgNumberOfGuesses").textContent =
+            avgNumberOfGuesses;
 
           var winStreak = 0;
           localStorage.setItem("winStreak", JSON.stringify(winStreak));
@@ -365,7 +382,7 @@
           var prevWin = true;
           localStorage.setItem("prevWin", JSON.stringify(prevWin));
 
-          getRandomCategories(setUpNewGame); 
+          getRandomCategories(setUpNewGame);
         }
       }
 
@@ -375,38 +392,47 @@
         previousGuesses = JSON.parse(previousGuessesString);
         var previousResultsString = localStorage.getItem("previousResults");
         previousResults = JSON.parse(previousResultsString);
-        
+
         if (wordString != null && previousGuessesString != null) {
           words = JSON.parse(wordString);
-          // alert("page was refreshed started");
 
-          var scoreString  = localStorage.getItem("score");
+          var scoreString = localStorage.getItem("score");
           score = JSON.parse(scoreString);
           document.getElementById("score").textContent = score;
 
-          var gamesPlayedString  = localStorage.getItem("gamesPlayed");
+          var gamesPlayedString = localStorage.getItem("gamesPlayed");
           gamesPlayed = JSON.parse(gamesPlayedString);
           document.getElementById("gamesPlayed").textContent = gamesPlayed;
 
-          var totalNumberOfGuessesString = localStorage.getItem("totalNumberOfGuesses");
+          var totalNumberOfGuessesString = localStorage.getItem(
+            "totalNumberOfGuesses"
+          );
           totalNumberOfGuesses = JSON.parse(totalNumberOfGuessesString);
 
-          var winStreakString  = localStorage.getItem("winStreak");
+          var winStreakString = localStorage.getItem("winStreak");
           winStreak = JSON.parse(winStreakString);
           document.getElementById("winStreak").textContent = winStreak;
 
-          var avgNumberOfGuessesString  = localStorage.getItem("avgNumberOfGuesses");
+          var avgNumberOfGuessesString =
+            localStorage.getItem("avgNumberOfGuesses");
           avgNumberOfGuesses = JSON.parse(avgNumberOfGuessesString);
-          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
+          document.getElementById("avgNumberOfGuesses").textContent =
+            avgNumberOfGuesses;
 
           drawGrid(words);
           drawGuesses(previousGuesses, previousResults);
-        } else{
+        } else {
           var previousGuesses = [];
-          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
+          localStorage.setItem(
+            "previousGuesses",
+            JSON.stringify(previousGuesses)
+          );
           var previousResults = [];
-          localStorage.setItem("previousResults", JSON.stringify(previousResults));
-          
+          localStorage.setItem(
+            "previousResults",
+            JSON.stringify(previousResults)
+          );
+
           var score = 0;
           localStorage.setItem("score", JSON.stringify(score));
           document.getElementById("score").textContent = score;
@@ -416,24 +442,30 @@
           document.getElementById("gamesPlayed").textContent = gamesPlayed;
 
           var totalNumberOfGuesses = 0;
-          localStorage.setItem("totalNumberOfGuesses", JSON.stringify(totalNumberOfGuesses));
+          localStorage.setItem(
+            "totalNumberOfGuesses",
+            JSON.stringify(totalNumberOfGuesses)
+          );
 
           var avgNumberOfGuesses = 0;
-          localStorage.setItem("avgNumberOfGuesses", JSON.stringify(avgNumberOfGuesses));
-          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
-          // alert("new game started");
+          localStorage.setItem(
+            "avgNumberOfGuesses",
+            JSON.stringify(avgNumberOfGuesses)
+          );
+          document.getElementById("avgNumberOfGuesses").textContent =
+            avgNumberOfGuesses;
 
           var prevWin = true;
           localStorage.setItem("prevWin", JSON.stringify(prevWin));
 
-          getRandomCategories(setUpNewGame); 
+          getRandomCategories(setUpNewGame);
         }
       }
 
-      function shuffleAction(){
+      function shuffleAction() {
         loadGameInfo();
-        var currentWordsString  = localStorage.getItem("currentWords");
-        if(currentWordsString != null){
+        var currentWordsString = localStorage.getItem("currentWords");
+        if (currentWordsString != null) {
           currentWords = JSON.parse(currentWordsString);
           shuffle(words);
           drawGrid(words);
@@ -453,97 +485,144 @@
         document.getElementById("score").textContent = "0";
         document.getElementById("winStreak").textContent = "0";
         document.getElementById("avgNumberOfGuesses").textContent = "0";
-        document.getElementById("guess-table").innerHTML = "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>";
+        document.getElementById("guess-table").innerHTML =
+          "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>";
       }
-  </script>
-</head>
-<style>
-    .outter-container{
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        flex-direction: row;
+    </script>
+  </head>
+  <style>
+    .outter-container {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      flex-direction: row;
     }
 
-    .container{
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        flex-direction: column;
+    .container {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      flex-direction: column;
     }
 
     td {
-        text-align: center;
+      text-align: center;
     }
 
-    #main-game{
-        width: 100%;
+    #main-game {
+      width: 100%;
     }
 
     .center {
-        margin-left: auto !important;
-        margin-right: auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
-    
-    .selected {
-            background-color: #146cfc !important;
-            color: white;
-    }
-</style>
 
-<body onload="loadGameInfo();" onunload="saveGameOnClose();">
-    
-    <div style="margin: 250px;"></div>
+    .selected {
+      background-color: #146cfc !important;
+      color: white;
+    }
+  </style>
+  <body onload="loadGameInfo();" onunload="saveGameOnClose();">
+    <div style="margin: 250px"></div>
     <div class="outter-container">
-    <div class="container">
-        <table id="guess-table" class="table table-striped center" style="text-align: center; margin-top: 20px;">
-          </table>
-    </div>
-    <div class="container" id="main-game">
-        <p style="text-align: center;">Welcome! Please select 4 words that you think belong in the same category and click the submit button to check your answers.</p>
-        <div style="padding-bottom: 20px;">
-            <table id="game-table" class="center">
-            </table>
+      <div class="container">
+        <table
+          id="guess-table"
+          class="table table-striped center"
+          style="text-align: center; margin-top: 20px"
+        ></table>
+      </div>
+      <div class="container" id="main-game">
+        <p style="text-align: center">
+          Welcome! Please select 4 words that you think belong in the same
+          category and click the submit button to check your answers.
+        </p>
+        <div style="padding-bottom: 20px">
+          <table id="game-table" class="center"></table>
         </div>
         <div class="center">
-            <button type="button" class="btn btn-success" onclick="startNewGame();">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"></path>
-                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"></path>
-                </svg>
-            </button>
-            <button type="button" class="btn btn-outline-primary center" onclick="submitGuess();">Submit Guess</button>
-            <button type="button" class="btn btn-primary center" onclick="shuffleAction();">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"></path>
-                    <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"></path>
-                </svg>
-            </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            onclick="startNewGame();"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-clockwise"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+              ></path>
+              <path
+                d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"
+              ></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary center"
+            onclick="submitGuess();"
+          >
+            Submit Guess
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary center"
+            onclick="shuffleAction();"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-shuffle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"
+              ></path>
+              <path
+                d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"
+              ></path>
+            </svg>
+          </button>
         </div>
+      </div>
+      <div class="container">
+        <table
+          class="table table-striped center"
+          style="text-align: center; margin-top: 20px"
+        >
+          <tbody>
+            <tr>
+              <td>Games Played:</td>
+              <td id="gamesPlayed"></td>
+            </tr>
+            <tr>
+              <td>Games Won:</td>
+              <td id="score"></td>
+            </tr>
+            <tr>
+              <td>Win Streak:</td>
+              <td id="winStreak"></td>
+            </tr>
+            <tr>
+              <td>Average Number of Guesses:</td>
+              <td id="avgNumberOfGuesses"></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-danger" onclick="clearHistory()">
+          Clear History
+        </button>
+      </div>
     </div>
-    <div class="container">
-        <table class="table table-striped center" style="text-align: center; margin-top: 20px;">
-            <tbody>
-              <tr>
-                <td>Games Played:</td>
-                <td id="gamesPlayed"></td>
-              </tr>
-              <tr>
-                <td>Games Won:</td>
-                <td id="score"></td>
-              </tr>
-              <tr>
-                <td>Win Streak:</td>
-                <td id="winStreak"></td>
-              </tr>
-              <tr>
-                <td>Average Number of Guesses:</td>
-                <td id="avgNumberOfGuesses"></td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" class="btn btn-danger" onclick="clearHistory()">Clear History</button>
-    </div>
-</div>
-</body>
+  </body>
 </html>
