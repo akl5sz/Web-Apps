@@ -141,15 +141,16 @@
           console.log(unique);
 
           var result;
-          if(unique.length != 0){
-            // console.log("we have gone into here result wise");
-                result = 4 - unique.length;
-                // console.log(result);
-              }
-              else{
-                result = 4;
-              }
-          }  
+          if(unique.length != 0 && !allEqual(guessCat) && unique.length == 4){
+            result = 2;
+          } else if(unique.length != 0 && allEqual(guessCat)){
+            result = 0;
+          } else if(unique.length != 0 && !allEqual(guessCat) && unique.length != 4){
+            result = 4 - unique.length;
+          } else{
+            result = 4;
+          }
+            
 
           var previousResultsString = localStorage.getItem("previousResults");
           previousResults = JSON.parse(previousResultsString);
@@ -159,14 +160,13 @@
           console.log(previousResults);
 
           var newWords = [];
-          if(result === 0 && allEqual(guessCat)){
+          if(result === 0){
             //https://www.freecodecamp.org/news/filter-arrays-in-javascript/
             var newWords = words.filter(word => !selectedWordTexts.includes(word));
             localStorage.setItem("currentWords", JSON.stringify(newWords));
             drawGrid(newWords);
             drawGuesses(previousGuesses, previousResults);
-          }
-          else {
+          } else {
             drawGuesses(previousGuesses, previousResults);
           }
           console.log("here words: ");
@@ -193,6 +193,7 @@
             }
           }
       }
+    }
 
       function getCategory(word){
         var newCategoriesString  = localStorage.getItem("newCategories");
