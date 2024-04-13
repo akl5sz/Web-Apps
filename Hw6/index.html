@@ -426,6 +426,22 @@
       //       drawGrid(words);
       //     }
       // }
+
+      function clearHistory() {
+        localStorage.setItem("gamesPlayed", JSON.stringify(1));
+        localStorage.setItem("score", JSON.stringify(0));
+        localStorage.setItem("winStreak", JSON.stringify(0));
+        localStorage.setItem("totalNumberOfGuesses", JSON.stringify(0));
+        localStorage.setItem("avgNumberOfGuesses", JSON.stringify(0));
+        localStorage.setItem("previousGuesses", JSON.stringify([]));
+        localStorage.setItem("previousResults", JSON.stringify([]));
+
+        document.getElementById("gamesPlayed").textContent = "1";
+        document.getElementById("score").textContent = "0";
+        document.getElementById("winStreak").textContent = "0";
+        document.getElementById("avgNumberOfGuesses").textContent = "0";
+        document.getElementById("guess-table").innerHTML = "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>";
+      }
   </script>
 </head>
 <style>
@@ -538,6 +554,7 @@
               </tr>
             </tbody>
           </table>
+          <button type="button" class="btn btn-danger" onclick="clearHistory()">Clear History</button>
     </div>
 </div>
 </body>
