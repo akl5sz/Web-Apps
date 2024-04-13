@@ -17,6 +17,8 @@
       function setUpNewGame(newCategories) {
           previousGuesses = []; // to clear it each time
           localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
+          previousResults = [];
+          localStorage.setItem("previousResults", JSON.stringify(previousResults));
           let words = [];
           let count = 0;
           for (let i = 0; i < 4; i++) {
@@ -27,7 +29,7 @@
           }
 
           drawGrid(words); //first game
-          drawGuesses(previousGuesses);
+          drawGuesses(previousGuesses, previousResults);
 
           localStorage.setItem("currentWords", JSON.stringify(words));
           var scoreString  = localStorage.getItem("score");
@@ -106,6 +108,10 @@
           var guessCatCount = guessCat.length; 
           for(let i=0; i < guessCatCount; i++){
               for(let j=i+1; j < guessCatCount; j++){
+                console.log("guessCat i \n");
+                console.log(guessCat[i]);
+                console.log("guessCat j \n");
+                console.log(guessCat[j]);
                 if(guessCat[i]===guessCat[j]){
                   indexes[count] = i;
                   count++;
@@ -138,8 +144,12 @@
               }
           }  
 
-          console.log("here guessed words: ");
-          console.log(selectedWordTexts);
+          var previousResultsString = localStorage.getItem("previousResults");
+          previousResults = JSON.parse(previousResultsString);
+          previousResults.push(result);
+          localStorage.setItem("previousResults", JSON.stringify(previousResults));
+          console.log("previous results");
+          console.log(previousResults);
 
           var newWords = [];
           if(result === 0){
@@ -147,10 +157,10 @@
             var newWords = words.filter(word => !selectedWordTexts.includes(word));
             localStorage.setItem("currentWords", JSON.stringify(newWords));
             drawGrid(newWords);
-            drawGuesses(previousGuesses);
+            drawGuesses(previousGuesses, previousResults);
           }
           else {
-            drawGuesses(previousGuesses);
+            drawGuesses(previousGuesses, previousResults);
           }
           console.log("here words: ");
           console.log(newWords);
@@ -202,28 +212,26 @@
           }
       }
 
-      function drawGuesses(previousGuesses) {
+      function drawGuesses(previousGuesses, previousResults) {
         var table = document.getElementById("guess-table");
-          table.innerHTML = ""; 
+          table.innerHTML = "<thead><tr><th scope='col'>Prior Guesses</th><th scope='col'>Unmatching Words</th></tr></thead>"; 
 
           var newRow = table.insertRow(table.rows.length);
-          for(let i = 0; i<previousGuesses.length; i++) {
-            console.log("displaying previous guesses");
-            console.log(previousGuesses);
-            if (i !== 0 && i % 2 === 0) {
-                  newRow = table.insertRow(table.rows.length);
-              }
-              var newCell = newRow.insertCell(i % 2);
-              newCell.textContent = previousGuesses[i].join(", ");
-              //newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\""+i+"\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
+          for (let i = 0; i < previousGuesses.length; i++) {
+            var newRow = table.insertRow(table.rows.length);
+            var guessCell = newRow.insertCell(0);
+            guessCell.textContent = previousGuesses[i].join(", ");
+            var resultCell = newRow.insertCell(1);
+            resultCell.textContent = previousResults[i];
           }
       }
 
       function loadGameInfo() {
         var wordString = localStorage.getItem("currentWords");
         var previousGuessesString = localStorage.getItem("previousGuesses");
-            previousGuesses = JSON.parse(previousGuessesString);
-
+        previousGuesses = JSON.parse(previousGuessesString);
+        var previousResultsString = localStorage.getItem("previousResults");
+        previousResults = JSON.parse(previousResultsString);
         
         if (wordString != null && previousGuessesString != null) {
           words = JSON.parse(wordString);
@@ -232,11 +240,12 @@
           score = JSON.parse(scoreString);
           document.getElementById("score").textContent = score;
           drawGrid(words);
-          drawGuesses(previousGuesses);
+          drawGuesses(previousGuesses, previousResults);
         } else{
           var previousGuesses = [];
           localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
-
+          var previousResults = [];
+          localStorage.setItem("previousResults", JSON.stringify(previousResults));
           var score = 0;
           localStorage.setItem("score", JSON.stringify(score));
           document.getElementById("score").textContent = score;
@@ -288,12 +297,12 @@
     <div class="outter-container">
     <div class="container">
         <table id="guess-table" class="table table-striped center" style="text-align: center; margin-top: 20px;">
-            <thead>
+            <!-- <thead>
               <tr>
                 <th scope="col">Prior Guesses</th>
                 <th scope="col">Unmatching Words</th>
               </tr>
-            </thead>
+            </thead> -->
             <!-- 
             <tbody>
               <tr>
