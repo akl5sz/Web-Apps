@@ -417,7 +417,7 @@
       }
 
       function shuffleAction(){
-        window.location.reload();
+        loadGameInfo();
         var currentWordsString  = localStorage.getItem("currentWords");
         if(currentWordsString != null){
           currentWords = JSON.parse(currentWordsString);
