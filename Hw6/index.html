@@ -30,8 +30,7 @@
               count++;
               }
           }
-          //ALSO SHUFFLE HERE
-          // shuffle(words);
+          shuffle(words);
           drawGrid(words); //first game
           drawGuesses(previousGuesses, previousResults);
 
@@ -417,15 +416,14 @@
         }
       }
 
-      // //SHUFFLE HERE
-      // function shuffleAction(){
-      //   var currentWordsString  = localStorage.getItem("currentWords");
-      //     if (currentWordsString != null) {
-      //       currentWords = JSON.parse(currentWordsString);
-      //       shuffle(words);
-      //       drawGrid(words);
-      //     }
-      // }
+      function shuffleAction(){
+        var currentWordsString  = localStorage.getItem("currentWords");
+          if (currentWordsString != null) {
+            currentWords = JSON.parse(currentWordsString);
+            shuffle(words);
+            drawGrid(words);
+          }
+      }
 
       function clearHistory() {
         localStorage.setItem("gamesPlayed", JSON.stringify(1));
@@ -484,35 +482,10 @@
     <div class="outter-container">
     <div class="container">
         <table id="guess-table" class="table table-striped center" style="text-align: center; margin-top: 20px;">
-            <!-- <thead>
-              <tr>
-                <th scope="col">Prior Guesses</th>
-                <th scope="col">Unmatching Words</th>
-              </tr>
-            </thead> -->
-            <!-- 
-            <tbody>
-              <tr>
-                <td>Mark</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Jacob</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>John</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Mary</td>
-                <td>1</td>
-              </tr>
-            </tbody> -->
           </table>
     </div>
     <div class="container" id="main-game">
-        <p style="text-align: center;">[INSTRUCTIONS]</p>
+        <p style="text-align: center;">Welcome! Please select 4 words that you think belong in the same category and click the submit button to check your answers.</p>
         <div style="padding-bottom: 20px;">
             <table id="game-table" class="center">
             </table>
