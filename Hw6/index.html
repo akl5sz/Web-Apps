@@ -164,6 +164,9 @@
         if (wordString != null) {
           words = JSON.parse(wordString);
           drawGrid(words);
+        } else{
+          getRandomCategories(setUpNewGame);
+          drawGrid(words);
         }
       }
 
