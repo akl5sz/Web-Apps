@@ -45,19 +45,7 @@
           gamesPlayed++;
           document.getElementById("gamesPlayed").textContent = gamesPlayed;
           localStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
-
-          var winStreak = 0;
-          localStorage.setItem("winStreak", JSON.stringify(winStreak));
-          document.getElementById("winStreak").textContent = winStreak;
           
-          // var prevWinString = localStorage.getItem("prevWin");
-          // if (prevWinString != null) {
-          
-          // }
-          // var prevWin = false;
-          // localStorage.setItem("score", JSON.stringify(score));
-          // document.getElementById("score").textContent = score;
-
           return words;
       }
 
@@ -205,6 +193,13 @@
                 winStreak++;
                 document.getElementById("winStreak").textContent = winStreak;
                 localStorage.setItem("winStreak", JSON.stringify(winStreak));
+              } else {
+                prevWin = true;
+                localStorage.setItem("prevWin", JSON.stringify(prevWin));
+                
+                winStreak = 1;
+                document.getElementById("winStreak").textContent = winStreak;
+                localStorage.setItem("winStreak", JSON.stringify(winStreak));
               }
             }
           }
@@ -256,6 +251,21 @@
           }
       }
 
+      function startNewGame (){
+        var prevWinString = localStorage.getItem("prevWin");
+        // if (prevWinString != null) {
+          var prevWin = false;
+          localStorage.setItem("prevWin", JSON.stringify(prevWin));
+
+          var winStreakString  = localStorage.getItem("winStreak");
+          winStreak = JSON.parse(winStreakString);
+          var winStreak = 0;
+          localStorage.setItem("winStreak", JSON.stringify(winStreak));
+          document.getElementById("winStreak").textContent = winStreak;
+        // }
+        getRandomCategories(setUpNewGame);
+      }
+  
       function loadGameInfo() {
         var wordString = localStorage.getItem("currentWords");
         var previousGuessesString = localStorage.getItem("previousGuesses");
@@ -303,6 +313,10 @@
           localStorage.setItem("avgNumberOfGuesses", JSON.stringify(avgNumberOfGuesses));
           document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
           // alert("new game started");
+
+          var winStreak = 0;
+          localStorage.setItem("winStreak", JSON.stringify(winStreak));
+          document.getElementById("winStreak").textContent = winStreak;
 
           var prevWin = true;
           localStorage.setItem("prevWin", JSON.stringify(prevWin));
@@ -365,15 +379,6 @@
           getRandomCategories(setUpNewGame); 
         }
       }
-
-      // function shuffleAction(){
-      //   var wordString = localStorage.getItem("currentWords");
-      //   if (wordString != null) {
-      //     words = JSON.parse(wordString);
-      //     shuffle(words);
-      //     drawGrid(words);
-      //   }
-      // }
 
   </script>
 </head>
@@ -451,7 +456,7 @@
             </table>
         </div>
         <div class="center">
-            <button type="button" class="btn btn-success" onclick="getRandomCategories(setUpNewGame);">
+            <button type="button" class="btn btn-success" onclick="startNewGame();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"></path>
                     <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"></path>
