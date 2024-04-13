@@ -26,6 +26,10 @@
           }
           drawGrid(words); //first game
           localStorage.setItem("currentWords", JSON.stringify(words));
+          localStorage.setItem("newCategories", JSON.stringify(newCategories));
+          // console.log(newCategories);
+          // console.log(words[0]);
+          // getCategory(words[0]);
           return words;
       }
 
@@ -43,16 +47,102 @@
       }
 
       function submitGuess() {
-        var selectedWords = document.querySelectorAll('.selected');
-        if (selectedWords.length !== 4) {
-          alert('Please select exactly four words.');
-          return;
+        var wordString = localStorage.getItem("currentWords");
+        if (wordString != null) {
+          words = JSON.parse(wordString);
+          var selectedWords = document.querySelectorAll('.selected');
+          if (selectedWords.length !== 4) {
+            alert('Please select exactly four words.');
+            return;
+          }
+          var selectedWordTexts = [];
+          for (var i = 0; i < selectedWords.length; i++) {
+            selectedWordTexts.push(selectedWords[i].textContent);
+          }
+          // console.log('Selected words:', selectedWordTexts);
+
+          var guessCat = [];
+          for(let i = 0; i < 4; i ++){
+            // console.log('Selected words:', selectedWordTexts[i]);
+            guessCat[i] = getCategory(selectedWordTexts[i]);
+          }
+          // console.log("Look below");
+          // console.log(guessCat);
+
+          var indexes = [];
+          var count = 0;
+          var guessCatCount = guessCat.length; 
+          for(let i=0; i < guessCatCount; i++){
+              for(let j=i+1; j < guessCatCount; j++){
+                if(guessCat[i]===guessCat[j]){
+                  indexes[count] = i;
+                  count++;
+                  indexes[count] = j;
+                  count++;
+                }
+              }
+          }
+          console.log("here not unique: ");
+          console.log(indexes);
+
+          //https://www.geeksforgeeks.org/how-to-get-all-unique-values-remove-duplicates-in-a-javascript-array/
+          let unique = [];
+          for (i = 0; i < indexes.length; i++) {
+              if (unique.indexOf(indexes[i]) === -1) {
+                  unique.push(indexes[i]);
+              }
+          }
+          console.log("here unique: ");
+          console.log(unique);
+
+          var result;
+          if(unique.length != 0){
+            // console.log("we have gone into here result wise");
+                result = 4 - unique.length;
+                // console.log(result);
+              }
+              else{
+                result = 4;
+              }
+          }  
+
+          console.log("here guessed words: ");
+          console.log(selectedWordTexts);
+
+          var newWords = [];
+          if(result === 0){
+            //https://www.freecodecamp.org/news/filter-arrays-in-javascript/
+            var newWords = words.filter(word => !selectedWordTexts.includes(word));
+            localStorage.setItem("currentWords", JSON.stringify(newWords));
+            drawGrid(newWords);
+          }
+          console.log("here words: ");
+          console.log(newWords);
+
+          var currentWordsString  = localStorage.getItem("currentWords");
+          if (currentWordsString != null) {
+            currentWords = JSON.parse(currentWordsString);
+            if(currentWords.length === 0){
+              //LOCAL YAY
+                //     $this->win = true;
+                // $_SESSION["win"] = $this->win;
+                // header("Location: ?command=game-over");
+            }
+          }
+      }
+
+      function getCategory(word){
+        var newCategoriesString  = localStorage.getItem("newCategories");
+        if (newCategoriesString != null) {
+          newCategories = JSON.parse(newCategoriesString);
+          for (let i = 0; i < 4; i++) {
+              for (let j = 0; j < 4; j++) {
+                if(newCategories["categories"][i]["words"][j] === word){
+                  return newCategories["categories"][i]["category"];
+                }
+              }
+          }
         }
-        var selectedWordTexts = [];
-        for (var i = 0; i < selectedWords.length; i++) {
-          selectedWordTexts.push(selectedWords[i].textContent);
-        }
-        console.log('Selected words:', selectedWordTexts);
       }
 
       function drawGrid(words) {
@@ -69,17 +159,10 @@
           }
       }
 
-      // function saveGameInfo() {
-      //   // words = setUpNewGame(newCategories);
-      //   localStorage.setItem("currentWords", JSON.stringify(words));
-        
-      // }
-
       function loadGameInfo() {
         var wordString = localStorage.getItem("currentWords");
         if (wordString != null) {
           words = JSON.parse(wordString);
-
           drawGrid(words);
         }
       }
