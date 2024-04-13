@@ -27,15 +27,21 @@
               count++;
               }
           }
-
+          // shuffle(words);
           drawGrid(words); //first game
           drawGuesses(previousGuesses, previousResults);
 
           localStorage.setItem("currentWords", JSON.stringify(words));
+          localStorage.setItem("newCategories", JSON.stringify(newCategories));
+
           var scoreString  = localStorage.getItem("score");
           score = JSON.parse(scoreString);
           document.getElementById("score").textContent = score;
-          localStorage.setItem("newCategories", JSON.stringify(newCategories));
+
+          var gamesPlayedString  = localStorage.getItem("gamesPlayed");
+          gamesPlayed = JSON.parse(gamesPlayedString);
+          document.getElementById("gamesPlayed").textContent = gamesPlayed;
+          
           // console.log(newCategories);
           // console.log(words[0]);
           // getCategory(words[0]);
@@ -120,6 +126,7 @@
                 }
               }
           }
+
           console.log("here not unique: ");
           console.log(indexes);
 
@@ -152,7 +159,7 @@
           console.log(previousResults);
 
           var newWords = [];
-          if(result === 0){
+          if(result === 0 && allEqual(guessCat)){
             //https://www.freecodecamp.org/news/filter-arrays-in-javascript/
             var newWords = words.filter(word => !selectedWordTexts.includes(word));
             localStorage.setItem("currentWords", JSON.stringify(newWords));
@@ -171,15 +178,18 @@
             if(currentWords.length === 0){
               getRandomCategories(setUpNewGame); 
               drawGrid(words); //first game
+
               var scoreString  = localStorage.getItem("score");
               score = JSON.parse(scoreString);
               score++;
               document.getElementById("score").textContent = score;
               localStorage.setItem("score", JSON.stringify(score));
-              //LOCAL YAY
-                //     $this->win = true;
-                // $_SESSION["win"] = $this->win;
-                // header("Location: ?command=game-over");
+
+              var gamesPlayedString  = localStorage.getItem("gamesPlayed");
+              gamesPlayed = JSON.parse(gamesPlayedString);
+              gamesPlayed++;
+              document.getElementById("gamesPlayed").textContent = gamesPlayed;
+              localStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
             }
           }
       }
@@ -198,6 +208,9 @@
         }
       }
 
+      //https://dev.to/rajnishkatharotiya/function-to-check-if-all-records-are-equal-in-array-javascript-3mo3#:~:text=In%20order%20to%20check%20whether,allEqual%20%3D%20arr%20%3D%3E%20arr.
+      const allEqual = arr => arr.every(val => val === arr[0]);
+      
       function drawGrid(words) {
         var table = document.getElementById("game-table");
           table.innerHTML = ""; 
@@ -208,7 +221,7 @@
                   newRow = table.insertRow(table.rows.length);
               }
               var newCell = newRow.insertCell(i % 4);
-              newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\""+i+"\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
+              newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\"" + i + "\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
           }
       }
 
@@ -236,9 +249,23 @@
         if (wordString != null && previousGuessesString != null) {
           words = JSON.parse(wordString);
           // alert("page was refreshed started");
+
           var scoreString  = localStorage.getItem("score");
           score = JSON.parse(scoreString);
           document.getElementById("score").textContent = score;
+
+          var gamesPlayedString  = localStorage.getItem("gamesPlayed");
+          gamesPlayed = JSON.parse(gamesPlayedString);
+          document.getElementById("gamesPlayed").textContent = gamesPlayed;
+
+          var winStreakString  = localStorage.getItem("winStreak");
+          winStreak = JSON.parse(winStreakString);
+          document.getElementById("winStreak").textContent = winStreak;
+
+          var avgNumberOfGuessesString  = localStorage.getItem("avgNumberOfGuesses");
+          avgNumberOfGuesses = JSON.parse(avgNumberOfGuessesString);
+          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
+
           drawGrid(words);
           drawGuesses(previousGuesses, previousResults);
         } else{
@@ -249,11 +276,32 @@
           var score = 0;
           localStorage.setItem("score", JSON.stringify(score));
           document.getElementById("score").textContent = score;
+
+          var gamesPlayed = 1;
+          localStorage.setItem("gamesPlayed", JSON.stringify(gamesPlayed));
+          document.getElementById("gamesPlayed").textContent = gamesPlayed;
+
+          var winStreak = 0;
+          localStorage.setItem("winStreak", JSON.stringify(winStreak));
+          document.getElementById("winStreak").textContent = winStreak;
+
+          var avgNumberOfGuesses = 0;
+          localStorage.setItem("avgNumberOfGuesses", JSON.stringify(avgNumberOfGuesses));
+          document.getElementById("avgNumberOfGuesses").textContent = avgNumberOfGuesses;
           // alert("new game started");
 
           getRandomCategories(setUpNewGame); 
         }
       }
+
+      // function shuffleAction(){
+      //   var wordString = localStorage.getItem("currentWords");
+      //   if (wordString != null) {
+      //     words = JSON.parse(wordString);
+      //     shuffle(words);
+      //     drawGrid(words);
+      //   }
+      // }
 
   </script>
 </head>
@@ -338,7 +386,7 @@
                 </svg>
             </button>
             <button type="button" class="btn btn-outline-primary center" onclick="submitGuess();">Submit Guess</button>
-            <button type="button" class="btn btn-primary center">
+            <button type="button" class="btn btn-primary center" onclick="shuffle();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.6 9.6 0 0 0 7.556 8a9.6 9.6 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.6 10.6 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.6 9.6 0 0 0 6.444 8a9.6 9.6 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5"></path>
                     <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192m0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192"></path>
@@ -351,7 +399,7 @@
             <tbody>
               <tr>
                 <td>Games Played:</td>
-                <td>2</td>
+                <td id="gamesPlayed"></td>
               </tr>
               <tr>
                 <td>Games Won:</td>
@@ -359,11 +407,11 @@
               </tr>
               <tr>
                 <td>Win Streak:</td>
-                <td>2</td>
+                <td id="winStreak"></td>
               </tr>
               <tr>
                 <td>Average Number of Guesses:</td>
-                <td>1</td>
+                <td id="avgNumberOfGuesses"></td>
               </tr>
             </tbody>
           </table>
