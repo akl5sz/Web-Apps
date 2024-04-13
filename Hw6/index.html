@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script type="text/javascript" src="./connections.js"></script>
     <script>
+      // var previousGuesses = [];
       function Gamer(gamesPlayed, gamesWon, winStreak, avgNumberOfGuesses){
           this.gamesPlayed = gamesPlayed;
           this.gamesWon = gamesWon;
@@ -16,6 +17,8 @@
 
 
       function setUpNewGame(newCategories) {
+          previousGuesses = []; // to clear it each time
+          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
           let words = [];
           let count = 0;
           for (let i = 0; i < 4; i++) {
@@ -25,6 +28,7 @@
               }
           }
           drawGrid(words); //first game
+          drawGuesses(previousGuesses);
           localStorage.setItem("currentWords", JSON.stringify(words));
           localStorage.setItem("newCategories", JSON.stringify(newCategories));
           // console.log(newCategories);
@@ -59,6 +63,13 @@
           for (var i = 0; i < selectedWords.length; i++) {
             selectedWordTexts.push(selectedWords[i].textContent);
           }
+
+          var previousGuessesString = localStorage.getItem("previousGuesses");
+          previousGuesses = JSON.parse(previousGuessesString);
+          previousGuesses.push(selectedWordTexts);
+          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
+          console.log("previous guesses");
+          console.log(previousGuesses);
           // console.log('Selected words:', selectedWordTexts);
 
           var guessCat = [];
@@ -115,6 +126,10 @@
             var newWords = words.filter(word => !selectedWordTexts.includes(word));
             localStorage.setItem("currentWords", JSON.stringify(newWords));
             drawGrid(newWords);
+            drawGuesses(previousGuesses);
+          }
+          else {
+            drawGuesses(previousGuesses);
           }
           console.log("here words: ");
           console.log(newWords);
@@ -159,14 +174,37 @@
           }
       }
 
+      function drawGuesses(previousGuesses) {
+        var table = document.getElementById("guess-table");
+          table.innerHTML = ""; 
+
+          var newRow = table.insertRow(table.rows.length);
+          for(let i = 0; i<previousGuesses.length; i++) {
+            console.log("displaying previous guesses");
+            console.log(previousGuesses);
+            if (i !== 0 && i % 2 === 0) {
+                  newRow = table.insertRow(table.rows.length);
+              }
+              var newCell = newRow.insertCell(i % 2);
+              newCell.textContent = previousGuesses[i].join(", ");
+              //newCell.innerHTML = "<button type=\"button\" class=\"btn btn-outline-primary\" id=\""+i+"\" onclick=\"selectWord(this.id);\">" + words[i] + "</button>";
+          }
+      }
+
       function loadGameInfo() {
         var wordString = localStorage.getItem("currentWords");
-        if (wordString != null) {
+        var previousGuessesString = localStorage.getItem("previousGuesses");
+            previousGuesses = JSON.parse(previousGuessesString);
+
+        
+        if (wordString != null && previousGuessesString != null) {
           words = JSON.parse(wordString);
           drawGrid(words);
+          drawGuesses(previousGuesses);
         } else{
+          var previousGuesses = [];
+          localStorage.setItem("previousGuesses", JSON.stringify(previousGuesses));
           getRandomCategories(setUpNewGame);
-          drawGrid(words);
         }
       }
 
@@ -211,13 +249,14 @@
     <div style="margin: 250px;"></div>
     <div class="outter-container">
     <div class="container">
-        <table class="table table-striped center" style="text-align: center; margin-top: 20px;">
+        <table id="guess-table" class="table table-striped center" style="text-align: center; margin-top: 20px;">
             <thead>
               <tr>
                 <th scope="col">Prior Guesses</th>
                 <th scope="col">Unmatching Words</th>
               </tr>
             </thead>
+            <!-- 
             <tbody>
               <tr>
                 <td>Mark</td>
@@ -235,7 +274,7 @@
                 <td>Mary</td>
                 <td>1</td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
     </div>
     <div class="container" id="main-game">
