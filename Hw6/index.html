@@ -417,12 +417,13 @@
       }
 
       function shuffleAction(){
+        window.location.reload();
         var currentWordsString  = localStorage.getItem("currentWords");
-          if (currentWordsString != null) {
-            currentWords = JSON.parse(currentWordsString);
-            shuffle(words);
-            drawGrid(words);
-          }
+        if(currentWordsString != null){
+          currentWords = JSON.parse(currentWordsString);
+          shuffle(words);
+          drawGrid(words);
+        }
       }
 
       function clearHistory() {
