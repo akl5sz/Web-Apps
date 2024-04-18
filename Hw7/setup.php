@@ -34,11 +34,12 @@ if ($input < 1) {
         }
 
         $randomBoxes = array_rand($lightsOff, 10);
-        for($i = 0; $i < count((array)$randomBoxes); $i++){
-            $lightsOn[] = $randomBoxes[$i];
+        for ($i = 0; $i < 10; $i++) {
+            $randomBox = $randomBoxes[$i];
+            $lightsOn[] = $lightsOff[$randomBox];
         }
     }
-        $json = array('lightsOn' => $lightsOn);
+    $json = array('lightsOn' => $lightsOn);
 }
 
 echo json_encode($json, JSON_PRETTY_PRINT); 
