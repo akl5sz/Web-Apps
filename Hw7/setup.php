@@ -19,7 +19,7 @@ if ($input < 1) {
     $numberOfBoxes = $input * $input;
     $lightsOn = array();
 
-    if ($numberOfBoxes <= 10) {
+    if ($numberOfBoxes < 10) {
         for ($i = 0; $i < $input; $i++) {
             for ($j = 0; $j < $input; $j++) {
                 $lightsOn[] = array('row' => $i, 'column' => $j);

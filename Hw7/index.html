@@ -16,22 +16,32 @@
 </style>
 <body>
     <div class="container">
-        <form action="setup.php"> <!-- Default is GET so not adding -->
-            <input type="number" id="input" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
+        <!-- <form id="inputForm" action="">  Default is GET so not adding -->
+            <input type="number" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
             <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <!-- </form> -->
         <table id="game-table" class="center"></table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $.ajax({
-         url : "http://localhost:8080/Web-Dev/Hw7/setup.php",
-         type : 'POST',
-         data : {lightsOn},
-         dataType: 'json',
-         success : function (response) {
-                doSomethingWith(response.company)
-         }
-        })
+        $(document).ready(function() {
+            //https://www.w3schools.com/jquery/event_submit.asp
+            $('button').click(function() {
+                // event.preventDefault(); //wants to take the input value and prevent the form from being submitted 
+
+                var inputValue = $('input').val(); 
+                
+                //https://www.sitepoint.com/community/t/getting-data-from-ajax-response/294865/4
+                $.ajax({
+                url: 'setup.php',
+                type: 'GET',
+                data: { input: inputValue },
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response.lightsOn);
+                }});
+            });
+        });
     </script>
 </body>
 </html>
