@@ -12,34 +12,32 @@ header("Content-Type: application/json");
 $input = $_GET['input'];
 
 if ($input < 1) {
-    $json = [
-        'notPositive' => 'Please insert a value greater than 0.'
-    ];
+    $json = ['notPositive' => 'Please insert a value greater than 0.'];
 } else {
     $numberOfBoxes = $input * $input;
-    $lightsOn = array();
+    $lightsOn = [];
 
     if ($numberOfBoxes < 10) {
         for ($i = 0; $i < $input; $i++) {
             for ($j = 0; $j < $input; $j++) {
-                $lightsOn[] = array('row' => $i, 'column' => $j);
+                $lightsOn[] = ['row' => $i, 'column' => $j];
             }
         }
     } else {
-        $lightsOff = array();
+        $potentialLightsOn = [];
         for ($i = 0; $i < $input; $i++) {
             for ($j = 0; $j < $input; $j++) {
-                $lightsOff[] = array('row' => $i, 'column' => $j);
+                $potentialLightsOn[] = ['row' => $i, 'column' => $j];
             }
         }
 
-        $randomBoxes = array_rand($lightsOff, 10);
+        $randomBoxes = array_rand($potentialLightsOn, 10);
         for ($i = 0; $i < 10; $i++) {
             $randomBox = $randomBoxes[$i];
-            $lightsOn[] = $lightsOff[$randomBox];
+            $lightsOn[] = $potentialLightsOn[$randomBox];
         }
     }
-    $json = array('lightsOn' => $lightsOn);
+    $json = ['lightsOn' => $lightsOn];
 }
 
 echo json_encode($json, JSON_PRETTY_PRINT); 
