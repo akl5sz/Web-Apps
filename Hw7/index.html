@@ -16,15 +16,22 @@
 </style>
 <body>
     <div class="container">
-        <form action="">
-            <input type="number" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
-            <!-- <input type="number" class="form-control" placeholder="Number of Columns" aria-label="Columns" aria-describedby="basic-addon1" required> -->
+        <form action="setup.php"> <!-- Default is GET so not adding -->
+            <input type="number" id="input" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- <input type="submit" value="Submit"> -->
         </form>
-        <table id="game-table" class="center">
-            
-        </table>
+        <table id="game-table" class="center"></table>
     </div>
+    <script>
+        $.ajax({
+         url : "http://localhost:8080/Web-Dev/Hw7/setup.php",
+         type : 'POST',
+         data : {lightsOn},
+         dataType: 'json',
+         success : function (response) {
+                doSomethingWith(response.company)
+         }
+        })
+    </script>
 </body>
 </html>
