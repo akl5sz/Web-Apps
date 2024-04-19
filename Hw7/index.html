@@ -13,6 +13,27 @@
       justify-content: center;
       flex-direction: column;
     }
+
+    #game-table {
+        display: grid;
+        
+    }
+    .box {
+        width: 75px;
+        height: 75px;
+    }
+
+    .off {
+        background-color: black;
+        color: black;
+    }
+
+    .on {
+        border-style: solid;
+        border-color: darkgoldenrod;
+        background-color: yellow;
+        color: yellow;
+    }
 </style>
 <body>
     <div class="container">
@@ -26,7 +47,76 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        
+        function changeLight(id) {
+                console.log("the id");
+                console.log(id);
+                if ($('#' + id).hasClass('on')) {
+                    $('#' + id).removeClass('on');
+                    $('#' + id).addClass('off');
+                }
+                else {
+                    // if ($('.answerBtnsSelected').length < 3) {
+                    //     $('#' + id).addClass('answerBtnsSelected');
+                    // }
+                    // else {
+                    //     alert('Only three buttons can be selected.');
+                    // }       
+                }
+        }
         $(document).ready(function() {
+
+            function inResponse(i, j, response) {
+                var isResponse = false;
+                for(let k = 0; k<10; k++) {
+                    if(response[k]["row"] == i && response[k]["column"] == j) {
+                        isResponse = true;
+                        return isResponse;
+                    }
+                }
+                return isResponse;
+            }
+            //https://stackoverflow.com/questions/8344712/javascript-buttons-select-and-unselect
+
+            
+
+            function createBoard(inputValue, response) {
+                console.log("this is inside createBoard");
+                console.log(response);
+                //var table = document.getElementById("game-table");
+                var table = $("#game-table");
+                //https://www.geeksforgeeks.org/how-to-remove-table-row-from-table-using-jquery/#
+                table.empty();
+                
+                //https://stackoverflow.com/questions/171027/adding-a-table-row-in-jquery
+                if((inputValue*inputValue) < 10) {
+                    for (let i = 0; i < inputValue; i++) {
+                        var newRow = $("<tr></tr>");
+                        for (let j = 0; j < inputValue; j++) {
+                            var newCell = $("<td></td>");
+                            newCell.append('<div class="box on" id="' + i + "" + j + '" onclick="changeLight(this.id);"></div>');
+                            newRow.append(newCell);
+                        }
+                        table.append(newRow);
+                    }
+                }
+                else {
+                    for (let i = 0; i < inputValue; i++) {
+                        var newRow = $("<tr></tr>");
+                        for (let j = 0; j < inputValue; j++) {
+                            var newCell = $("<td></td>");
+                            if(inResponse(i, j, response)) {
+                                newCell.append('<div class="box on" id="' + i + "" + j + '" onclick="changeLight(this.id);"></div>');
+                            }
+                            else {
+                                newCell.append('<div class="box off" id="' + i + "" + j + '" onclick="changeLight(this.id);"></div>');
+                            }
+                            newRow.append(newCell);
+                        }
+                        table.append(newRow);
+                    }
+                }
+            }
             //https://stackoverflow.com/questions/14969467/how-to-check-with-jquery-if-any-form-is-submitted
             $('form').submit(function(e) {
                 e.preventDefault(); //want to prevent the form from being submitted so we can grab the input 
@@ -40,7 +130,11 @@
                 data: { input: inputValue },
                 dataType: 'json',
                 success: function(response) {
+                    console.log("response \n");
+                    console.log(response);
+                    console.log("lights on \n");
                     console.log(response.lightsOn);
+                    createBoard(inputValue, response.lightsOn);
                 }});
             });
         });
