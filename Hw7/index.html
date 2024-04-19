@@ -16,18 +16,20 @@
 </style>
 <body>
     <div class="container">
-        <!-- <form id="inputForm" action="">  Default is GET so not adding -->
+        <form> <!-- Default is GET so not adding -->
             <input type="number" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
             <button type="submit" class="btn btn-primary">Submit</button>
-        <!-- </form> -->
-        <table id="game-table" class="center"></table>
+        </form>
+        <table id="game-table" class="center">
+            <!-- Insert rows and columns here -->
+        </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            //https://www.w3schools.com/jquery/event_submit.asp
-            $('button').click(function() {
-                // event.preventDefault(); //wants to take the input value and prevent the form from being submitted 
+            //https://stackoverflow.com/questions/14969467/how-to-check-with-jquery-if-any-form-is-submitted
+            $('form').submit(function(e) {
+                e.preventDefault(); //want to prevent the form from being submitted so we can grab the input 
 
                 var inputValue = $('input').val(); 
                 
