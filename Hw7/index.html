@@ -37,9 +37,10 @@
 </style>
 <body>
     <div class="container">
+        <div id="wonMessage"></div>
         <form> <!-- Default is GET so not adding -->
             <input type="number" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Start New Game!</button>
         </form>
         <table id="game-table" class="center">
             <!-- Insert rows and columns here -->
@@ -53,13 +54,11 @@
             for(let i = 0; i < rows; i++){
                 for(let j = 0; j < rows;j++){
                     let id = i+""+j;
-                    // console.log("ID: "+id+"\n");
                     if($('#' + id).hasClass('on')){
                         allOff =  false;
                     }
                 }
             }
-            // console.log("Has won? " + allOff);
             return allOff;
         }
 
@@ -174,7 +173,7 @@
             if (won) {
                 //https://www.squash.io/how-to-set-time-delay-in-javascript/#:~:text=Using%20setTimeout(),-One%20of%20the&text=This%20function%20allows%20you%20to,a%20specified%20delay%2C%20in%20milliseconds.&text=parameter%20specifies%20the%20time%20delay%20in%20milliseconds.&text=will%20be%20executed%20after%20a,an%20alert%20message%20being%20displayed.
                 setTimeout(function () {
-                    alert("You Won!");
+                    $("#wonMessage").html("<div class=\"alert alert-success\">Congratulations! You won!</div>");
                 }, 100);
             }
         }
@@ -193,9 +192,7 @@
             }           
 
             function createBoard(inputValue, response) {
-                // console.log("this is inside createBoard");
-                // console.log(response);
-                //var table = document.getElementById("game-table");
+                $("#wonMessage").empty();
                 var table = $("#game-table");
                 //https://www.geeksforgeeks.org/how-to-remove-table-row-from-table-using-jquery/#
                 table.empty();
@@ -242,10 +239,6 @@
                 data: { input: inputValue },
                 dataType: 'json',
                 success: function(response) {
-                    // console.log("response \n");
-                    // console.log(response);
-                    // console.log("lights on \n");
-                    // console.log(response.lightsOn);
                     createBoard(inputValue, response.lightsOn);
                 }});
             });
