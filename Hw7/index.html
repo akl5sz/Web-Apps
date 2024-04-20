@@ -84,7 +84,7 @@
                 $('#' + id).addClass('off');
 
                 if (top >= 0) {
-                    let topId = row + "" + col;
+                    let topId = top + "" + col;
                     if ($('#' + topId).hasClass('on')) {
                         $('#' + topId).removeClass('on');
                         $('#' + topId).addClass('off');
@@ -129,7 +129,7 @@
                 $('#' + id).addClass('on');
                 
                 if (top >= 0) {
-                    let topId = row + "" + col;
+                    let topId = top + "" + col;
                     if ($('#' + topId).hasClass('on')) {
                         $('#' + topId).removeClass('on');
                         $('#' + topId).addClass('off');
