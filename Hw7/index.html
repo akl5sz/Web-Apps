@@ -24,17 +24,17 @@
     body{
         background-color: #071630 !important;
     }
+
     .container {
-      display: flex;
-      align-content: center;
-      justify-content: center;
-      flex-direction: column;
+        display: flex;
+        flex-direction: column;
     }
 
     #game-table {
         display: grid;
-        
+        margin: auto;
     }
+
     .box {
         width: 75px;
         height: 75px;
@@ -53,14 +53,45 @@
         background-color: #CAF0F8;
         color: #CAF0F8;
     }
+ 
+    .alert{
+        width: 40% !important;
+        margin: auto !important;
+        margin-bottom: 10px !important;
+        margin-top: 0px !important;
+    }
+
+    form button {
+        margin: auto;
+    }
+
+    .field-container{
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        align-items: center;
+    }
+
+    .field-container input{
+        width: 30%;
+        padding: 12px 20px;
+        margin: auto;
+        box-sizing: border-box;
+    }
 </style>
 <body>
     <div class="container">
+        <div style="margin: 50px"></div>
         <div id="wonMessage"></div>
         <form> <!-- Default is GET so not adding -->
-            <input type="number" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
-            <button type="submit" class="btn btn-primary">Start New Game!</button>
+            <div class="field-container">
+                <input type="number" name="input" class="form-control" placeholder="Number of Rows and Columns" aria-label="Rows" aria-describedby="basic-addon1" required>
+            </div>
+            <div class="field-container">
+                <button type="submit" class="btn btn-secondary">Start New Game!</button>
+            </div>
         </form>
+        <div style="margin: 40px"></div>
         <table id="game-table" class="center">
             <!-- Insert rows and columns here -->
         </table>
