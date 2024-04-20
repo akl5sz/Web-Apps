@@ -53,13 +53,13 @@
             for(let i = 0; i < rows; i++){
                 for(let j = 0; j < rows;j++){
                     let id = i+""+j;
-                    console.log("ID: "+id+"\n");
+                    // console.log("ID: "+id+"\n");
                     if($('#' + id).hasClass('on')){
                         allOff =  false;
                     }
                 }
             }
-            console.log("Has won? " + allOff);
+            // console.log("Has won? " + allOff);
             return allOff;
         }
 
@@ -70,16 +70,18 @@
             $("#game-table tr").each(()=>{
                 rows++;
             });
-            console.log("Rows: "+rows+"\n");
+            // console.log("Rows: "+rows+"\n");
 
             console.log("the id");
             console.log(id);
 
-            id = parseInt(id);
-            var top = id - 10;
-            var bottom = id + 10;
-            var right = id + 1;
-            var left = id - 1; 
+            intId = parseInt(id);
+            console.log(id);
+
+            var top = intId - 10;
+            var bottom = intId + 10;
+            var right = intId + 1;
+            var left = intId - 1; 
 
             console.log("top: " + top);
             console.log("bottom: " + bottom);
@@ -98,7 +100,7 @@
             if ($('#' + id).hasClass('on')) {
                 $('#' + id).removeClass('on');
                 $('#' + id).addClass('off');
-
+                console.log("MAKING IT HERE");
                 if(parseInt(top/10) >= 0){
                     console.log("YES GOING HERE 1");
                     console.log((top/10));
@@ -106,6 +108,7 @@
                         top = 0 + "" + top; 
                     }
                     top = top.toString();
+                    console.log("top: " + top);
                     if ($('#' + top).hasClass('on')) {
                         console.log("HERE 1");
                         $('#' + top).removeClass('on');
@@ -119,6 +122,10 @@
                 if(parseInt(bottom/10)/10 <= rows-1){
                     console.log("YES GOING HERE 2");
                     bottom = bottom.toString();
+                    console.log("bottom: " + bottom);
+                    if(bottom>=0 && bottom<=rows-1){
+                        bottom = 0 + "" + bottom; 
+                    }
                     if ($('#' + bottom).hasClass('on')) {
                         $('#' + bottom).removeClass('on');
                         $('#' + bottom).addClass('off');
@@ -129,6 +136,10 @@
                 }
                 if((right%10) <= rows-1){
                     right = right.toString();
+                    console.log("right: " + right);
+                    if(right>=0 && right<=rows-1){
+                        right = 0 + "" + right; 
+                    }
                     if ($('#' + right).hasClass('on')) {
                         $('#' + right).removeClass('on');
                         $('#' + right).addClass('off');
@@ -139,6 +150,10 @@
                 }
                 if((left%10) >= 0){
                     left = left.toString();
+                    console.log("left: " + left);
+                    if(left>=0 && left<=rows-1){
+                        left = 0 + "" + left; 
+                    }
                     if ($('#' + left).hasClass('on')) {
                         $('#' + left).removeClass('on');
                         $('#' + left).addClass('off');
@@ -160,40 +175,72 @@
                 $('#' + id).removeClass('off');
                 $('#' + id).addClass('on');  
                 
-                if((top/10) >= 0){
+                if(parseInt(top/10) >= 0){
+                    console.log("YES GOING HERE 1");
+                    console.log((top/10));
+                    if(top>=0 && top<=rows-1){
+                        top = 0 + "" + top; 
+                    } else {
+                        top = top.toString();
+                        console.log("top: " + top);
+                    }
                     if ($('#' + top).hasClass('on')) {
+                        console.log("HERE 1");
                         $('#' + top).removeClass('on');
                         $('#' + top).addClass('off');
                     } else if ($('#' + top).hasClass('off')){
-                        $('#' + id).removeClass('off');
-                        $('#' + id).addClass('on');  
+                        console.log("HERE 2");
+                        $('#' + top).removeClass('on');
+                        $('#' + top).addClass('off');
                     }
                 }
-                if((bottom/10) <= rows-1){
+                if(parseInt(bottom/10)/10 <= rows-1){
+                    console.log("YES GOING HERE 2");
+                    if(bottom>=0 && bottom<=rows-1){
+                        bottom = 0 + "" + bottom; 
+                    } else {
+                        bottom = bottom.toString();
+                        console.log("bottom: " + bottom);
+                    }
                     if ($('#' + bottom).hasClass('on')) {
                         $('#' + bottom).removeClass('on');
                         $('#' + bottom).addClass('off');
                     } else if ($('#' + bottom).hasClass('off')){
-                        $('#' + id).removeClass('off');
-                        $('#' + id).addClass('on');  
+                        $('#' + bottom).removeClass('on');
+                        $('#' + bottom).addClass('off');
                     }
                 }
                 if((right%10) <= rows-1){
+                    if(right>=0 && right<=rows-1){
+                        right = 0 + "" + right; 
+                    } else {
+                        right = right.toString();
+                        console.log("right: " + right);
+                    }
                     if ($('#' + right).hasClass('on')) {
                         $('#' + right).removeClass('on');
                         $('#' + right).addClass('off');
                     } else if ($('#' + right).hasClass('off')){
-                        $('#' + id).removeClass('off');
-                        $('#' + id).addClass('on');  
+                        $('#' + right).removeClass('on');
+                        $('#' + right).addClass('off');
                     }
                 }
                 if((left%10) >= 0){
+                    if(left>=0 && left<=rows-1){
+                        left = 0 + "" + left; 
+                    } else {
+                        left = left.toString();
+                        console.log("left: " + left);
+                    }
+                    if(left>=0 && left<=rows-1){
+                        left = 0 + "" + left; 
+                    }
                     if ($('#' + left).hasClass('on')) {
                         $('#' + left).removeClass('on');
                         $('#' + left).addClass('off');
                     } else if ($('#' + left).hasClass('off')){
-                        $('#' + id).removeClass('off');
-                        $('#' + id).addClass('on');  
+                        $('#' + left).removeClass('on');
+                        $('#' + left).addClass('off');
                     }
                 }
             }
@@ -212,8 +259,8 @@
             }           
 
             function createBoard(inputValue, response) {
-                console.log("this is inside createBoard");
-                console.log(response);
+                // console.log("this is inside createBoard");
+                // console.log(response);
                 //var table = document.getElementById("game-table");
                 var table = $("#game-table");
                 //https://www.geeksforgeeks.org/how-to-remove-table-row-from-table-using-jquery/#
@@ -261,10 +308,10 @@
                 data: { input: inputValue },
                 dataType: 'json',
                 success: function(response) {
-                    console.log("response \n");
-                    console.log(response);
-                    console.log("lights on \n");
-                    console.log(response.lightsOn);
+                    // console.log("response \n");
+                    // console.log(response);
+                    // console.log("lights on \n");
+                    // console.log(response.lightsOn);
                     createBoard(inputValue, response.lightsOn);
                 }});
             });
