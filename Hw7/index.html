@@ -48,15 +48,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         //https://www.geeksforgeeks.org/how-to-count-number-of-rows-and-columns-in-a-table-using-jquery/
-        function checkWon(){
-            let rows = 0;
-            // Counting rows
-            $("#game-table tr").each(()=>{
-                rows++;
-            });
-            // console.log("Rows: "+rows+"\n");
-
-            var currentCoordinate = 0;
+        function checkWon(rows){
             var allOff = true;
 
             for(let i = 0; i < rows; i++){
@@ -74,6 +66,13 @@
 
         //https://stackoverflow.com/questions/8344712/javascript-buttons-select-and-unselect
         function changeLight(id) {
+            let rows = 0;
+            // Counting rows
+            $("#game-table tr").each(()=>{
+                rows++;
+            });
+            // console.log("Rows: "+rows+"\n");
+
             console.log("the id");
             console.log(id);
             if ($('#' + id).hasClass('on')) {
@@ -82,10 +81,8 @@
                 $('#' + id).addClass('off');
 
                 
-
-
                 //https://www.squash.io/how-to-set-time-delay-in-javascript/#:~:text=Using%20setTimeout(),-One%20of%20the&text=This%20function%20allows%20you%20to,a%20specified%20delay%2C%20in%20milliseconds.&text=parameter%20specifies%20the%20time%20delay%20in%20milliseconds.&text=will%20be%20executed%20after%20a,an%20alert%20message%20being%20displayed.
-                var won = checkWon();
+                var won = checkWon(rows);
                 if(won){
                     setTimeout(function() {
                     alert("You Won!");
