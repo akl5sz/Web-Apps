@@ -47,7 +47,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
+        //https://stackoverflow.com/questions/8344712/javascript-buttons-select-and-unselect
         function changeLight(id) {
                 console.log("the id");
                 console.log(id);
@@ -55,7 +55,9 @@
                     $('#' + id).removeClass('on');
                     $('#' + id).addClass('off');
                 }
-                else {
+                else if($('#' + id).hasClass('off')){
+                    $('#' + id).removeClass('off');
+                    $('#' + id).addClass('on');
                     // if ($('.answerBtnsSelected').length < 3) {
                     //     $('#' + id).addClass('answerBtnsSelected');
                     // }
@@ -75,10 +77,7 @@
                     }
                 }
                 return isResponse;
-            }
-            //https://stackoverflow.com/questions/8344712/javascript-buttons-select-and-unselect
-
-            
+            }           
 
             function createBoard(inputValue, response) {
                 console.log("this is inside createBoard");
