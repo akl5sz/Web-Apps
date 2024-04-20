@@ -74,49 +74,77 @@
 
             console.log("the id");
             console.log(id);
+
+            id = parseInt(id);
+            var top = id - 10;
+            var bottom = id + 10;
+            var right = id + 1;
+            var left = id - 1; 
+
+            console.log("top: " + top);
+            console.log("bottom: " + bottom);
+            console.log("right: " + right);
+            console.log("left: " + left);
+
+            console.log(parseInt(top/10) >= 0);
+            console.log(parseInt(top/10));
+            console.log(parseInt(bottom/10) <= rows-1);
+            console.log(parseInt(bottom/10));
+            console.log((right%10) <= rows-1);
+            console.log((right%10));
+            console.log((left%10) >= 0);
+            console.log((left%10));
+
             if ($('#' + id).hasClass('on')) {
                 $('#' + id).removeClass('on');
                 $('#' + id).addClass('off');
 
-                var top = id - 10;
-                var bottom = id + 10;
-                var right = id + 1;
-                var left = id - 1;
-
-                if((top/10) >= 0){
-                    if ($('#' + id).hasClass('on')) {
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
-                    } else if ($('#' + id).hasClass('off')){
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
+                if(parseInt(top/10) >= 0){
+                    console.log("YES GOING HERE 1");
+                    console.log((top/10));
+                    if(top>=0 && top<=rows-1){
+                        top = 0 + "" + top; 
+                    }
+                    top = top.toString();
+                    if ($('#' + top).hasClass('on')) {
+                        console.log("HERE 1");
+                        $('#' + top).removeClass('on');
+                        $('#' + top).addClass('off');
+                    } else if ($('#' + top).hasClass('off')){
+                        console.log("HERE 2");
+                        $('#' + top).removeClass('on');
+                        $('#' + top).addClass('off');
                     }
                 }
-                if((bottom/10) <= rows-1){
-                    if ($('#' + id).hasClass('on')) {
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
-                    } else if ($('#' + id).hasClass('off')){
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
+                if(parseInt(bottom/10)/10 <= rows-1){
+                    console.log("YES GOING HERE 2");
+                    bottom = bottom.toString();
+                    if ($('#' + bottom).hasClass('on')) {
+                        $('#' + bottom).removeClass('on');
+                        $('#' + bottom).addClass('off');
+                    } else if ($('#' + bottom).hasClass('off')){
+                        $('#' + bottom).removeClass('on');
+                        $('#' + bottom).addClass('off');
                     }
                 }
                 if((right%10) <= rows-1){
-                    if ($('#' + id).hasClass('on')) {
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
-                    } else if ($('#' + id).hasClass('off')){
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
+                    right = right.toString();
+                    if ($('#' + right).hasClass('on')) {
+                        $('#' + right).removeClass('on');
+                        $('#' + right).addClass('off');
+                    } else if ($('#' + right).hasClass('off')){
+                        $('#' + right).removeClass('on');
+                        $('#' + right).addClass('off');
                     }
                 }
                 if((left%10) >= 0){
-                    if ($('#' + id).hasClass('on')) {
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
-                    } else if ($('#' + id).hasClass('off')){
-                        $('#' + id).removeClass('on');
-                        $('#' + id).addClass('off');
+                    left = left.toString();
+                    if ($('#' + left).hasClass('on')) {
+                        $('#' + left).removeClass('on');
+                        $('#' + left).addClass('off');
+                    } else if ($('#' + left).hasClass('off')){
+                        $('#' + left).removeClass('on');
+                        $('#' + left).addClass('off');
                     }
                 }
                 
@@ -130,7 +158,44 @@
             }
             else if($('#' + id).hasClass('off')){
                 $('#' + id).removeClass('off');
-                $('#' + id).addClass('on');    
+                $('#' + id).addClass('on');  
+                
+                if((top/10) >= 0){
+                    if ($('#' + top).hasClass('on')) {
+                        $('#' + top).removeClass('on');
+                        $('#' + top).addClass('off');
+                    } else if ($('#' + top).hasClass('off')){
+                        $('#' + id).removeClass('off');
+                        $('#' + id).addClass('on');  
+                    }
+                }
+                if((bottom/10) <= rows-1){
+                    if ($('#' + bottom).hasClass('on')) {
+                        $('#' + bottom).removeClass('on');
+                        $('#' + bottom).addClass('off');
+                    } else if ($('#' + bottom).hasClass('off')){
+                        $('#' + id).removeClass('off');
+                        $('#' + id).addClass('on');  
+                    }
+                }
+                if((right%10) <= rows-1){
+                    if ($('#' + right).hasClass('on')) {
+                        $('#' + right).removeClass('on');
+                        $('#' + right).addClass('off');
+                    } else if ($('#' + right).hasClass('off')){
+                        $('#' + id).removeClass('off');
+                        $('#' + id).addClass('on');  
+                    }
+                }
+                if((left%10) >= 0){
+                    if ($('#' + left).hasClass('on')) {
+                        $('#' + left).removeClass('on');
+                        $('#' + left).addClass('off');
+                    } else if ($('#' + left).hasClass('off')){
+                        $('#' + id).removeClass('off');
+                        $('#' + id).addClass('on');  
+                    }
+                }
             }
         }
         $(document).ready(function() {
