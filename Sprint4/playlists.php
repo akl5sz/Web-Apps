@@ -28,9 +28,9 @@
           </ul>
           
           <div class="col-md-3">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+            <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
               <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-          </form>
+          </form> -->
           </div>
         </header>
       </div>
