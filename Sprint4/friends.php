@@ -28,10 +28,10 @@
           </div>
 
             <ul class="nav nav-pills mr-auto">
-              <li class="nav-item"><a href="?command=feed" class="nav-link active" aria-current="page">Feed</a></li>
+              <li class="nav-item"><a href="?command=feed" class="nav-link" aria-current="page">Feed</a></li>
               <li class="nav-item"><a href="?command=playlists" class="nav-link">Playlists</a></li>
               <li class="nav-item"><a href="?command=discover" class="nav-link">Discover</a></li>
-              <li class="nav-item"><a href="?command=friends" class="nav-link">Friends</a></li>
+              <li class="nav-item"><a href="?command=friends" class="nav-link active">Friends</a></li>
             </ul>
 
             <div class="col-md-3">
