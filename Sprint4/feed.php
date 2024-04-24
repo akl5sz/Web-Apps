@@ -43,7 +43,7 @@
         <div class="padding"></div>
 
         <br>
-        <div class="container">
+        <!-- <div class="container">
         <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
           <div class="col-auto text-center">
             <button onclick="displayText()" class="btn btn-light rounded-pill px-4" type="button">Add Comment</button>
@@ -55,7 +55,7 @@
                 <button type="submit" class="btn btn-primary">Add Comment</button>
             </form>
           </div>
-          </div>
+          </div> -->
           <script>
             function displayText() {
               var text = document.getElementById("textField");

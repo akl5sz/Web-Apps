@@ -44,7 +44,7 @@
 
       <div class="padding"></div>
 
-      <div class="container">
+      <!-- <div class="container">
         <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
           <div class="col-auto">
             <button style="display: none;" class="btn btn-light rounded-pill px-4" type="button">Create Playlist</button>
@@ -54,7 +54,7 @@
             <a href="?command=json" class="btn btn-light rounded-pill px-4" type="button">Friends JSON File</a>
           </div>
         </div>
-      </div>  
+      </div>   -->
       <!-- List of Friends -->
       <div id="card-container" class="wrapper" style="display: grid; grid-auto-columns: minmax(5rem, auto); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); ">
       </div>

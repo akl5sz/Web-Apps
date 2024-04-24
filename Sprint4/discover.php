@@ -16,10 +16,18 @@
     </head>
 
     <body class="d-flex flex-column min-vh-100">
-      <!-- Navbar -->
-      <div class="container-fluid fixed-top">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-          <div class="col-md-3 mb-2 mb-md-0"></div>
+        <!-- Navbar -->
+        <div class="container-fluid fixed-top">
+          <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+
+          <div class="col-md-3 d-flex align-items-center">
+            <span class="text-white" style="margin-right: 20px;">Welcome, <?php echo $_SESSION["username"]; ?></span>
+            <ul class="nav nav-pills" style="margin-left: 20px;">
+                <li class="nav-item"><a href="?command=logout" class="nav-link active" aria-current="page">Logout</a></li>
+            </ul>
+          </div>
+
+
    
           <ul class="nav nav-pills mr-auto">
             <li class="nav-item"><a href="?command=feed" class="nav-link" aria-current="page">Feed</a></li>
