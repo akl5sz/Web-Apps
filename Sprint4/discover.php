@@ -57,6 +57,7 @@
       <?php
         if ($res !== false && !empty($res)) {
           // Loop through search results and display movie cards
+          $count = 0;
           foreach ($res as $movie) {
               echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
                         <div class=\"row g-0\">
@@ -66,11 +67,32 @@
                               <p class=\"card-text\">{$movie['description']}</p>
                               <p class=\"card-rating\"><small>Rated: {$movie['rating']}</small></p>
                               <p class=\"card-time\"><small>{$movie['hours']}hr {$movie['minutes']}min</small></p>
-                              <button class=\"btn btn-primary\" type=\"submit\"><i>Show Anyways</i></button>
+                              <div class=\"container\">
+                              <div class=\"row justify-content-center py-4\" style=\"display: flex; flex-direction: row;\">
+                                <div class=\"col-auto text-center\">
+                                  <button onclick=\"displayText".$count."()\" class=\"btn btn-light rounded-pill px-4\" type=\"button\">Add Comment</button>
+                                  <div id=\"textField".$count."\" style=\"display: none;\">
+                                  <form action=\"?command=add-comment\" method=\"post\" class=\"col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6\" role=\"search\">
+                                      <input type=\"search\" value=\"{$movie['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter movie title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"search\" value=\"{$movie['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter movie year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"search\" class=\"form-control form-control-dark\" name=\"comment\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
+                                      <button type=\"submit\" class=\"btn btn-primary\">Add Comment</button>
+                                  </form>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            <script>
+                            function displayText".$count."() {
+                              var text = document.getElementById(\"textField".$count."\");
+                              text.style.display = \"block\";
+                            }
+                          </script>
                             </div>
                           </div>
                         </div>
                       </div>";
+                      $count++;
           }
       } else {
           echo "<div class=\"alert alert-warning\" role=\"alert\">No movies found!</div>";
