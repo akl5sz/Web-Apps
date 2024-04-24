@@ -29,9 +29,9 @@
           </ul>
 
           <div class="col-md-3">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
-              <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-          </form>
+            <form action="?command=discover" method="POST" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+              <input type="text" name="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            </form>
           </div>
         </header>
       </div>
@@ -54,6 +54,30 @@
         </div>
 
       <!-- Media Cards -->
+      <?php
+        if ($res !== false && !empty($res)) {
+          // Loop through search results and display movie cards
+          foreach ($res as $movie) {
+              echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
+                        <div class=\"row g-0\">
+                          <div class=\"col-md-8\">
+                            <div class=\"card-body\">
+                              <h5 class=\"card-title\">{$movie['title']} ({$movie['year']})</h5>
+                              <p class=\"card-text\">{$movie['description']}</p>
+                              <p class=\"card-rating\"><small>{$movie['rating']}</small></p>
+                              <p class=\"card-hour\"><small>{$movie['hours']}hr</small></p>
+                              <p class=\"card-minute\"><small>{$movie['minutes']}min</small></p>
+                              <button class=\"btn btn-primary\" type=\"submit\"><i>Show Anyways</i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>";
+          }
+      } else {
+          echo "<div class=\"alert alert-warning\" role=\"alert\">No movies found!</div>";
+      }
+        ?>
+
       <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
@@ -61,9 +85,9 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
+              <h5 class="card-title">Card title</h5><h5 class="card-year">(2024)</h5>
               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small>Last updated 3 mins ago</small></p>
+              <p class="card-rating"><small>PG</small></p><p class="card-hour"><small>1hr</small></p><p class="card-minute"><small>30min</small></p>
               <button class="btn btn-primary" type="submit"><i>Show Anyways</i></button>
             </div>
           </div>

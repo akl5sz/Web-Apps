@@ -40,6 +40,9 @@ class MediacController {
             case "delete":
                 $this->deleteAction();
                 break;
+            case "search":
+                $this->searchMedia();
+                break;
             case "discover":
                 $this->showDiscover();
                 break;
@@ -65,6 +68,10 @@ class MediacController {
 
 
     public function showDiscover(){
+        if (isset($_GET['search'])) {
+            $res = $this->searchMedia();
+            return;
+        }
         include("discover.php");
     }
 
@@ -174,6 +181,21 @@ class MediacController {
             $this->showLogin();
         }  
     }
+    public function searchMedia() {
+        if (isset($_POST["search"]) && !empty($_POST["search"])) {
+            $searchQuery = $_POST["search"];
+            echo("hi");
+            $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchQuery%'");
+            if ($res !== false) {
+                header("Location: ?command=discover");
+                return $res; 
+            } else {
+                $this->errorMessage = "A problem has occurred.";
+                $this->showDiscover();
+            }
+        }
+    }
+
 
     public function getComments($username) {
         if ($username != null) {
