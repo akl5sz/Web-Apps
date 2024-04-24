@@ -189,7 +189,7 @@ class MediacController {
         if (isset($_POST["search"]) && !empty($_POST["search"])) {
             $searchQuery = $_POST["search"];
             echo("hi");
-            $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchQuery%'");
+            $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$1%';", $searchQuery);
             if ($res !== false) {
                 header("Location: ?command=discover");
                 return $res; 
