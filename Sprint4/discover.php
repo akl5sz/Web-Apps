@@ -64,9 +64,8 @@
                             <div class=\"card-body\">
                               <h5 class=\"card-title\">{$movie['title']} ({$movie['year']})</h5>
                               <p class=\"card-text\">{$movie['description']}</p>
-                              <p class=\"card-rating\"><small>{$movie['rating']}</small></p>
-                              <p class=\"card-hour\"><small>{$movie['hours']}hr</small></p>
-                              <p class=\"card-minute\"><small>{$movie['minutes']}min</small></p>
+                              <p class=\"card-rating\"><small>Rated: {$movie['rating']}</small></p>
+                              <p class=\"card-time\"><small>{$movie['hours']}hr {$movie['minutes']}min</small></p>
                               <button class=\"btn btn-primary\" type=\"submit\"><i>Show Anyways</i></button>
                             </div>
                           </div>
