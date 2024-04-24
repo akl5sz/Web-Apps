@@ -389,8 +389,36 @@ class Database {
                         SELECT 1 FROM friends
                         WHERE username = $1 AND friend_username = $2);",
                         'jnx6xp', 'nyt8te');
-                
+
+        $res  = pg_query($this->dbHandle, "create table if not exists pfps (
+                username text,
+                pfp_hyperlink text,
+                primary key (username, pfp_hyperlink),
+                foreign key (username) references users (username));");
+
+              
+        // $res = $this->query("
+        //         insert into pfps (username, pfp_hyperlink)
+        //         values ($1, $2);",
+        //                 'jnx6xp', "https://i.pinimg.com/236x/f3/85/d7/f385d78eba93e8b768bcc04bf96fe5a5.jpg");
+
+        //  $res = $this->query("
+        //         insert into pfps (username, pfp_hyperlink)
+        //         values ($1, $2);",
+        //                 'maya', "https://i.redd.it/5560va6tsg191.jpg");
+        
+        // $res = $this->query("
+        //         insert into pfps (username, pfp_hyperlink)
+        //         values ($1, $2);",
+        //                 'akl5sz', "https://i1.sndcdn.com/avatars-000583246488-dhm5la-t500x500.jpg");
+
+        // $res = $this->query("
+        //         insert into pfps (username, pfp_hyperlink)
+        //         values ($1, $2);",
+        //                 'nyt8te', "https://i.etsystatic.com/30677692/r/il/71638b/3580232855/il_fullxfull.3580232855_q0k0.jpg");
     }
+
+    
     
 
     /**
