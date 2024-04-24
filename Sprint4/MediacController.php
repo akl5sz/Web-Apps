@@ -114,9 +114,10 @@ class MediacController {
     public function showJSON(){
         $username = $_SESSION["username"];
         $friends = $this->getFriends($username);
-        // print_r($friends);
         include("jsonconverter.php");
     }
+
+
     public function deleteAction() {
         $res = $this->db->query("delete from movie_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
         header("Location: ?command=feed");
@@ -226,7 +227,7 @@ class MediacController {
     }
     public function getFriends($username){
         if ($username != null) {
-            $friends = $this->db->query("select * from friends where username = $1;", $username);
+            $friends = $this->db->query("select friends.friend_username, pfps.pfp_hyperlink from friends join pfps on friends.friend_username = pfps.username where friends.username = $1;", $username);
             return $friends;
         }
     }

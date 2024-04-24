@@ -11,12 +11,13 @@ header("Content-Type: application/json");
 
 // Build the return data structure
 $output = [
+    "username" => $username,
     $username => []
 ];
 
 for($i=0;$i<count($friends);$i++){    
     $friendArray = $friends[$i];
-    $output[$username][] = $friendArray["friend_username"];
+    $output[$username][] = [$friendArray["friend_username"],$friendArray["pfp_hyperlink"]];
 }
 
 // Print out JSON 
