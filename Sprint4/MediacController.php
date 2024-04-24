@@ -68,6 +68,9 @@ class MediacController {
 
 
     public function showDiscover(){
+        $searchTerm = $_POST['search'];
+        $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchTerm%'");
+        
         if (isset($_GET['search'])) {
             $res = $this->searchMedia();
             return;

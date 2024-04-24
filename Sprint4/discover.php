@@ -78,7 +78,7 @@
       }
         ?>
 
-      <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
+      <!-- <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
             <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Coraline_poster.jpg/220px-Coraline_poster.jpg" class="img-fluid rounded-start playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
@@ -110,7 +110,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Footer -->
       <footer class="mt-auto">
