@@ -80,8 +80,8 @@
                                   <button onclick=\"displayText".$count."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
                                   <div id=\"textField".$count."\" style=\"display: none;\">
                                   <form action=\"?command=add-comment\" method=\"post\" role=\"search\">
-                                      <input type=\"search\" value=\"{$movie['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter movie title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
-                                      <input type=\"search\" value=\"{$movie['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter movie year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"hidden\" value=\"{$movie['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter movie title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"hidden\" value=\"{$movie['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter movie year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
                                       <input type=\"search\" class=\"form-control form-control-dark\" name=\"comment\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
                                       <button type=\"submit\" class=\"btn btn-light active\">Submit</button>
                                   </form>
