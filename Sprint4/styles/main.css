@@ -154,6 +154,10 @@ button.btn-primary {
     padding: 30px;
 }
 
+.anotherpadding{
+    padding: 50px;
+}
+
 @media (max-width: 768px) { 
     .bordered-playlist {
         max-width: none; 

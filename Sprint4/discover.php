@@ -43,10 +43,9 @@
           </div>
         </header>
       </div>
-
       <!-- Category Buttons -->
       <div class="padding"></div>
-        <div class="container">
+        <div class="container" style="padding: 20px";>
           <div class="row justify-content-center py-5">
             <div class="col-auto">
                 <button class="btn btn-light rounded-pill px-3" type="button">Trending</button>

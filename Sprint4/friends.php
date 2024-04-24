@@ -26,7 +26,7 @@
                 <li class="nav-item"><a href="?command=logout" class="nav-link active" aria-current="page">Logout</a></li>
             </ul>
           </div>
-
+          
             <ul class="nav nav-pills mr-auto">
               <li class="nav-item"><a href="?command=feed" class="nav-link" aria-current="page">Feed</a></li>
               <li class="nav-item"><a href="?command=playlists" class="nav-link">Playlists</a></li>
