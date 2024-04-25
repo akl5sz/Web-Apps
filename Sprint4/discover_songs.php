@@ -90,13 +90,13 @@
                               <div class=\"container\">
                               <div class=\"justify-content-center py-4\" style=\"display: flex; flex-direction: row;\">
                                 <div class=\"col-auto text-center\">
-                                  <button onclick=\"displayText".$song."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
-                                  <div id=\"textField".$song."\" style=\"display: none;\">
-                                  <form action=\"?command=add-comment\" method=\"post\" role=\"searchSongs\">
+                                  <button onclick=\"displayText".$count."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
+                                  <div id=\"textField".$count."\" style=\"display: none;\">
+                                  <form action=\"?command=add-comment-song\" method=\"post\" role=\"searchSongs\">
                                       <input type=\"hidden\" value=\"{$song['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter song title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
                                       <input type=\"hidden\" value=\"{$song['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter song year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
                                       <input type=\"hidden\" value=\"{$song['artist']}\" class=\"form-control form-control-dark\" name=\"artist\" placeholder=\"Enter song artist...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
-                                      <input type=\"searchSongs\" class=\"form-control form-control-dark\" name=\"comment\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
+                                      <input type=\"searchSongs\" class=\"form-control form-control-dark\" name=\"commentSong\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
                                       <button type=\"submit\" class=\"btn btn-light active\">Submit</button>
                                   </form>
                                 </div>

@@ -28,6 +28,12 @@ class MediacController {
             case "add-comment":
                 $this->addComment();
                 break;
+            case "add-comment-tvshow":
+                $this->addCommentTVShow();
+                break;
+            case "add-comment-song":
+                $this->addCommentSong();
+                break;        
             case "playlists":
                 $this->showPlaylists();
                 break;
@@ -290,6 +296,49 @@ class MediacController {
                 $this->errorMessage = "Please insert data to all fields.";
                 $this->showFeed();
         }
+    }
+
+    public function addCommentTVShow() {
+        if (isset($_POST["commentTVshow"]) && !empty($_POST["commentTVshow"]) &&
+        isset($_POST["title"]) && !empty($_POST["title"]) &&
+        isset($_POST["year"]) && !empty($_POST["year"])) {
+
+            $res = $this->db->query("INSERT INTO tvshow_comments (username, title, year, comment) VALUES ($1, $2, $3, $4);", 
+                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["comment"]);
+
+            if ($res !== false) {
+                header("Location: ?command=feed");
+                return;
+            } else {
+                $this->errorMessage = "A problem has occured.";
+                $this->showFeed();
+            }
+        } else {
+                $this->errorMessage = "Please insert data to all fields.";
+                $this->showFeed();
+        }       
+    }
+
+    public function addCommentSong() {
+        if (isset($_POST["comment"]) && !empty($_POST["comment"]) &&
+        isset($_POST["title"]) && !empty($_POST["title"]) &&
+        isset($_POST["year"]) && !empty($_POST["year"]) &&
+        isset($_POST["artist"]) && !empty($_POST["artist"])) {
+
+            $res = $this->db->query("INSERT INTO tvshow_comments (username, title, year, artist, comment) VALUES ($1, $2, $3, $4, $5);", 
+                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["artist"], $_POST["comment"]);
+
+            if ($res !== false) {
+                header("Location: ?command=feed");
+                return;
+            } else {
+                $this->errorMessage = "A problem has occured.";
+                $this->showFeed();
+            }
+        } else {
+                $this->errorMessage = "Please insert data to all fields.";
+                $this->showFeed();
+        }       
     }
     public function getFriends($username){
         if ($username != null) {

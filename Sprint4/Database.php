@@ -393,6 +393,26 @@ class Database {
                 foreign key (username) references users (username),
                 foreign key (title, year) references movies (title, year));");
 
+        $res = pg_query($this->dbHandle, "create table if not exists tvshow_comments ( 
+                username text,
+                title text,
+                year int,
+                comment text,
+                primary key (username, title, year, comment),
+                foreign key (username) references users (username),
+                foreign key (title, year) references tvshows (title, year));");
+
+        $res = pg_query($this->dbHandle, "create table if not exists song_comments ( 
+                username text,
+                title text,
+                year int,
+                artist text,
+                comment text,
+                primary key (username, title, year, artist, comment),
+                foreign key (username) references users (username),
+                foreign key (title, year) references songs (title, artist, year));");
+        
+
         // $res = $this->query("
         //         INSERT INTO movie_comments (username, title, year, comment)
         //         SELECT $1, $2, $3, $4
