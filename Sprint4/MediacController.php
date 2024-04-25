@@ -41,11 +41,23 @@ class MediacController {
                 $this->deleteAction();
                 break;
             case "search":
-                $this->searchMedia();
+                $this->searchMovies();
                 break;
+            case "searchTVShows":
+                $this->searchTVShows();
+                break;
+            case "searchSongs":
+                $this->searchSongs();
+                break;        
             case "discover":
                 $this->showDiscover();
                 break;
+            case "discover_tvshows":
+                $this->showDiscoverTVShows();
+                break;
+            case "discover_songs":
+                $this->showDiscoverSongs();
+                break;        
             case "signup":
                 $this->showSignUp();
                 break;
@@ -72,10 +84,32 @@ class MediacController {
         $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchTerm%'");
         
         if (isset($_GET['search'])) {
-            $res = $this->searchMedia();
+            $res = $this->searchMovies();
             return;
         }
         include("discover.php");
+    }
+
+    public function showDiscoverTVShows(){
+        $searchTerm = $_POST['searchTVshows'];
+        $res = $this->db->query("SELECT * FROM tvshows WHERE title ILIKE '%$searchTerm%'");
+        
+        if (isset($_GET['searchTVShows'])) {
+            $res = $this->searchTVShows();
+            return;
+        }
+        include("discover_tvshows.php");
+    }
+
+    public function showDiscoverSongs(){
+        $searchTerm = $_POST['searchSongs'];
+        $res = $this->db->query("SELECT * FROM songs WHERE title ILIKE '%$searchTerm%'");
+        
+        if (isset($_GET['searchSongs'])) {
+            $res = $this->searchSongs();
+            return;
+        }
+        include("discover_songs.php");
     }
 
 
@@ -185,13 +219,42 @@ class MediacController {
             $this->showLogin();
         }  
     }
-    public function searchMedia() {
+    public function searchMovies() {
         if (isset($_POST["search"]) && !empty($_POST["search"])) {
             $searchQuery = $_POST["search"];
             echo("hi");
             $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$1%';", $searchQuery);
             if ($res !== false) {
                 header("Location: ?command=discover");
+                return $res; 
+            } else {
+                $this->errorMessage = "A problem has occurred.";
+                $this->showDiscover();
+            }
+        }
+    }
+
+    public function searchTVShows() {
+        if (isset($_POST["searchTVShows"]) && !empty($_POST["searchTVShows"])) {
+            $searchQuery = $_POST["searchTVShows"];
+            $res = $this->db->query("SELECT * FROM tvshows WHERE title ILIKE '%$1%';", $searchQuery);
+            if ($res !== false) {
+                header("Location: ?command=discover_tvshows");
+                return $res; 
+            } else {
+                $this->errorMessage = "A problem has occurred.";
+                $this->showDiscover();
+            }
+        }
+    }
+
+
+    public function searchSongs() {
+        if (isset($_POST["searchSongs"]) && !empty($_POST["searchSongs"])) {
+            $searchQuery = $_POST["searchSongs"];
+            $res = $this->db->query("SELECT * FROM songs WHERE title ILIKE '%$1%';", $searchQuery);
+            if ($res !== false) {
+                header("Location: ?command=discover_songs");
                 return $res; 
             } else {
                 $this->errorMessage = "A problem has occurred.";

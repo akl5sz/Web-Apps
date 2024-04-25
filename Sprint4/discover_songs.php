@@ -37,8 +37,8 @@
           </ul>
 
           <div class="col-md-3">
-            <form action="?command=discover" method="POST" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
-              <input type="text" name="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            <form action="?command=discover_songs" method="POST" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="searchSongs">
+              <input type="text" name="searchSongs" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
             </form>
           </div>
         </header>
@@ -61,42 +61,42 @@
           <div class="col-auto">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="?command=discover">Movies</a>
+                <a class="nav-link" aria-current="page" href="?command=discover">Movies</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="?command=discover_tvshows">TV Shows</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="?command=discover_songs">Music</a>
+                <a class="nav-link active" href="?command=discover_songs">Music</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-        
-        
+
       <!-- Media Cards -->
       <?php
         if ($res !== false && !empty($res)) {
-          // Loop through search results and display movie cards
+          // Loop through search results and display song cards
           $count = 0;
-          foreach ($res as $movie) {
+          foreach ($res as $song) {
               echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
                         <div class=\"row g-0\">
                             <div class=\"card-body\">
-                              <h5 class=\"card-title\">{$movie['title']} ({$movie['year']})</h5>
-                              <p class=\"card-text\">{$movie['description']}</p>
-                              <p class=\"card-rating\"><small>Rated: {$movie['rating']}</small></p>
-                              <p class=\"card-time\"><small>{$movie['hours']}hr {$movie['minutes']}min</small></p>
+                              <h5 class=\"card-title\">{$song['title']} ({$song['year']})</h5>
+                              <p class=\"card-text\">{$song['artist']}</p>
+                              <p class=\"card-rating\"><small>Album: {$song['album']}</small></p>
+                              <p class=\"card-time\"><small>{$song['minutes']}min {$song['seconds']}sec</small></p>
                               <div class=\"container\">
                               <div class=\"justify-content-center py-4\" style=\"display: flex; flex-direction: row;\">
                                 <div class=\"col-auto text-center\">
-                                  <button onclick=\"displayText".$count."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
-                                  <div id=\"textField".$count."\" style=\"display: none;\">
-                                  <form action=\"?command=add-comment\" method=\"post\" role=\"search\">
-                                      <input type=\"hidden\" value=\"{$movie['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter movie title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
-                                      <input type=\"hidden\" value=\"{$movie['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter movie year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
-                                      <input type=\"search\" class=\"form-control form-control-dark\" name=\"comment\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
+                                  <button onclick=\"displayText".$song."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
+                                  <div id=\"textField".$song."\" style=\"display: none;\">
+                                  <form action=\"?command=add-comment\" method=\"post\" role=\"searchSongs\">
+                                      <input type=\"hidden\" value=\"{$song['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter song title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"hidden\" value=\"{$song['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter song year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"hidden\" value=\"{$song['artist']}\" class=\"form-control form-control-dark\" name=\"artist\" placeholder=\"Enter song artist...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
+                                      <input type=\"searchSongs\" class=\"form-control form-control-dark\" name=\"comment\" placeholder=\"Enter comment here...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\"> 
                                       <button type=\"submit\" class=\"btn btn-light active\">Submit</button>
                                   </form>
                                 </div>
@@ -115,7 +115,7 @@
                       $count++;
           }
       } else {
-          echo "<div class=\"alert alert-warning\" role=\"alert\">No movies found!</div>";
+          echo "<div class=\"alert alert-warning\" role=\"alert\">No TV shows found!</div>";
       }
         ?>
 
@@ -152,7 +152,7 @@
           </div>
         </div>
       </div> -->
-      
+
       <!-- Footer -->
       <footer class="mt-auto">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">

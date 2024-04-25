@@ -133,8 +133,74 @@ class Database {
                         WHERE title = $1 AND year = $2 AND rating = $3 AND director = $4);", 
                         'Fifty Shades of Grey', 2015, 'R', 'Sam Taylor-Johnson', 2, 5, 'Literature student Anastasia Steele\'s life changes forever when she meets handsome, yet tormented, billionaire Christian Grey.');
 
+        $res  = pg_query($this->dbHandle, "create table if not exists tvshows (
+                title text,
+                year int,
+                rating text,
+                creator text,
+                episodes int,
+                seasons int,
+                description text,
+                primary key (title, year));");
+
+         $res = $this->query("
+                INSERT INTO tvshows (title, year, rating, creator, episodes, seasons, description)
+                SELECT $1, $2, $3, $4, $5, $6, $7
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM tvshows
+                        WHERE title = $1 AND year = $2 AND rating = $3 AND creator = $4 AND episodes = $5 AND seasons = $6 AND description = $7);", 
+                        'Rupaul\'s Drag Race', 2009, 'TV-14', 'RuPaul Andre Charles', 207, 16, '"RuPaul\'s Drag Race" is a reality show in which a group of talented drag queens compete in challenges to impress host RuPaul, the world\'s most famous drag queen, to win a cash prize along with a crown and the title of America\'s Next Drag Superstar. Each episode consists of a main challenge, usually some form of performance or fashion design -- sometimes both. The queens then participate in a themed runway show, where one is declared the winner of that week, while two others are announced to be up for elimination. The bottom two must then compete to stay on the show with a lip-sync for their lives.');
+        
+        $res = $this->query("
+                INSERT INTO tvshows (title, year, rating, creator, episodes, seasons, description)
+                SELECT $1, $2, $3, $4, $5, $6, $7
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM tvshows
+                        WHERE title = $1 AND year = $2 AND rating = $3 AND creator = $4 AND episodes = $5 AND seasons = $6 AND description = $7);", 
+                        '9-1-1', 2018, 'TV-14', 'Brad Falchuk, Tim Minear, and Ryan Murphy', 104, 7, 'Ryan Murphy, Brad Falchuk and Tim Minear reimagine the procedural drama with "9-1-1." The series explores the high-pressure experiences of first responders -- including police officers, firefighters and dispatchers -- who are thrust into the most frightening, shocking and heart-stopping situations. These emergency responders must try to balance saving those who are at their most vulnerable with solving the problems in their own lives. The show draws from real-life, high-pressure experiences of first responders who regularly face heart-stopping situations that are often unpredictable, intense and uplifting at the same time.');                
+
+        $res  = pg_query($this->dbHandle, "create table if not exists songs (
+                title text,
+                year int,
+                artist text,
+                album text,
+                minutes int,
+                seconds int,
+                primary key (title, year, artist));");
                 
-        $res  = pg_query($this->dbHandle, "create table if not exists genres (
+        $res = $this->query("
+                INSERT INTO songs (title, year, artist, album, minutes, seconds)
+                SELECT $1, $2, $3, $4, $5, $6
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM songs
+                        WHERE title = $1 AND year = $2 AND artist = $3 AND album = $4 AND minutes = $5 AND seconds = $6);", 
+                        'Ivy', 2020, 'Taylor Swift', 'Evermore', 4, 20);
+                        
+        $res = $this->query("
+                INSERT INTO songs (title, year, artist, album, minutes, seconds)
+                SELECT $1, $2, $3, $4, $5, $6
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM songs
+                        WHERE title = $1 AND year = $2 AND artist = $3 AND album = $4 AND minutes = $5 AND seconds = $6);", 
+                        'Espresso', 2024, 'Sabrina Carpenter', 'Espresso', 2, 56); 
+                        
+        $res = $this->query("
+                INSERT INTO songs (title, year, artist, album, minutes, seconds)
+                SELECT $1, $2, $3, $4, $5, $6
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM songs
+                        WHERE title = $1 AND year = $2 AND artist = $3 AND album = $4 AND minutes = $5 AND seconds = $6);", 
+                        'greedy', 2023, 'Tate McRae', 'THINK LATER', 2, 14);
+                        
+        $res = $this->query("
+                INSERT INTO songs (title, year, artist, album, minutes, seconds)
+                SELECT $1, $2, $3, $4, $5, $6
+                WHERE NOT EXISTS (
+                        SELECT 1 FROM songs
+                        WHERE title = $1 AND year = $2 AND artist = $3 AND album = $4 AND minutes = $5 AND seconds = $6);", 
+                        'Drama', 2020, 'TOMORROW X TOGETHER', 'The Dream Chapter: ETERNITY', 3, 29);                    
+        
+        $res  = pg_query($this->dbHandle, "create table if not exists movie_genres (
                 genre text,
                 title text,
                 year int,
@@ -143,154 +209,154 @@ class Database {
 
 
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'The Muppet Movie', 1979, 'Musical');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'The Muppet Movie', 1979, 'Adventure');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'The Hunger Games', 2012, 'Action');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'The Hunger Games', 2012, 'Sci-Fi');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Coraline', 2009, 'Animation');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Coraline', 2009, 'Drama');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Coraline', 2009, 'Family');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Bee Movie', 2007, 'Animation');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Bee Movie', 2007, 'Adventure');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Bee Movie', 2007, 'Comedy');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Chicken Run', 2000, 'Animation');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Chicken Run', 2000, 'Adventure');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Chicken Run', 2000, 'Comedy');
 
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Shrek', 2001, 'Animation');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Shrek', 2001, 'Adventure');
             
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Shrek', 2001, 'Comedy');
 
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Fifty Shades of Grey', 2015, 'Drama');
 
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Fifty Shades of Grey', 2015, 'Romance');
 
         $res = $this->query("
-                INSERT INTO genres (title, year, genre)
+                INSERT INTO movie_genres (title, year, genre)
                 SELECT $1, $2, $3
                 WHERE NOT EXISTS (
-                    SELECT 1 FROM genres
+                    SELECT 1 FROM movie_genres
                     WHERE title = $1 AND year = $2 AND genre = $3);", 
                     'Fifty Shades of Grey', 2015, 'Thriller');
 
