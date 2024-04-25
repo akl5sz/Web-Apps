@@ -389,6 +389,7 @@ class Database {
                 title text,
                 year int,
                 comment text,
+                timestamp_column TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 primary key (username, title, year, comment),
                 foreign key (username) references users (username),
                 foreign key (title, year) references movies (title, year));");
@@ -398,6 +399,7 @@ class Database {
                 title text,
                 year int,
                 comment text,
+                timestamp_column TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 primary key (username, title, year, comment),
                 foreign key (username) references users (username),
                 foreign key (title, year) references tvshows (title, year));");
@@ -408,9 +410,10 @@ class Database {
                 year int,
                 artist text,
                 comment text,
+                timestamp_column TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 primary key (username, title, year, artist, comment),
                 foreign key (username) references users (username),
-                foreign key (title, year) references songs (title, artist, year));");
+                foreign key (title, artist, year) references songs (title, artist, year));");
         
 
         // $res = $this->query("

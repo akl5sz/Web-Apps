@@ -48,7 +48,7 @@
       <div class="container" style="padding: 20px; white-space: nowrap;" >
         <div class="row justify-content-center py-5"> 
           <div class="col-auto"> 
-            <button class="btn btn-light rounded-pill px-3" type="button">Horror</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Reality</button>
             <button class="btn btn-light rounded-pill px-3" type="button">Action</button>
             <button class="btn btn-light rounded-pill px-3" type="button">Science Fiction</button>
             <button class="btn btn-light rounded-pill px-3" type="button">Drama</button>

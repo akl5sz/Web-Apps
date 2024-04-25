@@ -48,13 +48,13 @@
       <div class="container" style="padding: 20px; white-space: nowrap;" >
         <div class="row justify-content-center py-5"> 
           <div class="col-auto"> 
-            <button class="btn btn-light rounded-pill px-3" type="button">Horror</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Action</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Science Fiction</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Drama</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Comedy</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Romance</button>
-            <button class="btn btn-light rounded-pill px-3" type="button">Crime</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Pop</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Rap</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Jazz</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Classical</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Rock</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Alternative</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Country</button>
           </div>
         </div>
         <div class="row justify-content-end col-auto">

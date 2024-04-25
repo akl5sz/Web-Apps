@@ -149,7 +149,17 @@ class MediacController {
 
 
     public function showFeed(){
-        $comments = $this->getComments($_SESSION["username"]);
+        $movieComments = $this->getComments($_SESSION["username"], "movie_comments");
+        $tvShowComments = $this->getComments($_SESSION["username"], "tvshow_comments");
+        $songComments = $this->getComments($_SESSION["username"], "song_comments");
+    
+        $comments = array_merge($movieComments, $tvShowComments, $songComments);
+
+        //https://www.geeksforgeeks.org/sort-array-dates-php/#
+        //https://stackoverflow.com/questions/11583822/usort-date-assistance
+        usort($comments, function($a, $b) {
+            return strtotime($b['timestamp_column']) - strtotime($a['timestamp_column']);
+        });
         include("feed.php");
     }
 
@@ -270,9 +280,9 @@ class MediacController {
     }
 
 
-    public function getComments($username) {
+    public function getComments($username, $table) {
         if ($username != null) {
-            $comments = $this->db->query("select * from movie_comments where username = $1;",$username);
+            $comments = $this->db->query("SELECT * FROM $table WHERE username = $1 ORDER BY timestamp_column DESC;", $username);
             return $comments;
         }
     }
@@ -304,7 +314,7 @@ class MediacController {
         isset($_POST["year"]) && !empty($_POST["year"])) {
 
             $res = $this->db->query("INSERT INTO tvshow_comments (username, title, year, comment) VALUES ($1, $2, $3, $4);", 
-                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["comment"]);
+                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["commentTVshow"]);
 
             if ($res !== false) {
                 header("Location: ?command=feed");
@@ -320,13 +330,13 @@ class MediacController {
     }
 
     public function addCommentSong() {
-        if (isset($_POST["comment"]) && !empty($_POST["comment"]) &&
+        if (isset($_POST["commentSong"]) && !empty($_POST["commentSong"]) &&
         isset($_POST["title"]) && !empty($_POST["title"]) &&
         isset($_POST["year"]) && !empty($_POST["year"]) &&
         isset($_POST["artist"]) && !empty($_POST["artist"])) {
 
-            $res = $this->db->query("INSERT INTO tvshow_comments (username, title, year, artist, comment) VALUES ($1, $2, $3, $4, $5);", 
-                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["artist"], $_POST["comment"]);
+            $res = $this->db->query("INSERT INTO song_comments (username, title, year, artist, comment) VALUES ($1, $2, $3, $4, $5);", 
+                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["artist"], $_POST["commentSong"]);
 
             if ($res !== false) {
                 header("Location: ?command=feed");
