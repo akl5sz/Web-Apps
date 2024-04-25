@@ -88,8 +88,6 @@
                 </div>";
           }
         ?>
-
-        <?php print_r($retArray);?>
         <br>
 <!-- 
         <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">

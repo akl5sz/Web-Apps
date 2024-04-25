@@ -173,6 +173,8 @@ class MediacController {
 
     public function deleteAction() {
         $res = $this->db->query("delete from movie_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
+        $res = $this->db->query("delete from tvshow_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
+        $res = $this->db->query("delete from song_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"], $_POST["title"], $_POST["year"], $_POST["comment"]);
         header("Location: ?command=feed");
         return;
     }
