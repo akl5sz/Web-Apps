@@ -119,40 +119,6 @@
       }
         ?>
 
-      <!-- <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
-        <div class="row g-0">
-          <div class="col-md-4 d-flex align-items-center">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/36/Coraline_poster.jpg/220px-Coraline_poster.jpg" class="img-fluid rounded-start playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5><h5 class="card-year">(2024)</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-rating"><small>PG</small></p><p class="card-hour"><small>1hr</small></p><p class="card-minute"><small>30min</small></p>
-              <button class="btn btn-primary" type="submit"><i>Show Anyways</i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <br>
-
-      <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
-        <div class="row g-0">
-          <div class="col-md-4 d-flex align-items-center">
-            <img src="https://resizing.flixster.com/18icyRbPRhjrgvKB_7-9Z8lNrI0=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzA0MzljODE3LTgzMDMtNGRiOS1iOTM0LTM1ODk1ODMwNDIyOC53ZWJw" class="img-fluid rounded-start playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small>Last updated 3 mins ago</small></p>
-              <button class="btn btn-primary" type="submit"><i>Show Anyways</i></button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <!-- Footer -->
       <footer class="mt-auto">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
