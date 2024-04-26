@@ -67,6 +67,31 @@
         <div class="tab-pane fade" id="pills-liked" role="tabpanel" aria-labelledby="pills-liked-tab" tabindex="0"></div>
     </div>
     -->
+    <?php foreach ($playlists as $playlist): ?>
+      <div class="card mb-3 mx-auto bordered-playlist">
+          <div class="row g-0">
+              <div class="col-md-4 d-flex align-items-center" style="padding: 30px;">
+                  <img style="width: 230px; height: 230px; object-fit: cover;" src="<?= $playlist['image'] ?>" class="img-fluid playlist-card" alt="Playlist Image">
+              </div>
+              <div class="col-md-8" style="padding: 30px;">
+                  <div class="card-body">
+                      <h4 class="card-title" style="display: flex; justify-content: center;"><?= $playlist['name'] ?></h4>
+                      <p class="card-text"><small style="display: flex; justify-content: center;"><?= $playlist['likes'] ?> Likes</small></p>
+                      <div class="box" style="display: flex; justify-content: center; justify-content: space-evenly;">
+                          <p>Movies: <?= $playlist['movienum'] ?></p>
+                          <p>TV Shows: <?= $playlist['tvshownum'] ?></p>
+                          <p>Music: <?= $playlist['songnum'] ?></p>
+                      </div>
+                      <p class="card-text" style="display: flex; justify-content: center;"><?= $playlist['description'] ?></p>
+                      <div class="box" style="display: flex; justify-content: center; justify-content: space-between;">
+                          <p><small>Edit</small></p>
+                          <p><small style="color: red;">Delete</small></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  <?php endforeach; ?>
 
       <!-- Playlist Cards -->
       <div class="card mb-3 mx-auto bordered-playlist">
@@ -161,14 +186,14 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                      <form id="playlistForm">
+                      <form id="playlistForm" action="?command=add-playlist" method="post">
                           <div class="mb-3">
                               <label for="name" class="form-label">Playlist Name</label>
-                              <input type="text" class="form-control" id="name" required>
+                              <input type="text" class="form-control" id="name" name="name" required>
                               <label for="description" class="form-label">Description</label>
-                              <input type="text" class="form-control" id="description" required>
+                              <input type="text" class="form-control" id="description" name="description" required>
                               <label for="imageLink" class="form-label">Image Link</label>
-                              <input type="text" class="form-control" id="image" required>
+                              <input type="text" class="form-control" id="image" name="image" required>
                           </div>
                           <button type="submit" class="btn btn-primary">Create</button>
                       </form>
@@ -208,11 +233,11 @@
                 });
             });
 
-            const playlistForm = document.querySelector('#playlistForm');
-            playlistForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                createPlaylistModal.hide();
-            });
+            // const playlistForm = document.querySelector('#playlistForm');
+            // playlistForm.addEventListener('submit', function (event) {
+            //     event.preventDefault();
+            //     createPlaylistModal.hide();
+            // });
         });
       </script>
     </body>

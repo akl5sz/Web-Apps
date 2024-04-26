@@ -33,7 +33,9 @@ class MediacController {
                 break;
             case "add-comment-song":
                 $this->addCommentSong();
-                break;        
+                break;
+            case "add-playlist":
+                $this->addPlaylist();            
             case "playlists":
                 $this->showPlaylists();
                 break;
@@ -126,6 +128,7 @@ class MediacController {
 
 
     public function showPlaylists(){
+        $playlists = $this->getPlaylists($_SESSION["username"]);
         include("playlists.php");
     }
 
@@ -154,7 +157,7 @@ class MediacController {
         $songComments = $this->getComments($_SESSION["username"], "song_comments");
     
         $comments = array_merge($movieComments, $tvShowComments, $songComments);
-        
+
         usort($comments, function($a, $b) {
             return strtotime($b['timestamp_column']) - strtotime($a['timestamp_column']);
         });
@@ -349,6 +352,34 @@ class MediacController {
                 $this->errorMessage = "Please insert data to all fields.";
                 $this->showFeed();
         }       
+    }
+
+    public function getPlaylists($username) {
+        if ($username != null) {
+            $playlists = $this->db->query("SELECT * FROM playlists WHERE username = $1;", $username);
+            return $playlists;
+        }
+    }
+
+    public function addPlaylist() {
+        if (isset($_POST["name"]) && !empty($_POST["name"]) &&
+        isset($_POST["description"]) && !empty($_POST["description"]) &&
+        isset($_POST["image"]) && !empty($_POST["image"])) {
+
+            $res = $this->db->query("INSERT INTO playlists (username, name, description, image) VALUES ($1, $2, $3, $4);", 
+                $_SESSION["username"], $_POST["name"], $_POST["description"], $_POST["image"]);
+
+            if ($res !== false) {
+                header("Location: ?command=playlists");
+                return;
+            } else {
+                $this->errorMessage = "A problem has occured.";
+                $this->showFeed();
+            }
+        } else {
+                $this->errorMessage = "Please insert data to all fields.";
+                $this->showFeed();
+        }           
     }
     public function getFriends($username){
         if ($username != null) {

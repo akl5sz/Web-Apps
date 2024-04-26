@@ -508,8 +508,12 @@ class Database {
         $res = pg_query($this->dbHandle, "create table if not exists playlists ( 
                 username text,
                 name text,
-                description int,
+                description text,
                 image text,
+                movienum int default 0,
+                tvshownum int default 0,
+                songnum int default 0,
+                likes int default 0,
                 primary key (username, name, description),
                 foreign key (username) references users (username));");
     }
