@@ -54,19 +54,6 @@
           </div>
         </div>
       </div>  
-    <!--need this for later
-          <div class="col-auto ms-auto" id="pills-tab" role="tablist">
-            <button class="btn btn-light rounded-pill px-4 active" id="pills-mine-tab" data-bs-toggle="pill" data-bs-target="#pills-mine" type="button" role="tab" aria-selected="true">Mine</button>
-            <button class="btn btn-light rounded-pill px-4" id="pills-liked-tab" data-bs-toggle="pill" data-bs-target="#pills-liked" type="button" role="tab" aria-selected="false" tabindex="8">Liked</button>
-          </div>
-        </div>
-      </div>
-
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-mine" role="tabpanel" aria-labelledby="pills-mine-tab" tabindex="0"></div>
-        <div class="tab-pane fade" id="pills-liked" role="tabpanel" aria-labelledby="pills-liked-tab" tabindex="0"></div>
-    </div>
-    -->
     <?php foreach ($playlists as $playlist): ?>
       <div class="card mb-3 mx-auto bordered-playlist">
           <div class="row g-0">
