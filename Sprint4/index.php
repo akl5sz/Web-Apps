@@ -8,6 +8,7 @@
 //https://stackoverflow.com/questions/11583822/usort-date-assistance
 //https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
 //https://stackoverflow.com/questions/39993676/code-inside-domcontentloaded-event-not-working
+//https://www.geeksforgeeks.org/form-validation-using-javascript/
 //
 ////link to published site for Jacqueline Lainhart (nyt8te): https://cs4640.cs.virginia.edu/nyt8te/Sprint%204/
 //link to published site for Angie Loayza (akl5sz): https://cs4640.cs.virginia.edu/akl5sz/Sprint4/

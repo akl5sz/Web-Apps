@@ -72,7 +72,6 @@
         event.preventDefault();
         let username = document.forms["friendSearchForm"]["friend_search"].value;
 
-        //https://www.geeksforgeeks.org/form-validation-using-javascript/
         if (username === "") {
           var invalid = document.getElementById("invalid");
           //DOM manipulation
