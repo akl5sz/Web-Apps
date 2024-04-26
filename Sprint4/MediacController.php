@@ -5,6 +5,8 @@ class MediacController {
    private $errorMessage = "";
    private $input;
 
+   private $alreadyFriend = false;
+
    private $db;
 
    public function __construct($input) {
@@ -28,14 +30,6 @@ class MediacController {
             case "add-comment":
                 $this->addComment();
                 break;
-            case "add-comment-tvshow":
-                $this->addCommentTVShow();
-                break;
-            case "add-comment-song":
-                $this->addCommentSong();
-                break;
-            case "add-playlist":
-                $this->addPlaylist();            
             case "playlists":
                 $this->showPlaylists();
                 break;
@@ -45,27 +39,21 @@ class MediacController {
             case "friends":
                 $this->showFriends();
                 break;
+            case "delete-friend":
+                $this->deleteFriend();
+                break;
+            case "add-friend":
+                $this->addFriend();
+                break;
             case "delete":
                 $this->deleteAction();
                 break;
             case "search":
-                $this->searchMovies();
+                $this->searchMedia();
                 break;
-            case "searchTVShows":
-                $this->searchTVShows();
-                break;
-            case "searchSongs":
-                $this->searchSongs();
-                break;        
             case "discover":
                 $this->showDiscover();
                 break;
-            case "discover_tvshows":
-                $this->showDiscoverTVShows();
-                break;
-            case "discover_songs":
-                $this->showDiscoverSongs();
-                break;        
             case "signup":
                 $this->showSignUp();
                 break;
@@ -77,6 +65,9 @@ class MediacController {
                 break;
             case "json":
                 $this->showJSON();
+                break;
+            case "search-friend":
+                $this->searchFriend();
                 break;
             case "logout-action":
                 $this->logoutAction();
@@ -92,43 +83,62 @@ class MediacController {
         $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchTerm%'");
         
         if (isset($_GET['search'])) {
-            $res = $this->searchMovies();
+            $res = $this->searchMedia();
             return;
         }
         include("discover.php");
     }
 
-    public function showDiscoverTVShows(){
-        $searchTerm = $_POST['searchTVshows'];
-        $res = $this->db->query("SELECT * FROM tvshows WHERE title ILIKE '%$searchTerm%'");
-        
-        if (isset($_GET['searchTVShows'])) {
-            $res = $this->searchTVShows();
-            return;
+    public function searchMedia() {
+        if (isset($_POST["search"]) && !empty($_POST["search"])) {
+            $searchQuery = $_POST["search"];
+            $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$searchQuery%'");
+            if ($res !== false) {
+                header("Location: ?command=discover");
+                return $res; 
+            } else {
+                $this->errorMessage = "A problem has occurred.";
+                $this->showDiscover();
+            }
         }
-        include("discover_tvshows.php");
     }
-
-    public function showDiscoverSongs(){
-        $searchTerm = $_POST['searchSongs'];
-        $res = $this->db->query("SELECT * FROM songs WHERE title ILIKE '%$searchTerm%'");
-        
-        if (isset($_GET['searchSongs'])) {
-            $res = $this->searchSongs();
-            return;
-        }
-        include("discover_songs.php");
-    }
-
 
     public function showFriends(){
         $username = $_POST["username"];
+        $alreadyFriend = $this->alreadyFriend;
         include("friends.php");
     }
 
+    public function searchFriend(){
+        $searchQuery = $_POST["friend_search"];
+        $res = $this->db->query("select users.username, pfps.pfp_hyperlink from users join pfps on users.username = pfps.username where users.username ilike '%$searchQuery%'");
+        
+        include("friend-search.php");
+    }
+
+    public function deleteFriend(){
+        $friend_username = $_POST["friend_username"];
+        $user_username = $_SESSION["username"];
+        
+        $res = $this->db->query("delete from friends where username = $1 and friend_username = $2;",$user_username,$friend_username);
+
+        $this->showFriends();
+    }
+
+    public function addFriend(){
+        $friend_username = $_POST["friend_username"];
+        $user_username = $_SESSION["username"];
+        
+        $res = $this->db->query("insert into friends (username, friend_username) values ($1, $2);", $user_username, $friend_username);
+        if($res===false){
+            $this->alreadyFriend = true;
+        } else {
+            $this->alreadyFriend = false;
+        }
+        $this->showFriends();
+    }
 
     public function showPlaylists(){
-        $playlists = $this->getPlaylists($_SESSION["username"]);
         include("playlists.php");
     }
 
@@ -152,15 +162,7 @@ class MediacController {
 
 
     public function showFeed(){
-        $movieComments = $this->getComments($_SESSION["username"], "movie_comments");
-        $tvShowComments = $this->getComments($_SESSION["username"], "tvshow_comments");
-        $songComments = $this->getComments($_SESSION["username"], "song_comments");
-    
-        $comments = array_merge($movieComments, $tvShowComments, $songComments);
-
-        usort($comments, function($a, $b) {
-            return strtotime($b['timestamp_column']) - strtotime($a['timestamp_column']);
-        });
+        $comments = $this->getComments($_SESSION["username"]);
         include("feed.php");
     }
 
@@ -174,8 +176,6 @@ class MediacController {
 
     public function deleteAction() {
         $res = $this->db->query("delete from movie_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
-        $res = $this->db->query("delete from tvshow_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"],$_POST["title"],$_POST["year"],$_POST["comment"]);
-        $res = $this->db->query("delete from song_comments where username = $1 and title = $2 and year = $3 and comment = $4;", $_POST["username"], $_POST["title"], $_POST["year"], $_POST["comment"]);
         header("Location: ?command=feed");
         return;
     }
@@ -238,54 +238,11 @@ class MediacController {
             $this->showLogin();
         }  
     }
-    public function searchMovies() {
-        if (isset($_POST["search"]) && !empty($_POST["search"])) {
-            $searchQuery = $_POST["search"];
-            echo("hi");
-            $res = $this->db->query("SELECT * FROM movies WHERE title ILIKE '%$1%';", $searchQuery);
-            if ($res !== false) {
-                header("Location: ?command=discover");
-                return $res; 
-            } else {
-                $this->errorMessage = "A problem has occurred.";
-                $this->showDiscover();
-            }
-        }
-    }
-
-    public function searchTVShows() {
-        if (isset($_POST["searchTVShows"]) && !empty($_POST["searchTVShows"])) {
-            $searchQuery = $_POST["searchTVShows"];
-            $res = $this->db->query("SELECT * FROM tvshows WHERE title ILIKE '%$1%';", $searchQuery);
-            if ($res !== false) {
-                header("Location: ?command=discover_tvshows");
-                return $res; 
-            } else {
-                $this->errorMessage = "A problem has occurred.";
-                $this->showDiscover();
-            }
-        }
-    }
 
 
-    public function searchSongs() {
-        if (isset($_POST["searchSongs"]) && !empty($_POST["searchSongs"])) {
-            $searchQuery = $_POST["searchSongs"];
-            $res = $this->db->query("SELECT * FROM songs WHERE title ILIKE '%$1%';", $searchQuery);
-            if ($res !== false) {
-                header("Location: ?command=discover_songs");
-                return $res; 
-            } else {
-                $this->errorMessage = "A problem has occurred.";
-                $this->showDiscover();
-            }
-        }
-    }
-
-
-    public function getComments($username, $table) {
+    public function getComments($username) {
         if ($username != null) {
-            $comments = $this->db->query("SELECT * FROM $table WHERE username = $1 ORDER BY timestamp_column DESC;", $username);
+            $comments = $this->db->query("select * from movie_comments where username = $1;",$username);
             return $comments;
         }
     }
@@ -309,77 +266,6 @@ class MediacController {
                 $this->errorMessage = "Please insert data to all fields.";
                 $this->showFeed();
         }
-    }
-
-    public function addCommentTVShow() {
-        if (isset($_POST["commentTVshow"]) && !empty($_POST["commentTVshow"]) &&
-        isset($_POST["title"]) && !empty($_POST["title"]) &&
-        isset($_POST["year"]) && !empty($_POST["year"])) {
-
-            $res = $this->db->query("INSERT INTO tvshow_comments (username, title, year, comment) VALUES ($1, $2, $3, $4);", 
-                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["commentTVshow"]);
-
-            if ($res !== false) {
-                header("Location: ?command=feed");
-                return;
-            } else {
-                $this->errorMessage = "A problem has occured.";
-                $this->showFeed();
-            }
-        } else {
-                $this->errorMessage = "Please insert data to all fields.";
-                $this->showFeed();
-        }       
-    }
-
-    public function addCommentSong() {
-        if (isset($_POST["commentSong"]) && !empty($_POST["commentSong"]) &&
-        isset($_POST["title"]) && !empty($_POST["title"]) &&
-        isset($_POST["year"]) && !empty($_POST["year"]) &&
-        isset($_POST["artist"]) && !empty($_POST["artist"])) {
-
-            $res = $this->db->query("INSERT INTO song_comments (username, title, year, artist, comment) VALUES ($1, $2, $3, $4, $5);", 
-                $_SESSION["username"], $_POST["title"], $_POST["year"], $_POST["artist"], $_POST["commentSong"]);
-
-            if ($res !== false) {
-                header("Location: ?command=feed");
-                return;
-            } else {
-                $this->errorMessage = "A problem has occured.";
-                $this->showFeed();
-            }
-        } else {
-                $this->errorMessage = "Please insert data to all fields.";
-                $this->showFeed();
-        }       
-    }
-
-    public function getPlaylists($username) {
-        if ($username != null) {
-            $playlists = $this->db->query("SELECT * FROM playlists WHERE username = $1;", $username);
-            return $playlists;
-        }
-    }
-
-    public function addPlaylist() {
-        if (isset($_POST["name"]) && !empty($_POST["name"]) &&
-        isset($_POST["description"]) && !empty($_POST["description"]) &&
-        isset($_POST["image"]) && !empty($_POST["image"])) {
-
-            $res = $this->db->query("INSERT INTO playlists (username, name, description, image) VALUES ($1, $2, $3, $4);", 
-                $_SESSION["username"], $_POST["name"], $_POST["description"], $_POST["image"]);
-
-            if ($res !== false) {
-                header("Location: ?command=playlists");
-                return;
-            } else {
-                $this->errorMessage = "A problem has occured.";
-                $this->showFeed();
-            }
-        } else {
-                $this->errorMessage = "Please insert data to all fields.";
-                $this->showFeed();
-        }           
     }
     public function getFriends($username){
         if ($username != null) {
