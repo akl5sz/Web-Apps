@@ -67,31 +67,6 @@
         <div class="tab-pane fade" id="pills-liked" role="tabpanel" aria-labelledby="pills-liked-tab" tabindex="0"></div>
     </div>
     -->
-    <?php foreach ($playlists as $playlist): ?>
-      <div class="card mb-3 mx-auto bordered-playlist">
-          <div class="row g-0">
-              <div class="col-md-4 d-flex align-items-center" style="padding: 30px;">
-                  <img style="width: 230px; height: 230px; object-fit: cover;" src="<?= $playlist['image'] ?>" class="img-fluid playlist-card" alt="Playlist Image">
-              </div>
-              <div class="col-md-8" style="padding: 30px;">
-                  <div class="card-body">
-                      <h4 class="card-title" style="display: flex; justify-content: center;"><?= $playlist['name'] ?></h4>
-                      <p class="card-text"><small style="display: flex; justify-content: center;"><?= $playlist['likes'] ?> Likes</small></p>
-                      <div class="box" style="display: flex; justify-content: center; justify-content: space-evenly;">
-                          <p>Movies: <?= $playlist['movienum'] ?></p>
-                          <p>TV Shows: <?= $playlist['tvshownum'] ?></p>
-                          <p>Music: <?= $playlist['songnum'] ?></p>
-                      </div>
-                      <p class="card-text" style="display: flex; justify-content: center;"><?= $playlist['description'] ?></p>
-                      <div class="box" style="display: flex; justify-content: center; justify-content: space-between;">
-                          <p><small>Edit</small></p>
-                          <p><small style="color: red;">Delete</small></p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  <?php endforeach; ?>
 
       <!-- Playlist Cards -->
       <div class="card mb-3 mx-auto bordered-playlist">
@@ -176,7 +151,6 @@
         <button type="button" class="position-absolute bottom-0 start-0 p-3 m-2 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://uxwing.com/wp-content/themes/uxwing/download/video-photography-multimedia/movie-icon.png" width="25" height="25" alt="Movies"></button>
         <button type="button" class="position-absolute bottom-0 end-0 p-3 m-1 bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"><img src="https://static.vecteezy.com/system/resources/thumbnails/009/351/700/small/tv-show-icon-sign-design-free-png.png" width="26" height="26" alt="TV Shows"></button> 
       </div> -->
-
       <!-- Modal for creating a new playlist -->
       <div id="createPlaylistModal" class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
@@ -186,14 +160,12 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                      <form id="playlistForm" action="?command=add-playlist" method="post">
+                      <form id="playlistForm">
                           <div class="mb-3">
-                              <label for="name" class="form-label">Playlist Name</label>
-                              <input type="text" class="form-control" id="name" name="name" required>
+                              <label for="playlistName" class="form-label">Playlist Name</label>
+                              <input type="text" class="form-control" id="playlistName" required>
                               <label for="description" class="form-label">Description</label>
-                              <input type="text" class="form-control" id="description" name="description" required>
-                              <label for="imageLink" class="form-label">Image Link</label>
-                              <input type="text" class="form-control" id="image" name="image" required>
+                              <input type="text" class="form-control" id="description" required>
                           </div>
                           <button type="submit" class="btn btn-primary">Create</button>
                       </form>
@@ -201,7 +173,6 @@
               </div>
           </div>
       </div>
-
       <!-- Footer -->
       <footer class="mt-auto">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -216,8 +187,9 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
       </script>
       <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            //this is like from the source
+        //https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+        //https://stackoverflow.com/questions/39993676/code-inside-domcontentloaded-event-not-working
+        document.addEventListener('DOMContentLoaded', function() {
             const createPlaylistButton = document.querySelector('#createPlaylistButton');
             const createPlaylistModal = new bootstrap.Modal(document.getElementById('createPlaylistModal'));
 
@@ -225,7 +197,6 @@
                 createPlaylistModal.show();
             });
 
-            //but this is more of my own JavaScript object
             const closeButtons = document.querySelectorAll('[data-dismiss="modal"]');
             closeButtons.forEach(function(button) {
                 button.addEventListener('click', function () {
@@ -233,12 +204,12 @@
                 });
             });
 
-            // const playlistForm = document.querySelector('#playlistForm');
-            // playlistForm.addEventListener('submit', function (event) {
-            //     event.preventDefault();
-            //     createPlaylistModal.hide();
-            // });
+            const playlistForm = document.querySelector('#playlistForm');
+            playlistForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                createPlaylistModal.hide();
+            });
         });
-      </script>
+    </script>
     </body>
 </html>
