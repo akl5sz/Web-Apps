@@ -133,7 +133,7 @@
 
       <br>
 
-      <div class="card mb-3 mx-auto bordered-playlist">
+      <div class="card mb-3 mx-auto bordered-playlist" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center" style ="padding: 30px;">
             <img style="width: 230px; height: 230px; object-fit: cover;" src="https://wwd.com/wp-content/uploads/2015/09/miss-piggy-style-001.jpg?w=1024" class="img-fluid playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
