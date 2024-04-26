@@ -43,28 +43,41 @@
           </div>
         </header>
       </div>
-
       <!-- Category Buttons -->
       <div class="padding"></div>
-        <div class="container">
-          <div class="row justify-content-center py-5">
-            <div class="col-auto">
-                <button class="btn btn-light rounded-pill px-3" type="button">Trending</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Horror</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Action</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Science Fiction</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Drama</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Comedy</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Romance</button>
-                <button class="btn btn-light rounded-pill px-3" type="button">Crime</button>
-              </div>
+      <div class="container" style="padding: 20px; white-space: nowrap;" >
+        <div class="row justify-content-center py-5"> 
+          <div class="col-auto"> 
+            <button class="btn btn-light rounded-pill px-3" type="button">Horror</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Action</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Science Fiction</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Drama</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Comedy</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Romance</button>
+            <button class="btn btn-light rounded-pill px-3" type="button">Crime</button>
           </div>
         </div>
-
+        <div class="row justify-content-end col-auto">
+          <div class="col-auto">
+            <ul class="nav nav-pills mr-auto flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="?command=discover">Movies</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="?command=discover_tvshows">TV Shows</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="?command=discover_songs">Music</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        
+        
       <!-- Media Cards -->
       <?php
         if ($res !== false && !empty($res)) {
-          // Loop through search results and display movie cards
           $count = 0;
           foreach ($res as $movie) {
               echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
@@ -77,8 +90,8 @@
                               <div class=\"container\">
                               <div class=\"justify-content-center py-4\" style=\"display: flex; flex-direction: row;\">
                                 <div class=\"col-auto text-center\">
-                                  <button onclick=\"displayText".$count."()\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
-                                  <div id=\"textField".$count."\" style=\"display: none;\">
+                                  <button onclick=\"displayText('textField{$count}')\" class=\"btn btn-light active rounded-pill px-4\" type=\"button\">Add Comment</button>
+                                  <div id=\"textField{$count}\" style=\"display: none;\">
                                   <form action=\"?command=add-comment\" method=\"post\" role=\"search\">
                                       <input type=\"hidden\" value=\"{$movie['title']}\" class=\"form-control form-control-dark\" name=\"title\" placeholder=\"Enter movie title...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
                                       <input type=\"hidden\" value=\"{$movie['year']}\" class=\"form-control form-control-dark\" name=\"year\" placeholder=\"Enter movie year...\" aria-label=\"Search\" style=\"width: 300px; margin: 10px;\" readonly>
@@ -100,10 +113,11 @@
                       </div>";
                       $count++;
           }
-      } else {
+      } 
+      else {
           echo "<div class=\"alert alert-warning\" role=\"alert\">No movies found!</div>";
       }
-        ?>
+      ?>
 
       <!-- <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">
         <div class="row g-0">
@@ -138,7 +152,7 @@
           </div>
         </div>
       </div> -->
-
+      
       <!-- Footer -->
       <footer class="mt-auto">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -151,6 +165,18 @@
         </footer>
        
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+      </script>
+      <script>
+        //arrow function and DOM manipulation
+        const displayText = id => {
+          var textField = document.getElementById(id);
+          if (textField.style.display === "none" || textField.style.display === "") {
+              textField.style.display = "block";
+          }
+          else {
+            textField.style.display = "none";
+          }
+        };
       </script>
     </body>
 </html>
