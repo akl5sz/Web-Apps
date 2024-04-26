@@ -505,6 +505,13 @@ class Database {
         //         insert into pfps (username, pfp_hyperlink)
         //         values ($1, $2);",
         //                 'nyt8te', "https://i.etsystatic.com/30677692/r/il/71638b/3580232855/il_fullxfull.3580232855_q0k0.jpg");
+        $res = pg_query($this->dbHandle, "create table if not exists playlists ( 
+                username text,
+                name text,
+                description int,
+                image text,
+                primary key (username, name, description),
+                foreign key (username) references users (username));");
     }
 
     

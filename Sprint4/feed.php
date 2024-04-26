@@ -56,38 +56,38 @@
             </form>
           </div>
           </div> -->
-          <script>
-            function displayText() {
-              var text = document.getElementById("textField");
-              text.style.display = "block";
-            }
-          </script>
-        </div>
-      </div>  
-
+            <script>
+              const displayText = () => {
+                var text = document.getElementById("textField");
+                text.style.display = "block";
+              }
+            </script>
+          <!-- </div>
+        </div>   -->
+              
         <!-- Media Cards -->
-        <?php
-          for ($i = 0; $i < count($comments); $i++) {
-              echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
-                  <div class=\"row g-0\">
-                    <div class=\"col-md-8\">
-                      <div class=\"card-body\">
-                        <h5 class=\"card-title\">{$comments[$i]['title']} ({$comments[$i]['year']})</h5>
-                        <p class=\"card-text\">{$comments[$i]['comment']}</p>
-                        <p class=\"card-text\"><small>-@{$comments[$i]['username']}</small></p>
-                        <form action=\"?command=delete\" method=\"post\">
-                          <input type=\"hidden\" name=\"title\" value=\"{$comments[$i]['title']}\">
-                          <input type=\"hidden\" name=\"username\" value=\"{$comments[$i]['username']}\">
-                          <input type=\"hidden\" name=\"year\" value=\"{$comments[$i]['year']}\">
-                          <input type=\"hidden\" name=\"comment\" value=\"{$comments[$i]['comment']}\">
-                          <button type=\"submit\" class=\"btn btn-primary\">Delete</button>
-                        </form>
+          <?php
+            for ($i = 0; $i < count($comments); $i++) {
+                echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
+                    <div class=\"row g-0\">
+                      <div class=\"col-md-8\">
+                        <div class=\"card-body\">
+                          <h5 class=\"card-title\">{$comments[$i]['title']} ({$comments[$i]['year']})</h5>
+                          <p class=\"card-text\">{$comments[$i]['comment']}</p>
+                          <p class=\"card-text\"><small>-@{$comments[$i]['username']}</small></p>
+                          <form action=\"?command=delete\" method=\"post\">
+                            <input type=\"hidden\" name=\"title\" value=\"{$comments[$i]['title']}\">
+                            <input type=\"hidden\" name=\"username\" value=\"{$comments[$i]['username']}\">
+                            <input type=\"hidden\" name=\"year\" value=\"{$comments[$i]['year']}\">
+                            <input type=\"hidden\" name=\"comment\" value=\"{$comments[$i]['comment']}\">
+                            <button type=\"submit\" class=\"btn btn-primary\">Delete</button>
+                          </form>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>";
-          }
-        ?>
+                  </div>";
+            }
+          ?>
         <br>
 <!-- 
         <div class="card mb-3 mx-auto bordered" style="max-width: 540px;margin-top: 10px;">

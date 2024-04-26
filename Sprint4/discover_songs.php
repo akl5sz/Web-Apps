@@ -59,7 +59,7 @@
         </div>
         <div class="row justify-content-end col-auto">
           <div class="col-auto">
-            <ul class="nav flex-column">
+            <ul class="nav nav-pills mr-auto flex-column">
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="?command=discover">Movies</a>
               </li>
@@ -165,6 +165,18 @@
         </footer>
        
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+      </script>
+      <script>
+        //arrow function and DOM manipulation
+        const displayText = id => {
+          var textField = document.getElementById(id);
+          if (textField.style.display === "none" || textField.style.display === "") {
+              textField.style.display = "block";
+          }
+          else {
+            textField.style.display = "none";
+          }
+        };
       </script>
     </body>
 </html>

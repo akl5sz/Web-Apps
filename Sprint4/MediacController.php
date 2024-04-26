@@ -154,9 +154,7 @@ class MediacController {
         $songComments = $this->getComments($_SESSION["username"], "song_comments");
     
         $comments = array_merge($movieComments, $tvShowComments, $songComments);
-
-        //https://www.geeksforgeeks.org/sort-array-dates-php/#
-        //https://stackoverflow.com/questions/11583822/usort-date-assistance
+        
         usort($comments, function($a, $b) {
             return strtotime($b['timestamp_column']) - strtotime($a['timestamp_column']);
         });
