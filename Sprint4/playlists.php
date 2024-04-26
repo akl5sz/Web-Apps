@@ -55,7 +55,7 @@
         </div>
       </div>  
     <?php foreach ($playlists as $playlist): ?>
-      <div class="card mb-3 mx-auto bordered-playlist">
+      <div class="card mb-3 mx-auto bordered-playlist" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">
           <div class="row g-0">
               <div class="col-md-4 d-flex align-items-center" style="padding: 30px;">
                   <img style="width: 230px; height: 230px; object-fit: cover;" src="<?= $playlist['image'] ?>" class="img-fluid playlist-card" alt="Playlist Image">
@@ -81,7 +81,7 @@
   <?php endforeach; ?>
 
       <!-- Playlist Cards -->
-      <div class="card mb-3 mx-auto bordered-playlist">
+      <div class="card mb-3 mx-auto bordered-playlist" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center" style ="padding: 30px;">
             <img style="width: 230px; height: 230px; object-fit: cover;" src="https://media.gq.com/photos/645956c367d4264086a5d77f/16:9/w_2352,h_1323,c_limit/Screen%20Shot%202023-05-08%20at%204.07.48%20PM.png" class="img-fluid playlist-card" alt="Front shot of Oppenheimer from the movie Oppenheimer.">
@@ -107,7 +107,7 @@
 
       <br>
 
-      <div class="card mb-3 mx-auto bordered-playlist">
+      <div class="card mb-3 mx-auto bordered-playlist" onmouseover="addShadow(this)" onmouseout="removeShadow(this)">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center" style ="padding: 30px;">
             <img style="width: 230px; height: 230px; object-fit: cover;" src="https://i.guim.co.uk/img/media/f489e4745cfb0912f7af105dc2d8079c38fae601/0_0_2560_1536/master/2560.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=f0b093a21533a9fe9366d33e9ae5b94d" class="img-fluid playlist-card" alt="The Muppet Show album cover featuring Kermit the Frog holding a microphone with the cast behind him.">
@@ -226,6 +226,14 @@
             //     createPlaylistModal.hide();
             // });
         });
+
+        function addShadow(card) {
+          card.style.boxShadow = "0 0 10px white";
+        }
+
+        function removeShadow(card) {
+          card.style.boxShadow = "none";
+        }
       </script>
     </body>
 </html>

@@ -80,7 +80,7 @@
           // Loop through search results and display song cards
           $count = 0;
           foreach ($res as $song) {
-              echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\">
+              echo "<div class=\"card mb-3 mx-auto bordered\" style=\"max-width: 540px;margin-top: 10px;\" onmouseover=\"addShadow(this)\" onmouseout=\"removeShadow(this)\">
                         <div class=\"row g-0\">
                             <div class=\"card-body\">
                               <h5 class=\"card-title\">{$song['title']} ({$song['year']})</h5>
@@ -177,6 +177,14 @@
             textField.style.display = "none";
           }
         };
+
+        function addShadow(card) {
+          card.style.boxShadow = "0 0 10px white";
+        }
+
+        function removeShadow(card) {
+          card.style.boxShadow = "none";
+        }
       </script>
     </body>
 </html>
