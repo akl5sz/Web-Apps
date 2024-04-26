@@ -26,7 +26,7 @@
                 <li class="nav-item"><a href="?command=logout" class="nav-link active" aria-current="page">Logout</a></li>
             </ul>
           </div>
-          
+
             <ul class="nav nav-pills mr-auto">
               <li class="nav-item"><a href="?command=feed" class="nav-link" aria-current="page">Feed</a></li>
               <li class="nav-item"><a href="?command=playlists" class="nav-link">Playlists</a></li>
@@ -34,30 +34,22 @@
               <li class="nav-item"><a href="?command=friends" class="nav-link active">Friends</a></li>
             </ul>
 
-            <div class="col-md-3">
-              <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form> -->
+            <div class="col-md-3" style="display: flex; flex-direction:row;">
+              <form name="friendSearchForm" action="?command=search-friend" method="POST" onsubmit="validateForm(event);" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 col-xl-6" role="search">
+                <input type="text" name="friend_search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+              </form>
+              <div id="invalid" style="color: white"></div>
             </div>
           </header>
         </div>
 
       <div class="padding"></div>
-
-      <!-- <div class="container">
-        <div class="row justify-content-center py-4" style="display: flex; flex-direction: row;">
-          <div class="col-auto">
-            <button style="display: none;" class="btn btn-light rounded-pill px-4" type="button">Create Playlist</button>
-          </div>
-          <div class="col-auto ms-auto">
-            <button style="display: none;" class="btn btn-light rounded-pill px-4" type="button">Mine</button>
-            <a href="?command=json" class="btn btn-light rounded-pill px-4" type="button">Friends JSON File</a>
-          </div>
-        </div>
-      </div>   -->
+<!-- 
+      <div id="alreadyFriendsDiv" style=""><?php echo $alreadyFriend ?></div>
+      <div id="friendExistsDiv"></div> -->
       <!-- List of Friends -->
       <div id="card-container" class="wrapper" style="display: grid; grid-auto-columns: minmax(5rem, auto); grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); ">
-      </div>
+    </div>
 
       <!-- Footer -->
       <footer class="mt-auto">
@@ -75,18 +67,43 @@
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+      //form validation
+      function validateForm(event) {
+        event.preventDefault();
+        let username = document.forms["friendSearchForm"]["friend_search"].value;
+
+        //https://www.geeksforgeeks.org/form-validation-using-javascript/
+        if (username === "") {
+          var invalid = document.getElementById("invalid");
+          //DOM manipulation
+          invalid.innerHTML = "<p style=\"margin-top: 7px; margin-bottom: 5px;\">Enter a username.</p>"; 
+        } else {
+          document.forms["friendSearchForm"].submit();
+        }
+      }
+
       function createFriendList(friendList){
         for(let i = 0; i < friendList.length; i++){
-          $("#card-container").append("<div class=\"py-3 m-5\" style=\"display: flex; flex-direction: column; align-items: center; background-color: #0d0d13; color: #d9d9d9; border-radius: 50px;\"><img src=" + friendList[i][1] + " class=\"p-3\" style=\"height: 150px; width: 150px; border-radius: 50px;\" alt=\"duck taking a selfie\"><div class=\"m-1\"></div><p>@" + friendList[i][0] + "</p></div>");
+          $("#card-container").append("<div class=\"m-5\" style=\"display: flex; flex-direction: column; align-items: center; background-color: #0d0d13; color: #d9d9d9; border-radius: 50px;\"><form action=\"?command=delete-friend\" method=\"post\"><input type=\"hidden\" name=\"friend_username\" value=\""+ friendList[i][0] +"\"><button class=\"btn\" style=\"padding-top: 15px; padding-bottom: 0px; padding-right: 0px;  padding-left: 200px; background-color: transparent\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"30\" height=\"30\" fill=\"currentColor\" class=\"bi bi-dash\" viewBox=\"0 0 16 16\"><path d=\"M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8\"/></svg></button></form><img src=" + friendList[i][1] + " style=\"height: 170px; width: 170px; border-radius: 50px;\" alt=\"" + friendList[i][0] + "'s profile picture\"><div class=\"m-1\"></div><p>@" + friendList[i][0] + "</p></div>");
         }
       }
       $(document).ready(function() {
             $.ajax({
             url: '?command=json',
             dataType: 'json',
+            //anonymous function below
             success: function(output) {
                 createFriendList(output[output["username"]]);
             }});
-        });
+
+            // var alreadyFriends = document.getElementById("alreadyFriendsDiv").innerHTML;
+            // if(alreadyFriends == 1){
+            //   document.getElementById("friendExistsDiv").innerHTML = "<div class=\"alert alert-warning\" role=\"alert\">Already your friend!</div>";
+            //   document.getElementById("alreadyFriendsDiv").innerHTML = "";
+            // } else if(alreadyFriends == 0){
+            //   document.getElementById("friendExistsDiv").innerHTML = "<div class=\"alert alert-warning\" role=\"alert\">Friend successfully added!</div>";
+            //   document.getElementById("alreadyFriendsDiv").innerHTML = "";
+            // }
+            });
     </script>
 </html>
